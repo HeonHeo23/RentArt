@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,10 +33,19 @@
           <i class="iconify" data-icon="carbon:search"></i> 
           <i class="iconify" data-icon="ph:shopping-cart-light"></i>
         </div>
-        <ul class="nav-user">
-          <li><a href="#">로그인</a></li>
-          <li><a href="#">회원가입</a></li>
-        </ul>
+        <c:choose>
+          <c:when test="${sessionScope.principal != null}">
+            <ul class="nav-user">
+              <li><a href="/logout">로그아웃</a></li>
+            </ul>
+          </c:when>
+          <c:otherwise>
+            <ul class="nav-user">
+              <li><a href="/login">로그인</a></li>
+              <li><a href="/join">회원가입</a></li>
+            </ul>
+          </c:otherwise>
+        </c:choose>
       </div>
     </nav>
   </header>
