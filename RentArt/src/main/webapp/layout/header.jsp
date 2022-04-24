@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" type="text/css" href="style.css" />
   <title>RentArt 렌트아트</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
     <nav class="nav">
       <div class="nav-left">
         <div class="nav-logo">
-          <a href="#">Rent Art</a>
+          <a href="/main">Rent Art</a>
         </div>
         <ul class="nav-navbar">
           <li><a href="">작품보기</a></li>
@@ -49,4 +49,3 @@
       </div>
     </nav>
   </header>
-  <main class="contents">
