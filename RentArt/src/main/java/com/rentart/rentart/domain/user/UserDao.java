@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import com.rentart.rentart.domain.user.dto.JoinUser;
+
 public class UserDao {
 	private String url = "jdbc:mysql://localhost:3306/RENTART";
 	private String dbId = "root";
@@ -49,6 +51,33 @@ public class UserDao {
 		}
 		
 		return null;
+	}
+	
+	public int join(JoinUser joinUser) {
+		String sql = "INSERT INTO user (`user_password`, `user_name`, `user_email`, `user_address`) VALUES (?, ?, ?, ?);";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, joinUser.getPassword());
+			pstmt.setString(2, joinUser.getName());
+			pstmt.setString(3, joinUser.getEmail());
+			pstmt.setString(4, joinUser.getAddress());
+			int result = pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+				
+			return 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1; //DB 에러
 	}
 
 }

@@ -70,7 +70,6 @@ li{ list-style:none; }
 }
 .form-container{
   width:568px;
-  height: 371px;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -82,7 +81,7 @@ li{ list-style:none; }
 }
 .form-title{
   font-size:32px;
-  margin-bottom:28px;
+  margin-bottom:38px;
 }
 .form-container form *{
   font-size:15px;
@@ -95,17 +94,19 @@ li{ list-style:none; }
   width: 100%;
 }
 .form-input{
-  margin:0 28px;
+  margin-bottom:28px;
   padding:0 12px;
   width: 100%;
   background: #FFFFFF;
   border: 1px solid #CCCCCC;
   box-sizing: border-box;
   margin-bottom: 28px;
-  height:47px;
+  height:48px;
 }
-input:focus{
-  border: 1px solid #CCCCCC;
+.form-div{
+  width:100%;
+  display:flex;
+  justify-content: flex-end;
 }
 .form-submit{
   width:100%;
@@ -113,8 +114,11 @@ input:focus{
   background: #022873;
   color:#fff;
 }
-.input-last{
-  
+.email{
+  flex-grow: 1;
+}
+.email-button{
+  width: 150px;
 }
 .footer{
   background-color:#26272b;

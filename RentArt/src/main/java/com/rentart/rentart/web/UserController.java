@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.rentart.rentart.domain.user.User;
+import com.rentart.rentart.domain.user.dto.JoinUser;
 import com.rentart.rentart.service.UserService;
+import com.rentart.rentart.util.Script;
 
 /**
  * Servlet implementation class UserController
@@ -20,30 +22,18 @@ public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public UserController() {
         super();
         this.userService = new UserService();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/login.jsp").forward(request, response);
-//		doProcess(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		request.getRequestDispatcher("/login.jsp").forward(request, response);
+		doProcess(request, response);
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
 	
@@ -58,9 +48,23 @@ public class UserController extends HttpServlet {
 				session.setAttribute("principal", user);
 				request.getRequestDispatcher("/main.jsp").forward(request, response);
 			}
+		} else if(cmd.equals("joinAction")) {
+			JoinUser joinUser = new JoinUser(request.getParameter("password"),
+					request.getParameter("name"),
+					request.getParameter("email"),
+					request.getParameter("address"));
+			int result = userService.join(joinUser);
+			if(result == 1) {
+				User user = userService.login(request.getParameter("email"), request.getParameter("password"));
+				HttpSession session = request.getSession();
+				session.setAttribute("principal", user);
+				request.getRequestDispatcher("/main.jsp").forward(request, response);
+			} else {
+				Script.back(response, "회원가입에 실패하였습니다.");
+			}
+		} else {
+			Script.back(response, "잘못된 접근입니다 [user]");
 		}
 	}
-	
-	
 
 }
