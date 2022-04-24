@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="layout/header.jsp" %>
+  <main class="contents">
     <div class="form-container">
       <div class="form-title">로그인</div>
       <form action="user" method="post">
@@ -9,4 +10,5 @@
         <button class="form-submit" type="submit" name="cmd" value="loginAction">로그인</button>
       </form>
     </div>
+  </main>
 <%@ include file="layout/footer.jsp" %>
