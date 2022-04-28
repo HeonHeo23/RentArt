@@ -14,9 +14,6 @@ import com.rentart.rentart.domain.user.dto.JoinUser;
 import com.rentart.rentart.service.UserService;
 import com.rentart.rentart.util.Script;
 
-/**
- * Servlet implementation class UserController
- */
 @WebServlet("/user")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,9 +25,7 @@ public class UserController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.getRequestDispatcher("/login.jsp").forward(request, response);
 		doProcess(request, response);
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,7 +41,7 @@ public class UserController extends HttpServlet {
 			else {
 				HttpSession session = request.getSession();
 				session.setAttribute("principal", user);
-				request.getRequestDispatcher("/main.jsp").forward(request, response);
+				response.sendRedirect("/main");
 			}
 		} else if(cmd.equals("joinAction")) {
 			JoinUser joinUser = new JoinUser(request.getParameter("password"),
@@ -58,7 +53,7 @@ public class UserController extends HttpServlet {
 				User user = userService.login(request.getParameter("email"), request.getParameter("password"));
 				HttpSession session = request.getSession();
 				session.setAttribute("principal", user);
-				request.getRequestDispatcher("/main.jsp").forward(request, response);
+				response.sendRedirect("/main");
 			} else {
 				Script.back(response, "회원가입에 실패하였습니다.");
 			}
