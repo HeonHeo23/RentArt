@@ -1,45 +1,56 @@
 *{margin:0;padding:0;list-style-type:none;box-sizing: border-box;font-family:'Noto Sans KR',sans-serif;}
 a{text-decoration:none;color:inherit;outline:none}
 body {
-	font-size: 15px;
-	color: #000;
-	letter-spacing:0px;
-	font-weight:400;
+  font-size:15px;
+  color:#000;
+  letter-spacing:0px;
+  font-weight:400;
   line-height:1;
 }
 li{ list-style:none; }
 .header{
   width:100%;
-  background: #F2EBDC;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  justify-content: center;
+  background:#F2EBDC;
+  box-shadow:0px 4px 4px rgba(0, 0, 0, 0.25);
+  justify-content:center;
 }
 .nav{
-  align-items: center;
-  display: flex;
+  align-items:center;
+  display:flex;
   justify-content:space-between;
-  padding: 12px inherit;
-  max-width : 1096px;
-  order: 0;
-  margin: 0 auto;
+  padding:12px inherit;
+  max-width:1096px;
+  order:0;
+  margin:0 auto;
 }
 .nav-left{
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: auto 12px;
+  justify-content:center;
+  align-items:center;
+  padding:auto 12px;
 }
 .nav-logo{
-  font-size: 34px;
-  padding: 12px 27px 12px 0;
+  font-size:34px;
+  padding:12px 27px 12px 0;
 }
 .nav-navbar{
-  display: flex;
-  align-items: flex-start;
-  order: 1;
+  display:flex;
+  align-items:flex-start;
+  order:1;
 }
 .nav-navbar li{
-  padding: 23px 27px;
+  padding:23px 20px;
+  margin:auto 7px;
+  transition-delay:50ms;
+  transition-duration:100ms;
+}
+.nav-navbar li:hover{
+  background:#734136;
+}
+.nav-navbar li:hover a{
+  transition-delay:50ms;
+  transition-duration:100ms;
+  color:#FFF;
 }
 .nav-right{
   display:flex;
@@ -48,7 +59,7 @@ li{ list-style:none; }
 .nav-icons{
   display:flex;
   justify-content:space-between;
-  align-items: center;
+  align-items:center;
   font-size:26px;
 }
 .nav-icons .iconify{
@@ -62,7 +73,7 @@ li{ list-style:none; }
 .nav-user li{
   margin-left:18px;
 }
-.contents{
+.form-section{
   display: flex;
   margin:0 auto;
   width:100%;
@@ -169,4 +180,169 @@ li{ list-style:none; }
 }
 .footer-copy{
 
+}
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-start;
+  align-items:center;
+  padding-top:64px;
+  height:960px;
+}
+.wrapper h2{
+  font-size:34px;
+  font-weight:normal;
+}
+.wrapper *{
+  margin-bottom:55px;
+}
+.banner{
+  width: 1024px;
+  height: 576px;
+}
+.banner img{
+  width: 100%;
+  height: 100%;
+}
+.description{
+  font-size:24px;
+  text-align: center;
+  line-height: 35px;
+}
+.discover-section{
+  display:flex;
+  margin:auto;
+  width:100%; 
+}
+.discover-wrapper{
+  display: flex;
+  flex-direction: column;
+  padding :64px 0;
+  margin:0 auto;
+  width:1096px;
+}
+.discover-filters{
+  width:100%;
+  border-top: #CCC 1px solid;
+}
+.filter-row{
+  border-bottom: #CCC 1px solid;
+  display:flex;
+  padding:0 18px;
+  height:64px;
+  align-items:center;
+}
+.filter-header{
+  font-weight:bold;
+  width:44px;
+}
+.filter-buttons{
+  display:flex;
+}
+.filter-button{
+  width:100px;
+  height:38px;
+  margin-left:27px;
+}
+.filter-button label{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:100%;
+  border: 0.5px solid #CCC;
+  border-radius: 2px;
+}
+.filter-button input{
+  display: none;
+}
+.filter-button input:checked + label{
+  background:#022873;
+  color:#FFF;
+}
+.discover-middle{
+  display:flex;
+  align-items:space-between;
+  margin:32px 0;
+}
+.views-row{
+  width:1096px;
+  display:flex;
+  justify-content:space-between;
+  margin-bottom: 50px;
+}
+.card{
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.card-img{
+  background-color: #EEE;
+  display:block;
+  height:256px;
+  width:256px;
+  overflow:hidden;
+  align-items:center;
+  display:flex;
+}
+.card-img-mask{
+  transform: translate(0, 0%);
+}
+.card-img img{
+  width:256px;
+  max-height:auto;
+}
+.card-info{
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
+}
+.card-title{
+  font-weight:normal;
+  font-size:16px;
+  margin-bottom:7px;
+}
+.card-artist{
+  color:#666;
+}
+.card-text-margin{
+  margin-bottom:5px;
+}
+.card-status{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:flex-end;
+}
+.card-status a{
+  font-size:20px;
+}
+.icon-pink{
+  color:#F40;
+}
+.card-rent{
+}
+.color-brown{
+  color:#D99771;
+}
+.color-blue{
+  color:#022873
+}
+.bg-blue{
+  background:#022873;
+  color:#FFF;
+}
+.discover-pager-wrapper{
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+.discover-pager{
+  display:flex;
+}
+.pager-btn{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border: #CCC solid 0.5px;
+  width:36px;
+  height:36px;
 }
