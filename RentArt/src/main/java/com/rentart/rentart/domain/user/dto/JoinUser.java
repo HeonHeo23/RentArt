@@ -1,9 +1,5 @@
 package com.rentart.rentart.domain.user.dto;
 
-import java.sql.Timestamp;
-
-import com.rentart.rentart.domain.user.User;
-
 public class JoinUser {
 
 	private String password;
