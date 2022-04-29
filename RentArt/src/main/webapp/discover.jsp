@@ -36,8 +36,8 @@
   }
 </script>
     <div class="discover-wrapper">
-      <section class="discover-filters">
       <form action="/discover" id="myForm">
+      <section class="discover-filters">
         <div class="filter-row">
           <header class="filter-header">
             테마
@@ -136,12 +136,13 @@
           </div>
         </div>
         <div class="discover-middle">
-          <div class="discover-text">
+          <div class="discover-count">
             총 <fmt:formatNumber type="number" value="${count}"/>점의 작품
           </div>
-          <input type="submit" value="검색">
+          <div class="discover-submit">
+            <input type="submit" class="submit-btn" value="검색">
+          </div>
         </div>
-      </form>
       </section>
       <section>
         <div class="discover-views">
@@ -190,14 +191,15 @@
           <div class="discover-pager">
             <c:set var="page" value="${(param.pg==null||param.pg=='')?1:param.pg}" />
           	<c:set var="startNum" value="${page-(page-1)%5}" />
-            <a href="" class="pager-prev pager-btn">◀</a>
+	        <button type="submit" name="pg" value="${startNum-1}" class="pager-btn">◀</button>
             <c:forEach var="i" begin="0" end="4">
-	          <a href="?pg=${startNum+i}" class="${(page==startNum+i)?'bg-blue':''} pager-btn">${startNum+i}</a>
+	          <input type="submit" name="pg" value="${startNum+i}" class="${(page==startNum+i)?'bg-blue':''} pager-btn" />
 	        </c:forEach>
-            <a href="" class="pager-next pager-btn">▶</a>
+	        <button type="submit" name="pg" value="${startNum+5}" class="pager-btn">▶</button>
           </div>
         </div>
       </section>
+      </form>
     </div>
   </main>
 <%@ include file="layout/footer.jsp" %>
