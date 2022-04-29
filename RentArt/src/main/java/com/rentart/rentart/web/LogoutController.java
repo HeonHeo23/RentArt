@@ -33,7 +33,7 @@ public class LogoutController extends HttpServlet {
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().invalidate();
-		request.getRequestDispatcher("/main.jsp").forward(request, response);
+		response.sendRedirect("/main");
 	}
 	
 	
