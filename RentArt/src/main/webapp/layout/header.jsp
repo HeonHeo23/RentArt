@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" type="text/css" href="style.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
   <title>RentArt 렌트아트</title>
 </head>
 <body>
@@ -22,7 +23,7 @@
           <a href="/main">Rent Art</a>
         </div>
         <ul class="nav-navbar">
-          <li><a href="">작품보기</a></li>
+          <li><a href="/discover">작품보기</a></li>
           <li><a href="">작가소개</a></li>
           <li><a href="">매거진</a></li>
           <li><a href="">후기</a></li>
