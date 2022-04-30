@@ -37,7 +37,7 @@
 </script>
     <div class="discover-wrapper">
       <form action="/discover" id="myForm">
-      <section class="discover-filters">
+      <div class="discover-filters">
         <div class="filter-row">
           <header class="filter-header">
             테마
@@ -143,8 +143,8 @@
             <input type="submit" class="submit-btn" value="검색">
           </div>
         </div>
-      </section>
-      <section>
+      </div>
+      <div>
         <div class="discover-views">
 		<c:forEach var="row" begin="1" end="${ls}">
           <div class="views-row">
@@ -198,7 +198,7 @@
 	        <button type="submit" name="pg" value="${startNum+5}" class="pager-btn">▶</button>
           </div>
         </div>
-      </section>
+      </div>
       </form>
     </div>
   </main>
