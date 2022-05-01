@@ -150,7 +150,7 @@
           <div class="views-row">
           <c:forEach var="l" items="${list}" begin="${(row-1)*4}" end="${(row-1)*4+3}">
             <div class="card">
-              <a class="card-img" href="">
+              <a class="card-img" href="/detail?pg=${l.getpId()}">
                 <div class="card-img-mask">
                   <img src="/img/product/${l.getpImg()}" alt="">
                 </div>
