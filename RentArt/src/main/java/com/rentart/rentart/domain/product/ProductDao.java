@@ -1,16 +1,14 @@
 package com.rentart.rentart.domain.product;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import com.rentart.rentart.domain.product.dto.DetailArtistProduct;
+import com.rentart.rentart.domain.product.dto.DetailDto;
 import com.rentart.rentart.domain.product.dto.ThumbnailProduct;
 
 public class ProductDao {
@@ -225,5 +223,96 @@ public class ProductDao {
 		}
 		
 		return 0;
+	}
+	
+	public DetailDto getDetail(int prodNo) {
+		DetailDto detail = null;
+		String sql = "SELECT * FROM DETAIL WHERE P_ID = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, prodNo);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			int pId = rs.getInt("p_id");
+			String pName = rs.getString("p_name");
+			String pImg = rs.getString("p_img");
+			int artistId = rs.getInt("artist_id"); 
+			String artist = rs.getString("artist_name");
+			String pInfo = rs.getString("p_info");
+			int pTheme = rs.getInt("p_theme");
+			int pPrice = rs.getInt("p_price");
+			int pSize = rs.getInt("p_size");
+			String pMaterial = rs.getString("p_material");
+			int pYear = rs.getInt("p_year");
+			boolean pIsRent = rs.getBoolean("p_isrent");
+			
+			detail = new DetailDto(pId, pName, pImg, artistId, artist, pInfo, pTheme, pPrice, pSize, pMaterial, pYear, pIsRent);
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return detail;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+
+	public List<DetailArtistProduct> getArtistProductList(int artistId){
+		List<DetailArtistProduct> list = new ArrayList<>();
+		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, D.* FROM DETAILARTISTPRODUCT D, (SELECT @ROWNUM:=0) R"
+				+ " WHERE ARTIST_ID = ? ORDER BY D.P_ID DESC) A WHERE ROWNUM BETWEEN 1 AND 4 ORDER BY A.ROWNUM;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, artistId);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int pId = rs.getInt("p_id");
+				String pName = rs.getString("p_name");
+				String pImg = rs.getString("p_img");
+				int pSize = rs.getInt("p_size");
+				boolean pIsRent = rs.getBoolean("p_isrent");
+				
+				DetailArtistProduct dto = new DetailArtistProduct(pId, pName, pImg, pSize, pIsRent);
+				
+				list.add(dto);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }

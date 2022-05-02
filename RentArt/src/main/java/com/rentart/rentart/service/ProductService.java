@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.rentart.rentart.domain.product.ProductDao;
+import com.rentart.rentart.domain.product.dto.DetailArtistProduct;
+import com.rentart.rentart.domain.product.dto.DetailDto;
 import com.rentart.rentart.domain.product.dto.ThumbnailProduct;
 import com.rentart.rentart.util.Utility;
 
@@ -61,6 +63,14 @@ public class ProductService {
 		int[][] priceList = Utility.filterMapper(priceMap, price); 
 		
 		return productDao.countProduct(field, query, theme, sizeList, priceList);
+	}
+	
+	public DetailDto getProductDetail(int prodNo) {
+		return productDao.getDetail(prodNo);
+	}
+	
+	public List<DetailArtistProduct> getArtistProductList(int artistId) {
+		return productDao.getArtistProductList(artistId);
 	}
 	
 }
