@@ -15,4 +15,14 @@ public class Script {
 		script.flush();
 		return 0;
 	}
+	
+	public static int close(HttpServletResponse response, String msg) throws IOException {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('"+ msg +"');");
+		script.println("window.close();");
+		script.println("</script>");
+		script.flush();
+		return 0;
+	}
 }
