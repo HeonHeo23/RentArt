@@ -8,6 +8,18 @@
 		let month = document.getElementById('rentMonth').value;
 		document.getElementById('totalPrice').innerHTML = (fee * month).toLocaleString('en');
 	}
+	
+	function showPopUp() {
+		let width = 1000;
+		let height = 650;
+		let left = (window.screen.width / 2) - (width / 2);
+		let top = (window.screen.height / 4);
+		
+		let windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+		
+		const url = "/review?prodNo=${param.no}";
+		window.open(url, "글쓰기", windowStatus);
+	}
 </script>
   <main class="detail">
     <div class="detail-wrapper">
@@ -121,9 +133,9 @@
       </div>
       <div class="detail-left">
         <section class="detail-section">
-          <h2 class="detail-title-big">${detail.getpName()}</h3>
+          <h2 class="detail-title-big">${detail.getpName()}</h2>
           <article>
-            <h3 class="detail-title-small">작품 설명</h4>
+            <h3 class="detail-title-small">작품 설명</h3>
             <p class="detail-para">
               ${detail.getpInfo()} 
             </p>
@@ -176,20 +188,28 @@
           </section>
         </section>
         <section class="detail-review">
+          <div class="review-button-div">
+            <button type="button" class="review-button bg-black" onclick="showPopUp()">리뷰 쓰기</button>
+          </div>
           <h2 class="detail-title-big">리뷰</h2>
           <table class="review-table">
+            <c:choose>
+            <c:when test="${reviews.size()!=0}">
+            <c:forEach items="${reviews}" var="r">
             <tr class="review-row">
-              <td>1</td>
-              <td>11월 2일부터 3월 7일까지 전시회 개최합니다.</td>
-              <td>황보크리스토퍼</td>
-              <td>2022.06.21</td>
+              <td class="review-num">${r.getRownum()}</td>
+              <td class="review-title">${r.getrTitle()}</td>
+              <td class="review-name">${r.getUserName()}</td>
+              <td class="review-date"><fmt:formatDate pattern="yyyy.MM.dd" value="${r.getrRegDate()}" /></td>
             </tr>
+            </c:forEach>
+            </c:when>
+            <c:otherwise>
             <tr class="review-row">
-              <td>2</td>
-              <td>그림이 참 예쁘네요.</td>
-              <td>이민준</td>
-              <td>2022.02.15</td>
+              <td class="review-none">등록된 리뷰가 없습니다.</td>
             </tr>
+            </c:otherwise>
+            </c:choose>
           </table>
         </section>
       </div>
