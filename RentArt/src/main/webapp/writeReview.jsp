@@ -21,11 +21,9 @@
 			<tr>
 				<td><textarea style="width:97%;height:50vh;padding:10px;" placeholder="글 내용" name="content" maxlength="2048"></textarea></td>						
 			</tr>
-			<tr>
-				<td><input type="text" style="width:97%;height:32px;padding:5px 10px;" value="${param.prodNo}" name="prodNo"></textarea></td>						
-			</tr>
 		</tbody>
 	</table>
+  <input type="hidden" name="prodNo" value="${param.prodNo}">
   <button type="submit" name="cmd" value="write">글쓰기</button>
   </form>
 </body>

@@ -41,18 +41,20 @@ public class UserController extends HttpServlet {
 			else {
 				HttpSession session = request.getSession();
 				session.setAttribute("principal", user);
+				session.setMaxInactiveInterval(1800);
 				response.sendRedirect("/main");
 			}
 		} else if(cmd.equals("joinAction")) {
 			JoinUser joinUser = new JoinUser(request.getParameter("password"),
-					request.getParameter("name"),
-					request.getParameter("email"),
-					request.getParameter("address"));
+				request.getParameter("name"),
+				request.getParameter("email"),
+				request.getParameter("address"));
 			int result = userService.join(joinUser);
 			if(result == 1) {
 				User user = userService.login(request.getParameter("email"), request.getParameter("password"));
 				HttpSession session = request.getSession();
 				session.setAttribute("principal", user);
+				session.setMaxInactiveInterval(1800);
 				response.sendRedirect("/main");
 			} else {
 				Script.back(response, "회원가입에 실패하였습니다.");

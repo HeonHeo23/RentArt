@@ -35,7 +35,6 @@ public class ArtistDao {
 			return result;
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
