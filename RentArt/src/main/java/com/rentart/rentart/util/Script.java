@@ -11,6 +11,7 @@ public class Script {
 		script.println("<script>");
 		script.println("alert('"+ msg +"');");
 		script.println("history.go(-1);");
+		script.println("window.close();");
 		script.println("</script>");
 		script.flush();
 		return 0;
