@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.rentart.rentart.domain.review.dto.InsertReviewDto;
+import com.rentart.rentart.domain.review.dto.ReviewDetailDto;
 import com.rentart.rentart.domain.user.User;
 import com.rentart.rentart.service.ArtistService;
 import com.rentart.rentart.service.ProductService;
@@ -38,17 +39,17 @@ public class ReviewController extends HttpServlet {
 		int prodNo = 0;
 		
 		String cmd = request.getParameter("cmd");
-		String prodNo_ = request.getParameter("prodNo");
 		User user = (User) request.getSession().getAttribute("principal");
 		
-		if(prodNo_ == null || prodNo_.equals(""))
-			Script.back(response, "잘못된 접근입니다.");
-		prodNo = Integer.parseInt(prodNo_);
+		String prodNo_ = request.getParameter("prodNo");
+		if(prodNo_ != null && !prodNo_.equals(""))
+			prodNo = Integer.parseInt(prodNo_);
+		
 		
 		if(cmd == null) {
 			if(user == null) {
 				Script.close(response, "로그인을 해주시기를 바랍니다.");
-			}
+			} 
 			request.getRequestDispatcher("/writeReview.jsp").forward(request, response);
 		}
 		else if(cmd.equals("write")) {
@@ -68,7 +69,20 @@ public class ReviewController extends HttpServlet {
 				Script.back(response, "리뷰 작성에 실패했습니다.");
 			}
 		}
-		
+		else if(cmd.equals("view")) {
+			int number = -1;
+			String number_ = request.getParameter("no");
+			
+			if(number_ != null && !number_.equals("")) {
+				number = Integer.parseInt(number_);				
+			}
+			if(number != -1) {
+				ReviewDetailDto dto = reviewService.getReviewDetail(number);
+				request.setAttribute("dto", dto);
+				
+				request.getRequestDispatcher("/reviewDetail.jsp").forward(request, response);
+			}
+		}
 
 	}
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.rentart.rentart.domain.review.dto.InsertReviewDto;
+import com.rentart.rentart.domain.review.dto.ReviewDetailDto;
 import com.rentart.rentart.domain.review.dto.ReviewForDetailDto;
 
 public class ReviewDao {
@@ -69,7 +70,6 @@ public class ReviewDao {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -97,5 +97,40 @@ public class ReviewDao {
 		}
 		
 		return -1;
+	}
+
+	public ReviewDetailDto findReviewDetail(int rId) {
+		ReviewDetailDto dto;
+		String SQL = "SELECT R_TITLE, R_CONTENT, R_REGDATE, USER_NAME FROM REVIEW R LEFT JOIN USER U ON R.USER_KEY = U.USER_KEY WHERE R_ID = ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, rId);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			String rTitle = rs.getString("r_title");
+			String rContent = rs.getString("r_content");
+			Timestamp rRegDate = rs.getTimestamp("r_regdate");
+			String userName = rs.getString("user_name");
+			
+			dto = new ReviewDetailDto(rTitle, rContent, rRegDate, userName);
+			
+			return dto;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }

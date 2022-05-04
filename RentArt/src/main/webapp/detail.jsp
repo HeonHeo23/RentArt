@@ -9,7 +9,7 @@
 		document.getElementById('totalPrice').innerHTML = (fee * month).toLocaleString('en');
 	}
 	
-	function showPopUp() {
+	function showPopUp(url) {
 		let width = 1000;
 		let height = 650;
 		let left = (window.screen.width / 2) - (width / 2);
@@ -17,7 +17,6 @@
 		
 		let windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
 		
-		const url = "/review?prodNo=${param.no}";
 		window.open(url, "글쓰기", windowStatus);
 	}
 </script>
@@ -25,10 +24,10 @@
     <div class="detail-wrapper">
       <div class="detail-top">
         <div class="detail-img">
-          <img src="/img/product/${detail.getpImg()}" alt="">
+          <img src="/img/product/${detail.getpImg()}" alt="${detail.getpName()} 이미지">
         </div>
         <div class="detail-banner">
-          <img src="C:\Users\pc\git\RentArt\RentArt\src\main\webapp\img\banner.png" alt="">
+          <img src="/img/banner.png" alt="배너">
         </div>
       </div>
       <div class="detail-info">
@@ -189,7 +188,7 @@
         </section>
         <section class="detail-review">
           <div class="review-button-div">
-            <button type="button" class="review-button bg-black" onclick="showPopUp()">리뷰 쓰기</button>
+            <button type="button" class="review-button bg-black" onclick="showPopUp('/review?prodNo=${param.no}')">리뷰 쓰기</button>
           </div>
           <h2 class="detail-title-big">리뷰</h2>
           <table class="review-table">
@@ -198,7 +197,7 @@
             <c:forEach items="${reviews}" var="r">
             <tr class="review-row">
               <td class="review-num">${r.getRownum()}</td>
-              <td class="review-title">${r.getrTitle()}</td>
+              <td class="review-title"><a onclick="showPopUp('/review?no=${r.getrId()}&cmd=view')">${r.getrTitle()}</a></td>
               <td class="review-name">${r.getUserName()}</td>
               <td class="review-date"><fmt:formatDate pattern="yyyy.MM.dd" value="${r.getrRegDate()}" /></td>
             </tr>

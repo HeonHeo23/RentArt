@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rentart.rentart.domain.review.ReviewDao;
 import com.rentart.rentart.domain.review.dto.InsertReviewDto;
+import com.rentart.rentart.domain.review.dto.ReviewDetailDto;
 import com.rentart.rentart.domain.review.dto.ReviewForDetailDto;
 
 public class ReviewService {
@@ -19,6 +20,10 @@ public class ReviewService {
 	
 	public int wrtie(InsertReviewDto dto) {
 		return reviewDao.insertReview(dto);
+	}
+	
+	public ReviewDetailDto getReviewDetail(int rId) {
+		return reviewDao.findReviewDetail(rId);
 	}
 	
 }
