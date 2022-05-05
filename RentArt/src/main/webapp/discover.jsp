@@ -36,8 +36,8 @@
   }
 </script>
     <div class="discover-wrapper">
-      <form action="/discover" id="myForm">
       <div class="discover-filters">
+      <form action="/discover">
         <div class="filter-row">
           <header class="filter-header">
             테마
@@ -139,10 +139,16 @@
           <div class="discover-count">
             총 <fmt:formatNumber type="number" value="${count}"/>점의 작품
           </div>
-          <div class="discover-submit">
-            <input type="submit" class="submit-btn" value="검색">
+          <div class="middle-btns">
+            <div class="discover-submit">
+              <a href="/discover" class="submit-btn bg-brown">초기화</a>
+            </div>
+            <div class="discover-submit">
+              <input type="submit" class="submit-btn" value="검색">
+            </div>
           </div>
         </div>
+      </form>
       </div>
       <div>
         <div class="discover-views">
@@ -162,10 +168,20 @@
                   <div class="card-size">${l.getpSize()}호</div>
                 </div>
                 <div class="card-status">
-                  <a href="">
-                    <i class="iconify" data-icon="akar-icons:heart"></i>
-                    <i class="iconify icon-pink" data-icon="ant-design:heart-filled"></i>
-                  </a>
+                  <form method="post">
+                  <c:choose>
+                  <c:when test="${fList.contains(l.getpId())}">
+                    <a href="/favorite?cmd=remove&prodNo=${l.getpId()}">
+                      <i class="iconify icon-pink" data-icon="ant-design:heart-filled"></i>
+                    </a>
+                  </c:when>
+                  <c:otherwise>
+                    <a href="/favorite?cmd=add&prodNo=${l.getpId()}">
+                      <i class="iconify" data-icon="akar-icons:heart"></i>
+                    </a>
+                  </c:otherwise>
+                  </c:choose>
+                  </form>
                   <c:choose>
                   <c:when test="${l.ispIsRent()}">
                     <div class="card-rent color-brown">
@@ -188,7 +204,7 @@
         </c:forEach>
         </div>
         <div class="discover-pager-wrapper">
-          <div class="discover-pager">
+          <form class="discover-pager" action="/discover">
             <c:set var="page" value="${(param.pg==null||param.pg=='')?1:param.pg}" />
           	<c:set var="startNum" value="${page-(page-1)%5}" />
 	        <button type="submit" name="pg" value="${startNum-1}" class="pager-btn">◀</button>
@@ -196,10 +212,9 @@
 	          <input type="submit" name="pg" value="${startNum+i}" class="${(page==startNum+i)?'bg-blue':''} pager-btn" />
 	        </c:forEach>
 	        <button type="submit" name="pg" value="${startNum+5}" class="pager-btn">▶</button>
-          </div>
+	      </form>
         </div>
       </div>
-      </form>
     </div>
   </main>
 <%@ include file="layout/footer.jsp" %>

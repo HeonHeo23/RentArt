@@ -35,6 +35,9 @@ public class UserController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String cmd = request.getParameter("cmd");
+		if(cmd == null) {
+			Script.back(response, "잘못된 접근입니다 [user]");
+		}
 		if(cmd.equals("loginAction")) {
 			User user = userService.login(request.getParameter("email"), request.getParameter("password"));
 			if(user == null);
