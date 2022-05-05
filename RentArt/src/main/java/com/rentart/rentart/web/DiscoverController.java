@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.rentart.rentart.domain.product.dto.ThumbnailProduct;
+import com.rentart.rentart.domain.user.User;
+import com.rentart.rentart.service.FavoriteService;
 import com.rentart.rentart.service.ProductService;
 
 @WebServlet(urlPatterns = {"/discover"})
@@ -59,10 +61,19 @@ public class DiscoverController extends HttpServlet {
 			
 			List<ThumbnailProduct> list = productService.getProductList(field, query, page, ft, fs, fp);
 			int count = productService.countProductList(field, query, ft, fs, fp);
+			List<Integer> fList = null;
+			
+			User user = (User) request.getSession().getAttribute("principal");
+			if(user != null) {
+				FavoriteService favoriteService = new FavoriteService();
+				fList = favoriteService.getFavoriteIds(user.getKey());
+			}
+			fList = (fList == null) ? Arrays.asList(0) : fList; 
 			
 			request.setAttribute("list", list);
 			request.setAttribute("ls", (list.size()-1)/4+1);
 			request.setAttribute("count", count);
+			request.setAttribute("fList", fList);
 			request.getRequestDispatcher("/discover.jsp").forward(request, response);
 		}
 	}

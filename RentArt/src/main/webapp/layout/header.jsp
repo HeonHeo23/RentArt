@@ -35,6 +35,7 @@
         <div class="nav-icons">
           <i class="iconify" data-icon="carbon:search"></i> 
           <i class="iconify" data-icon="ph:shopping-cart-light"></i>
+          <a href="/favorite"><i class="iconify" data-icon="akar-icons:heart"></i></a>
         </div>
         <c:choose>
           <c:when test="${sessionScope.principal != null}">
