@@ -160,27 +160,27 @@
                   <div class="card-img-wrapper">
                     <img src="/img/product/${l.getpImg()}" alt="">
                   </div>
-                  <div class="card-texts">
-                    <h4 class="detail-card-top"> ${l.getpName()} </h4>
-                    <div class="detail-card-bottom">
-                      ${l.getpSize()}호
-                      <c:choose>
-                      <c:when test="${l.ispIsRent()}">
-                        <div class="color-brown">
-                          <i class="iconify" data-icon="akar-icons:circle-fill"></i> 
-                          대여중
-                        </div>
-                      </c:when>
-                      <c:otherwise>
-                        <div class="card-rent color-blue">
-                          <i class="iconify" data-icon="akar-icons:circle-fill"></i> 
-                          대여가능
-                        </div>
-                      </c:otherwise>
-                      </c:choose>
-                    </div>
-                  </div>
                 </div>
+                <div class="card-texts">
+                  <h4 class="detail-card-top"> ${l.getpName()} </h4>
+                  <div class="detail-card-bottom">
+                    ${l.getpSize()}호
+                    <c:choose>
+                    <c:when test="${l.ispIsRent()}">
+                      <div class="color-brown">
+                        <i class="iconify" data-icon="akar-icons:circle-fill"></i> 
+                        대여중
+                      </div>
+                    </c:when>
+                    <c:otherwise>
+                      <div class="card-rent color-blue">
+                        <i class="iconify" data-icon="akar-icons:circle-fill"></i> 
+                        대여가능
+                      </div>
+                    </c:otherwise>
+                    </c:choose>
+                   </div>
+                 </div>
               </a>
               </c:forEach>
             </div>
