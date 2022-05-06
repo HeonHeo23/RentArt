@@ -63,10 +63,8 @@ public class ArtistDao {
 			pstmt.setInt(2, end);
 			
 			rs = pstmt.executeQuery();
-			System.out.println("1");
 			
 			while(rs.next()) {
-				System.out.println("2");
 				ArtistThumbnailDto dto;
 				int artistId = rs.getInt("artist_id");
 				String artistName = rs.getString("artist_name");
