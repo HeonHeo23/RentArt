@@ -144,7 +144,7 @@
           <h2 class="detail-title-big">${detail.getArtist()} 작가</h2>
           <article>
             <aside class="deatil-artist-link">
-              <a href="">${detail.getArtist()} 작가 메인으로 →</a>
+              <a href="/artist?no=${detail.getArtistId()}">${detail.getArtist()} 작가 메인으로 →</a>
             </aside>
             <h3 class="detail-title-small">${detail.getArtist()} 작가 소개</h3>
             <p class="detail-para">
