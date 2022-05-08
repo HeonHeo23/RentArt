@@ -188,7 +188,7 @@
         </section>
         <section class="detail-review">
           <div class="review-button-div">
-            <button type="button" class="review-button bg-black" onclick="showPopUp('/review?prodNo=${param.no}')">리뷰 쓰기</button>
+            <button type="button" class="review-button bg-black" onclick="showPopUp('/review?prodNo=${param.no}&cmd=write')">리뷰 쓰기</button>
           </div>
           <h2 class="detail-title-big">리뷰</h2>
           <table class="review-table">

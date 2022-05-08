@@ -24,7 +24,7 @@
 		</tbody>
 	</table>
   <input type="hidden" name="prodNo" value="${param.prodNo}">
-  <button type="submit" name="cmd" value="write">글쓰기</button>
+  <button type="submit" name="cmd" value="writeAction">글쓰기</button>
   </form>
 </body>
 </html>
