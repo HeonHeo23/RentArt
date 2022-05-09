@@ -2,7 +2,8 @@ package com.rentart.rentart.domain.review.dto;
 
 import java.sql.Timestamp;
 
-public class ReviewDetailDto {
+public class ReviewListDto {
+	private int rownum;
 	private int rId;
 	private int pId;
 	private String rTitle;
@@ -12,8 +13,9 @@ public class ReviewDetailDto {
 	private String pName;
 	private String pImg;
 	
-	public ReviewDetailDto(int rId, int pId, String rTitle, String rContent, Timestamp rRegDate, String userName,
-			String pName, String pImg) {
+	public ReviewListDto(int rownum, int rId, int pId, String rTitle, String rContent, Timestamp rRegDate,
+			String userName, String pName, String pImg) {
+		this.rownum = rownum;
 		this.rId = rId;
 		this.pId = pId;
 		this.rTitle = rTitle;
@@ -22,6 +24,14 @@ public class ReviewDetailDto {
 		this.userName = userName;
 		this.pName = pName;
 		this.pImg = pImg;
+	}
+
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
 	}
 
 	public int getrId() {

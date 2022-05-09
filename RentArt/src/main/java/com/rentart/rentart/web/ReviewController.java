@@ -1,6 +1,7 @@
 package com.rentart.rentart.web;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,17 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.rentart.rentart.domain.review.dto.InsertReviewDto;
 import com.rentart.rentart.domain.review.dto.ReviewDetailDto;
+import com.rentart.rentart.domain.review.dto.ReviewListDto;
 import com.rentart.rentart.domain.user.User;
-import com.rentart.rentart.service.ArtistService;
-import com.rentart.rentart.service.ProductService;
 import com.rentart.rentart.service.ReviewService;
 import com.rentart.rentart.util.Script;
 
 @WebServlet("/review")
 public class ReviewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProductService productService;
-	private ArtistService artistService;
 	private ReviewService reviewService;
        
     public ReviewController() {
@@ -36,6 +34,8 @@ public class ReviewController extends HttpServlet {
 	}
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//parameter
 		int prodNo = 0;
 		
 		String cmd = request.getParameter("cmd");
@@ -45,14 +45,29 @@ public class ReviewController extends HttpServlet {
 		if(prodNo_ != null && !prodNo_.equals(""))
 			prodNo = Integer.parseInt(prodNo_);
 		
-		
-		if(cmd == null) {
+		//cmd
+		if(cmd == null || cmd.equals("")) {
+			String page_ = request.getParameter("pg");
+			int page = (page_ == null || page_.equals("")) ? 1 : Integer.parseInt(page_);
+			
+			List<ReviewListDto> list = reviewService.getReviewList(page);
+			
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("/review.jsp").forward(request, response);
+		} else if(cmd.equals("write")) {
+			
 			if(user == null) {
 				Script.close(response, "로그인을 해주시기를 바랍니다.");
-			} 
+				return;
+			}
 			request.getRequestDispatcher("/writeReview.jsp").forward(request, response);
-		}
-		else if(cmd.equals("write")) {
+			
+		} else if(cmd.equals("writeAction")) {
+			if(user == null) {
+				Script.close(response, "로그인을 해주시기를 바랍니다.");
+				return;
+			}
+			
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			

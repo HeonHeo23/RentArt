@@ -28,7 +28,7 @@
           <li><a href="/discover">작품보기</a></li>
           <li><a href="/artist">작가소개</a></li>
           <li><a href="/magazine">매거진</a></li>
-          <li><a href="">후기</a></li>
+          <li><a href="/review">후기</a></li>
         </ul>
       </div>
       <div class="nav-right">

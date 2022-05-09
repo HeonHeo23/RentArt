@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 import com.rentart.rentart.domain.review.dto.InsertReviewDto;
 import com.rentart.rentart.domain.review.dto.ReviewDetailDto;
 import com.rentart.rentart.domain.review.dto.ReviewForDetailDto;
+import com.rentart.rentart.domain.review.dto.ReviewListDto;
 
 public class ReviewDao {
 	private String url = "jdbc:mysql://localhost:3306/RENTART";
@@ -47,7 +49,54 @@ public class ReviewDao {
 				
 				dto = new ReviewForDetailDto(rownum, rId, pId, rTitle, rContent, rRegDate, userName);
 				
-				dto.toString();
+				list.add(dto);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public List<ReviewListDto> findReviewList(int start, int end) {
+		List<ReviewListDto> list = new ArrayList<>();
+		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, V.* FROM REVIEWLIST V, (SELECT @ROWNUM:=0) R) A "
+				+ " WHERE ROWNUM BETWEEN ? AND ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ReviewListDto dto;
+				int rownum = rs.getInt("rownum");
+				int rId = rs.getInt("r_id");
+				int pId = rs.getInt("p_id");
+				String rTitle = rs.getString("r_title");
+				String rContent = rs.getString("r_content");
+				Timestamp rRegDate = rs.getTimestamp("r_regdate");
+				String userName = rs.getString("user_name");
+				String pName = rs.getString("p_name");
+				String pImg = rs.getString("p_img");
+				
+				dto = new ReviewListDto(rownum, rId, pId, rTitle, rContent, rRegDate, userName, pName, pImg);
 				
 				list.add(dto);
 			}
@@ -101,7 +150,7 @@ public class ReviewDao {
 
 	public ReviewDetailDto findReviewDetail(int rId) {
 		ReviewDetailDto dto;
-		String SQL = "SELECT R_TITLE, R_CONTENT, R_REGDATE, USER_NAME FROM REVIEW R LEFT JOIN USER U ON R.USER_KEY = U.USER_KEY WHERE R_ID = ?;";
+		String SQL = "SELECT * FROM REVIEWLIST WHERE R_ID = ?;";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -118,12 +167,15 @@ public class ReviewDao {
 			
 			rs.next();
 			
+			int pId = rs.getInt("p_id");
 			String rTitle = rs.getString("r_title");
 			String rContent = rs.getString("r_content");
 			Timestamp rRegDate = rs.getTimestamp("r_regdate");
 			String userName = rs.getString("user_name");
+			String pName = rs.getString("p_name");
+			String pImg = rs.getString("p_img");
 			
-			dto = new ReviewDetailDto(rTitle, rContent, rRegDate, userName);
+			dto = new ReviewDetailDto(rId, pId, rTitle, rContent, rRegDate, userName, pName, pImg);
 			
 			return dto;
 			
