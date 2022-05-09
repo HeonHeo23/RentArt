@@ -79,13 +79,11 @@ public class ArtistDao {
 		pstmt.close();
 		conn.close();
 		
-		return list;
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return list;
 	}
 	
 	public ArtistDetailDto findArtist(int id) {
