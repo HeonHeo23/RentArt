@@ -40,7 +40,8 @@ public class UserController extends HttpServlet {
 		}
 		if(cmd.equals("loginAction")) {
 			User user = userService.login(request.getParameter("email"), request.getParameter("password"));
-			if(user == null);
+			if(user == null)
+				Script.back(response, "아이디 혹은 비밀번호를 다시 확인해주세요.");
 			else {
 				HttpSession session = request.getSession();
 				session.setAttribute("principal", user);
