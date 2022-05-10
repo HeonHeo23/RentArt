@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.rentart.rentart.domain.artist.dto.ArtistDetailDto;
+import com.rentart.rentart.domain.artist.dto.ArtistDto;
 import com.rentart.rentart.domain.artist.dto.ArtistThumbnailDto;
 
 public class ArtistDao {
@@ -24,6 +25,7 @@ public class ArtistDao {
 		ResultSet rs = null;
 		
 		try {
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, artistId);
@@ -57,6 +59,7 @@ public class ArtistDao {
 				+ " (SELECT @ROWNUM:=0) R) A WHERE ROWNUM BETWEEN ? AND ?;";
 		
 		try {
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, start);
@@ -86,13 +89,14 @@ public class ArtistDao {
 		return list;
 	}
 	
-	public ArtistDetailDto findArtist(int id) {
+	public ArtistDetailDto findArtistDetail(int id) {
 		String sql = "SELECT artist_id, artist_name, artist_info FROM ARTIST WHERE ARTIST_ID = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
@@ -128,6 +132,7 @@ public class ArtistDao {
 		String SQL = "SELECT COUNT(ARTIST_ID) C FROM ARTISTTHUMBNAIL;";
 		
 		try {
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -148,4 +153,5 @@ public class ArtistDao {
 		
 		return -1;
 	}
+
 }

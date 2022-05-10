@@ -22,6 +22,7 @@ public class MagazineDao {
 		ResultSet rs = null;
 		
 		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
@@ -50,6 +51,7 @@ public class MagazineDao {
 		ResultSet rs = null;
 		
 		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
