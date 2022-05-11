@@ -26,4 +26,14 @@ public class Script {
 		script.flush();
 		return 0;
 	}
+	
+	public static int redirect(HttpServletResponse response, String msg, String url) throws IOException {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('"+ msg +"');");
+		script.println("window.location.href = '"+url+"';");
+		script.println("</script>");
+		script.flush();
+		return 0;
+	}
 }
