@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rentart.rentart.domain.artist.ArtistDao;
 import com.rentart.rentart.domain.artist.dto.ArtistDetailDto;
+import com.rentart.rentart.domain.artist.dto.ArtistDto;
 import com.rentart.rentart.domain.artist.dto.ArtistThumbnailDto;
 
 public class ArtistService {
@@ -24,10 +25,17 @@ public class ArtistService {
 	}
 	
 	public ArtistDetailDto getArtistDetail(int no) {
-		return artistDao.findArtist(no);
+		return artistDao.findArtistDetail(no);
 	}
 	
 	public int countArtist() {
 		return artistDao.count();
 	}
+
+	//admin
+	
+	public ArtistDto login(int id, String password) {
+		return artistDao.login(id, password);
+	}
+	
 }

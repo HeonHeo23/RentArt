@@ -154,4 +154,40 @@ public class ArtistDao {
 		return -1;
 	}
 
+	public ArtistDto login(int id, String password) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String SQL = "SELECT * FROM ARTIST WHERE artist_ID = ? AND artist_password = ?;";
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, id);
+			pstmt.setString(2, password);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			String name = rs.getString("ARTIST_NAME");
+			
+			ArtistDto dto = new ArtistDto(id, password, name);
+			
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return dto;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
 }
