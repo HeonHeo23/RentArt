@@ -77,6 +77,50 @@ public class AdminController extends HttpServlet {
 				response.sendRedirect("/admin/main");
 				
 			}
+		} else if(cmd.equals("updateInfo")) {
+			
+			String text = request.getParameter("text");
+			
+			if(artist == null) {
+				Script.back(response, "다시 로그인 해주시기 바랍니다.");
+				return;
+			}
+			
+			int id = artist.getArtistId();
+			
+			int result = artistService.updateInfo(id, text);
+			
+			if(result != 1) {
+				Script.back(response, "소개 글 업데이트에 실패 했습니다.");
+				return;
+			} Script.redirect(response, "소개 글을 성공적으로 업데이트 했습니다.", "/admin/main");
+			
+		} else if(cmd.equals("updateArtist")) {
+			
+			String name = request.getParameter("name");
+			String password = request.getParameter("password");
+			String newPassword = request.getParameter("newPassword");
+			
+			if(name == null || password == null || newPassword == null) {
+				Script.back(response, "입력한 정보를 다시 확인 해주시기 바랍니다.");
+				return;
+			}
+			
+			int id = artist.getArtistId();
+			
+			Object loginResult = artistService.login(id, password);
+			if(loginResult == null) {
+				Script.back(response, "비밀번호를 다시 확인 해주시기 바랍니다.");
+				return;
+			}
+			
+			int result = artistService.updateArtist(id, name, newPassword);
+			
+			if(result != 1) {
+				Script.back(response, "작가 정보 수정에 실패했습니다.");
+			}
+			Script.close(response, "작가 정보를 수정했습니다.");
+			
 		} 
 	}
 }

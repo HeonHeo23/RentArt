@@ -190,4 +190,60 @@ public class ArtistDao {
 		return null;
 	}
 
+	public int updateInfo(int id, String text) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		String SQL = "UPDATE ARTIST SET ARTIST_INFO = ? WHERE ARTIST_ID = ?";
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, text);
+			pstmt.setInt(2, id);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
+	public int updateArtist(int id, String name, String pwd) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		String SQL = "UPDATE ARTIST SET ARTIST_NAME = ?, ARTIST_PASSWORD = ? WHERE ARTIST_ID = ?";
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, name);
+			pstmt.setString(2, pwd);
+			pstmt.setInt(3, id);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
 }

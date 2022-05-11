@@ -38,4 +38,11 @@ public class ArtistService {
 		return artistDao.login(id, password);
 	}
 	
+	public int updateInfo(int id, String text) {
+		return artistDao.updateInfo(id, text);
+	}
+	
+	public int updateArtist(int id, String name, String pwd) {
+		return artistDao.updateArtist(id, name, pwd);
+	}
 }
