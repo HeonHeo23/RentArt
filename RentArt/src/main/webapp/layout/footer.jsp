@@ -32,7 +32,7 @@
               <li><a href="">건의 사항</a></li>
             </ul>
             <ul class="footer-links">
-              <li><a href="">작가페이지</a></li>
+              <li><a href="/admin">작가페이지</a></li>
               <li><a href="">작가 지원</a></li>
             </ul>
           </div>
