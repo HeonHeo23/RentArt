@@ -94,4 +94,57 @@ public class NoticeDao {
 		
 		return null;
 	}
+
+	//admin
+	
+	public int updateNotice(int no, String title, String text) {
+		String SQL = "UPDATE NOTICE SET N_TITLE = ?, N_CONTENT = ?, N_UPDATE = NOW() WHERE N_ID = ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, title);
+			pstmt.setString(2, text);
+			pstmt.setInt(3, no);
+			
+			int result = pstmt.executeUpdate();		
+			
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
+	public int insertNotice(int id, String title, String text) {
+		String SQL = "INSERT INTO NOTICE (ARTIST_ID, N_TITLE, N_CONTENT) VALUES(?,?,?);";
+		System.out.println(id+title+text);
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, id);
+			pstmt.setString(2, title);
+			pstmt.setString(3, text);
+			
+			int result = pstmt.executeUpdate();		
+			
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
 }

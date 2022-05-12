@@ -20,4 +20,14 @@ public class NoticeService {
 	public NoticeDetailDto getNoticeDeatil(int id) {
 		return noticeDao.findReviewDetail(id);
 	}
+	
+	//admin
+
+	public int updateNotice(int no, String title, String text) {
+		return noticeDao.updateNotice(no, title, text);
+	}
+	
+	public int insertNotice(int id, String title, String text) {
+		return noticeDao.insertNotice(id, title, text);
+	}
 }
