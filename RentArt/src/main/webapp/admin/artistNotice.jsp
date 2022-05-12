@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/layout/admin/header.jsp" %>
-<script type="text/javascript">
-function showPopUp(url) {
-	let width = 1000;
-	let height = 650;
-	let left = (window.screen.width / 2) - (width / 2);
-	let top = (window.screen.height / 4);
-	
-	let windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-	
-	window.open(url, "글쓰기", windowStatus);
-}
-</script>
   <main class="admin-wrapper">
     <div class="admin-content">
       <a onclick="showPopUp('/admin/notice/write')" class="admin-button bg-blue float-right button">글쓰기</a>
