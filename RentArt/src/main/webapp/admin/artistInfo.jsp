@@ -9,7 +9,7 @@
       </header>
       <form action="/admin" method="post">
         <textarea name="text" id="" class="admin-textarea">${artistInfo}</textarea>
-        <button class="admin-button bg-blue admin-button-right" name="cmd" value="updateInfo">수정하기</button>
+        <button class="admin-button bg-blue admin-button-right float-right" name="cmd" value="updateInfo">수정하기</button>
       </form>
     </div>
   </main>

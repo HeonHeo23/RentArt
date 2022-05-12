@@ -32,7 +32,6 @@ public class AdminController extends HttpServlet {
 	}
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String  request.getSession().getAttribute("adminPrincipal");
 		String cmd = request.getParameter("cmd");
 		HttpSession session = request.getSession();
 		ArtistDto artist = (ArtistDto) session.getAttribute("adminPrincipal");
