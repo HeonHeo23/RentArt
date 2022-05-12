@@ -38,7 +38,7 @@
 	  <span class="admin-profile-name">${sessionScope.adminPrincipal.getArtistName()}</span> 작가님<br>환영합니다.
 	</div>
     <div class="admin-aside-buttons">
-      <button class="admin-button bg-blue">글쓰기</button>
+      <button onclick="showPopUp('/admin/notice/write')" class="admin-button bg-blue">글쓰기</button>
       <button class="admin-button bg-blue">작품 등록</button>
     </div>
     <hr class="admin-aside-hr">
