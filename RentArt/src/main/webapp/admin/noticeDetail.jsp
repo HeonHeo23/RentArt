@@ -44,6 +44,7 @@ table, th, td {
 	</table>
 	<input type="hidden" name="no" value="${param.no}">
 	<button type="submit" name="cmd" value="updateNotice">수정하기</button>
+	<button type="submit" name="cmd" value="deleteNotice" style="color:red">삭제하기</button>
   </form>
 </body>
 </html>

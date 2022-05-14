@@ -30,4 +30,8 @@ public class NoticeService {
 	public int insertNotice(int id, String title, String text) {
 		return noticeDao.insertNotice(id, title, text);
 	}
+	
+	public int deleteNotice(int id) {
+		return noticeDao.deleteNotice(id);
+	}
 }

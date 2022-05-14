@@ -88,15 +88,31 @@ public class NoticeController extends HttpServlet {
 			int id = artist.getArtistId();
 			
 			int result = noticeService.insertNotice(id, title, text);
-			System.out.println(result);
 			if(result != 1) {
 				Script.back(response, "작가의 말 수정에 실패했습니다.");
 				return;
 			}
 			Script.close(response, "작가의 말을 등록했습니다.");
 			
+		} else if(cmd.equals("deleteNotice")) {
+			
+			int id = artist.getArtistId();
+			String no_ = request.getParameter("no");
+			
+			if(no_ == null || no_.equals("")) {
+				Script.back(response, "잘못된 접근입니다.");
+				return;
+			}
+			
+			int no = Integer.parseInt(no_);
+			
+			int result = noticeService.deleteNotice(no);
+			
+			if(result != 1) {
+				Script.back(response, "작가의 말 삭제에 실패했습니다.");
+				return;
+			}
+			Script.close(response, "작가의 말을 삭제했습니다.");
 		}
 	}
-	
-
 }
