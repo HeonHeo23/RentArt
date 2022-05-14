@@ -7,6 +7,7 @@ import java.util.Map;
 import com.rentart.rentart.domain.product.ProductDao;
 import com.rentart.rentart.domain.product.dto.DetailArtistProduct;
 import com.rentart.rentart.domain.product.dto.DetailDto;
+import com.rentart.rentart.domain.product.dto.InsertProductDto;
 import com.rentart.rentart.domain.product.dto.ThumbnailProduct;
 import com.rentart.rentart.util.Utility;
 
@@ -70,7 +71,23 @@ public class ProductService {
 	}
 	
 	public List<DetailArtistProduct> getArtistProductList(int artistId) {
-		return productDao.getArtistProductList(artistId);
+		return productDao.getArtistProductList(artistId, 1, 4);
+	}
+	
+	public List<DetailArtistProduct> getArtistProductListAll(int artistId) {
+		return productDao.findArtistProductListAll(artistId);
+	}
+
+	public int updateProduct(InsertProductDto dto) {
+		return productDao.updateProduct(dto);
+	}
+
+	public int insertProduct(InsertProductDto dto) {
+		return productDao.insertProdcut(dto);
+	}
+
+	public int deleteProduct(int no) {
+		return productDao.deleteProduct(no);
 	}
 	
 }

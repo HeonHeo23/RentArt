@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.rentart.rentart.domain.product.dto.DetailArtistProduct;
 import com.rentart.rentart.domain.product.dto.DetailDto;
+import com.rentart.rentart.domain.product.dto.InsertProductDto;
 import com.rentart.rentart.domain.product.dto.ThumbnailProduct;
 
 public class ProductDao {
@@ -273,10 +274,55 @@ public class ProductDao {
 		
 	}
 
-	public List<DetailArtistProduct> getArtistProductList(int artistId){
+	public List<DetailArtistProduct> getArtistProductList(int artistId, int start, int end){
 		List<DetailArtistProduct> list = new ArrayList<>();
 		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, D.* FROM DETAILARTISTPRODUCT D, (SELECT @ROWNUM:=0) R"
-				+ " WHERE ARTIST_ID = ? ORDER BY D.P_ID DESC) A WHERE ROWNUM BETWEEN 1 AND 4 ORDER BY A.ROWNUM;";
+				+ " WHERE ARTIST_ID = ? ORDER BY D.P_ID DESC) A WHERE ROWNUM BETWEEN ? AND ? ORDER BY A.ROWNUM;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, artistId);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int pId = rs.getInt("p_id");
+				String pName = rs.getString("p_name");
+				String pImg = rs.getString("p_img");
+				int pSize = rs.getInt("p_size");
+				boolean pIsRent = rs.getBoolean("p_isrent");
+				
+				DetailArtistProduct dto = new DetailArtistProduct(pId, pName, pImg, pSize, pIsRent);
+				
+				list.add(dto);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public List<DetailArtistProduct> findArtistProductListAll(int artistId){
+		List<DetailArtistProduct> list = new ArrayList<>();
+		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, D.* FROM DETAILARTISTPRODUCT D, (SELECT @ROWNUM:=0) R"
+				+ " WHERE ARTIST_ID = ? ORDER BY D.P_ID DESC) A;";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -314,5 +360,104 @@ public class ProductDao {
 		}
 		
 		return null;
+	}
+
+	public int updateProduct(InsertProductDto dto) {
+		String SQL = "UPDATE PRODUCT SET P_NAME = ?, ARTIST_ID = ?,P_THEME = ?, P_PRICE = ?, P_SIZE = ?, "
+				+ " P_MATERIAL = ?, P_YEAR = ?, P_INFO = ?, P_UPDATE = now() WHERE P_ID = ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, dto.getName());
+			pstmt.setInt(2, dto.getaId());
+			pstmt.setInt(3, dto.getTheme());
+			pstmt.setInt(4, dto.getPrice());
+			pstmt.setInt(5, dto.getSize());
+			pstmt.setString(6, dto.getMaterial());
+			pstmt.setInt(7, dto.getYear());
+			pstmt.setString(8, dto.getText());
+			pstmt.setInt(9, dto.getpId());
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
+	public int insertProdcut(InsertProductDto dto) {
+		String SQL = "INSERT INTO product (p_name, p_info, p_img, p_theme, p_price, p_size, p_material, p_year, ARTIST_ID) "
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getText());
+			pstmt.setString(3, dto.getImg());
+			pstmt.setInt(4, dto.getTheme());
+			pstmt.setInt(5, dto.getPrice());
+			pstmt.setInt(6, dto.getSize());
+			pstmt.setString(7, dto.getMaterial());
+			pstmt.setInt(8, dto.getYear());
+			pstmt.setInt(9, dto.getaId());
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
+	public int deleteProduct(int no) {
+		String SQL = "DELETE FROM PRODUCT WHERE P_ID = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, no);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
 	}
 }
