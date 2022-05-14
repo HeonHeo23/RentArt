@@ -30,7 +30,7 @@
 <body>
   <header class="admin-header">
       <div class="logo">
-        <a href="/admin">Rent Art Admin Page</a>
+        <a href="/admin">Rent Art Artist Page</a>
 	  </div>
   </header>
   <aside class="admin-aside">
@@ -39,7 +39,7 @@
 	</div>
     <div class="admin-aside-buttons">
       <button onclick="showPopUp('/admin/notice/write')" class="admin-button bg-blue">글쓰기</button>
-      <button class="admin-button bg-blue">작품 등록</button>
+      <button onclick="showPopUp('/admin/product/new')" class="admin-button bg-blue">작품 등록</button>
     </div>
     <hr class="admin-aside-hr">
 	  <nav>
