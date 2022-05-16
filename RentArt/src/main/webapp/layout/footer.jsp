@@ -33,7 +33,7 @@
             </ul>
             <ul class="footer-links">
               <li><a href="/admin">작가페이지</a></li>
-              <li><a href="">작가 지원</a></li>
+              <li><a href="/manage">관리자</a></li>
             </ul>
           </div>
         </div>
