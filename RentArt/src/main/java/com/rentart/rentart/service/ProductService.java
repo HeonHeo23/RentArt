@@ -8,6 +8,7 @@ import com.rentart.rentart.domain.product.ProductDao;
 import com.rentart.rentart.domain.product.dto.DetailArtistProduct;
 import com.rentart.rentart.domain.product.dto.DetailDto;
 import com.rentart.rentart.domain.product.dto.InsertProductDto;
+import com.rentart.rentart.domain.product.dto.ManageProductDto;
 import com.rentart.rentart.domain.product.dto.ThumbnailProduct;
 import com.rentart.rentart.util.Utility;
 
@@ -88,6 +89,22 @@ public class ProductService {
 
 	public int deleteProduct(int no) {
 		return productDao.deleteProduct(no);
+	}
+	
+	//manage
+	public List<ManageProductDto> getManageProductListAll(int page, String field, String query) {
+		int start = 1+(page-1)*20;
+		int end = page*20;
+		
+		return productDao.findManageProductListAll(start, end, field, query);
+	}
+	
+	public int setRentProduct(List<Integer> rents) {
+		return productDao.updateRent(rents);
+	}
+
+	public int setNoRentProduct(List<Integer> nonRents) {
+		return productDao.updateNoRent(nonRents);
 	}
 	
 }

@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.rentart.rentart.domain.product.dto.DetailArtistProduct;
 import com.rentart.rentart.domain.product.dto.DetailDto;
 import com.rentart.rentart.domain.product.dto.InsertProductDto;
+import com.rentart.rentart.domain.product.dto.ManageProductDto;
 import com.rentart.rentart.domain.product.dto.ThumbnailProduct;
 
 public class ProductDao {
@@ -448,6 +450,119 @@ public class ProductDao {
 			pstmt.setInt(1, no);
 			
 			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
+	public List<ManageProductDto> findManageProductListAll(int start, int end, String field, String query) {
+		List<ManageProductDto> list = new ArrayList<>();
+		
+		String sql = "SELECT Q.* FROM (select @rownum:=@rownum+1 rownum, M.* FROM MANAGEPRODUCT M, "
+				+ " (SELECT @ROWNUM:=0) R) Q WHERE "+ field +" LIKE ? AND ROWNUM BETWEEN ? AND ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, "%"+query+"%");
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				int pId = rs.getInt("p_id");
+				String pName = rs.getString("p_name");
+				String artistName = rs.getString("artist_name");
+				int artistId = rs.getInt("artist_id");
+				int size = rs.getInt("p_size");
+				int price = rs.getInt("p_price");
+				int theme = rs.getInt("p_theme");
+				int year = rs.getInt("p_year");
+				int favorite = rs.getInt("c");
+				Timestamp regDate = rs.getTimestamp("p_regdate");
+				Timestamp upDate = rs.getTimestamp("p_upDate");
+				boolean isRent = rs.getBoolean("p_isrent");
+				
+				ManageProductDto dto = new ManageProductDto(pId, pName, artistName, artistId,
+						size, price, theme, year, favorite, regDate, upDate, isRent);
+				
+				list.add(dto);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public int updateRent(List<Integer> rents) {
+		
+		String sql = "UPDATE PRODUCT SET P_ISRENT = 1 WHERE P_ID = ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i : rents) {
+				pstmt.setInt(1, i);
+				pstmt.executeUpdate();
+			}
+				
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+	
+	public int updateNoRent(List<Integer> rents) {
+		
+		String sql = "UPDATE PRODUCT SET P_ISRENT = 0 WHERE P_ID = ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i : rents) {
+				pstmt.setInt(1, i);
+				pstmt.executeUpdate();
+			}
 			
 			pstmt.close();
 			conn.close();
