@@ -4,10 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.rentart.rentart.domain.product.dto.DetailDto;
 import com.rentart.rentart.domain.user.dto.JoinUser;
+import com.rentart.rentart.domain.user.dto.UserDto;
+import com.rentart.rentart.domain.user.dto.UserListDto;
 
 public class UserDao {
 	private String url = "jdbc:mysql://localhost:3306/RENTART";
@@ -78,6 +82,88 @@ public class UserDao {
 		}
 		
 		return -1; //DB 에러
+	}
+
+	public List<UserListDto> findUserList(int start, int end, String field, String query) {
+		List<UserListDto> list = new ArrayList<UserListDto>();
+		
+		String sql = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, U.* FROM USER U, "
+				+ " (SELECT @ROWNUM:=0) R) A WHERE "+ field + " LIKE ? AND ROWNUM BETWEEN ? AND ?;";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+query+"%");
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int key = rs.getInt("user_key");
+				String name = rs.getString("user_name");
+				String email = rs.getString("user_email");
+				String address = rs.getString("user_address");
+				Timestamp joinDate = rs.getTimestamp("user_joindate");
+				
+				UserListDto dto = new UserListDto(key, name, email, address, joinDate);
+				
+				list.add(dto);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public UserDto findUser(int no) {
+		String sql = "SELECT * FROM USER WHERE USER_KEY = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			int key = rs.getInt("user_key");
+			String password = rs.getString("user_password");
+			String name = rs.getString("user_name");
+			String email = rs.getString("user_email");
+			String address = rs.getString("user_address");
+			Timestamp joinDate = rs.getTimestamp("user_joindate");
+			
+			UserDto dto = new UserDto(key, name, password, email, address, joinDate);
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return dto;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 }
