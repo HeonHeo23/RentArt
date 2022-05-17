@@ -4,28 +4,18 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MagazineDto {
-	private int id;
+public class InsertMagazineDto {
 	private String title;
 	private String content;
 	private Timestamp regDate;
 	private String regDateInput;
 	
-	public MagazineDto(int id, String title, String content, Timestamp regDate) {
-		this.id = id;
+	public InsertMagazineDto(String title, String content, Timestamp regDate) {
 		this.title = title;
 		this.content = content;
 		this.regDate = regDate;
 		
 		this.regDateInput = new SimpleDateFormat("yyyy-MM-dd").format(regDate);
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getTitle() {
