@@ -88,15 +88,69 @@ public class ReviewDao {
 				ReviewListDto dto;
 				int rownum = rs.getInt("rownum");
 				int rId = rs.getInt("r_id");
-				int pId = rs.getInt("p_id");
 				String rTitle = rs.getString("r_title");
 				String rContent = rs.getString("r_content");
 				Timestamp rRegDate = rs.getTimestamp("r_regdate");
+				Timestamp rUpDate = rs.getTimestamp("r_update");
+				int userKey = rs.getInt("user_key");
 				String userName = rs.getString("user_name");
+				int pId = rs.getInt("p_id");
 				String pName = rs.getString("p_name");
 				String pImg = rs.getString("p_img");
 				
-				dto = new ReviewListDto(rownum, rId, pId, rTitle, rContent, rRegDate, userName, pName, pImg);
+				dto = new ReviewListDto(rownum, rId, rTitle, rContent, rRegDate, rUpDate, userKey, userName, pId, pName, pImg);
+				
+				list.add(dto);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public List<ReviewListDto> findReviewList(int start, int end, String field, String query) {
+		List<ReviewListDto> list = new ArrayList<>();
+		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, V.* FROM REVIEWLIST V, (SELECT @ROWNUM:=0) R"
+				+ " WHERE " + field + " LIKE ? ) A WHERE ROWNUM BETWEEN ? AND ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, "%" + query + "%");
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ReviewListDto dto;
+				int rownum = rs.getInt("rownum");
+				int rId = rs.getInt("r_id");
+				String rTitle = rs.getString("r_title");
+				String rContent = rs.getString("r_content");
+				Timestamp rRegDate = rs.getTimestamp("r_regdate");
+				Timestamp rUpDate = rs.getTimestamp("r_update");
+				int userKey = rs.getInt("user_key");
+				String userName = rs.getString("user_name");
+				int pId = rs.getInt("p_id");
+				String pName = rs.getString("p_name");
+				String pImg = rs.getString("p_img");
+				
+				dto = new ReviewListDto(rownum, rId, rTitle, rContent, rRegDate, rUpDate, userKey, userName, pId, pName, pImg);
 				
 				list.add(dto);
 			}
@@ -171,11 +225,13 @@ public class ReviewDao {
 			String rTitle = rs.getString("r_title");
 			String rContent = rs.getString("r_content");
 			Timestamp rRegDate = rs.getTimestamp("r_regdate");
+			Timestamp rUpDate = rs.getTimestamp("r_update");
+			int userKey = rs.getInt("user_key");
 			String userName = rs.getString("user_name");
 			String pName = rs.getString("p_name");
 			String pImg = rs.getString("p_img");
 			
-			dto = new ReviewDetailDto(rId, pId, rTitle, rContent, rRegDate, userName, pName, pImg);
+			dto = new ReviewDetailDto(rId, pId, rTitle, rContent, rRegDate, rUpDate, userKey, userName, pName, pImg);
 			
 			return dto;
 			
@@ -184,5 +240,71 @@ public class ReviewDao {
 		}
 		
 		return null;
+	}
+
+	public int update(int no, InsertReviewDto dto) {
+		String SQL = "UPDATE REVIEW SET USER_KEY = ?, P_ID = ?, R_TITLE = ?, R_CONTENT = ? WHERE R_ID = ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, dto.getUserKey());
+			pstmt.setInt(2, dto.getpId());
+			pstmt.setString(3, dto.getrTitle());
+			pstmt.setString(4, dto.getrContent());
+			pstmt.setInt(5, no);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
+	public int delete(int no) {
+		String SQL = "DELETE FROM REVIEW WHERE R_ID = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, no);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
 	}
 }

@@ -8,17 +8,21 @@ public class ReviewDetailDto {
 	private String rTitle;
 	private String rContent;
 	private Timestamp rRegDate;
+	private Timestamp rUpDate;
+	private int userKey;
 	private String userName;
 	private String pName;
 	private String pImg;
-	
-	public ReviewDetailDto(int rId, int pId, String rTitle, String rContent, Timestamp rRegDate, String userName,
-			String pName, String pImg) {
+
+	public ReviewDetailDto(int rId, int pId, String rTitle, String rContent, Timestamp rRegDate, Timestamp rUpDate,
+			int userKey, String userName, String pName, String pImg) {
 		this.rId = rId;
 		this.pId = pId;
 		this.rTitle = rTitle;
 		this.rContent = rContent;
 		this.rRegDate = rRegDate;
+		this.rUpDate = rUpDate;
+		this.userKey = userKey;
 		this.userName = userName;
 		this.pName = pName;
 		this.pImg = pImg;
@@ -62,6 +66,22 @@ public class ReviewDetailDto {
 
 	public void setrRegDate(Timestamp rRegDate) {
 		this.rRegDate = rRegDate;
+	}
+
+	public Timestamp getrUpDate() {
+		return rUpDate;
+	}
+
+	public void setrUpDate(Timestamp rUpDate) {
+		this.rUpDate = rUpDate;
+	}
+	
+	public int getUserKey() {
+		return userKey;
+	}
+
+	public void setUserKey(int userKey) {
+		this.userKey = userKey;
 	}
 
 	public String getUserName() {
