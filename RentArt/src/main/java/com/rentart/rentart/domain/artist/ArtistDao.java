@@ -4,12 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.rentart.rentart.domain.artist.dto.ArtistDetailDto;
 import com.rentart.rentart.domain.artist.dto.ArtistDto;
+import com.rentart.rentart.domain.artist.dto.ArtistListDto;
+import com.rentart.rentart.domain.artist.dto.ArtistManageDto;
 import com.rentart.rentart.domain.artist.dto.ArtistThumbnailDto;
+import com.rentart.rentart.domain.artist.dto.InsertArtistDto;
 
 public class ArtistDao {
 	private String url = "jdbc:mysql://localhost:3306/RENTART";
@@ -240,6 +244,183 @@ public class ArtistDao {
 			
 			return 1;
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
+	public List<ArtistListDto> findManageArtistList(int start, int end, String field, String query) {
+		List<ArtistListDto> list = new ArrayList<>();
+		
+		String SQL = "select q.* from(select @ROWNUM:=@ROWNUM+1 ROWNUM, B.* from (SELECT @ROWNUM:=0) R, "
+			+ " (SELECT a.*, count(p_id) cp, count(n_id) cn FROM artist a left join product p on p.artist_id = a.artist_id "
+			+ "	left join notice n on n.artist_id = a.artist_id where "+ field +" like ?"
+			+ "	group by p.artist_id order by a.artist_id desc)B )q where rownum between ? and ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, "%"+query+"%");
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int artistId = rs.getInt("artist_id");
+				String artistName = rs.getString("artist_name");
+				int countProduct = rs.getInt("cp");
+				int countNotice = rs.getInt("cn");
+				Timestamp regDate = rs.getTimestamp("artist_regdate");
+				
+				ArtistListDto dto = new ArtistListDto(artistId, artistName, countProduct, countNotice, regDate);
+				
+				list.add(dto);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public ArtistManageDto findArtist(int no) {
+		String SQL = "SELECT A.*, count(p_id) cp, count(n_id) cn FROM ARTIST a left join product p on p.artist_id = a.artist_id "
+				+ "left join notice n on n.artist_id = a.artist_id where a.artist_id = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			int artistId = rs.getInt("artist_id");
+			String password = rs.getString("artist_password");
+			String artistName = rs.getString("artist_name");
+			String artistInfo = rs.getString("artist_info");
+			int countProduct = rs.getInt("cp");
+			int countNotice = rs.getInt("cn");
+			Timestamp regDate = rs.getTimestamp("artist_regdate");
+			
+			ArtistManageDto dto = new ArtistManageDto(artistId, password, artistName, artistInfo, countProduct, countNotice, regDate);
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return dto;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public int delete(int no) {
+		String SQL = "DELETE FROM ARTIST WHERE ARTIST_ID = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, no);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
+	public int insert(InsertArtistDto dto) {
+		String SQL = "INSERT INTO ARTIST(ARTIST_NAME, ARTIST_PASSWORD, ARTIST_INFO, ARTIST_ID) VALUES(?, ?, ?, ?);";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setString(1, dto.getArtistName());
+			pstmt.setString(2, dto.getPassword());
+			pstmt.setString(3, dto.getArtistInfo());
+			pstmt.setInt(4, dto.getArtistId());
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
+	public int findLastId() {
+		String SQL = "SELECT ARTIST_ID FROM ARTIST ORDER BY ARTIST_ID DESC LIMIT 1";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			
+			int result = rs.getInt("ARTIST_ID");
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
