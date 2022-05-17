@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.rentart.rentart.domain.product.dto.DetailDto;
 import com.rentart.rentart.domain.user.dto.JoinUser;
 import com.rentart.rentart.domain.user.dto.UserDto;
 import com.rentart.rentart.domain.user.dto.UserListDto;
@@ -26,7 +25,7 @@ public class UserDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
@@ -63,14 +62,13 @@ public class UserDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, joinUser.getPassword());
 			pstmt.setString(2, joinUser.getName());
 			pstmt.setString(3, joinUser.getEmail());
 			pstmt.setString(4, joinUser.getAddress());
-			int result = pstmt.executeUpdate();
 			
 			pstmt.close();
 			conn.close();
@@ -87,14 +85,14 @@ public class UserDao {
 	public List<UserListDto> findUserList(int start, int end, String field, String query) {
 		List<UserListDto> list = new ArrayList<UserListDto>();
 		
-		String sql = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, U.* FROM USER U, "
-				+ " (SELECT @ROWNUM:=0) R) A WHERE "+ field + " LIKE ? AND ROWNUM BETWEEN ? AND ?;";
+		String sql = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, U.* FROM USER U, (SELECT @ROWNUM:=0) R "
+				+ " ORDER BY USER_KEY DESC) A WHERE "+ field + " LIKE ? AND ROWNUM BETWEEN ? AND ?;";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+query+"%");
@@ -136,7 +134,7 @@ public class UserDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
@@ -152,7 +150,7 @@ public class UserDao {
 			String address = rs.getString("user_address");
 			Timestamp joinDate = rs.getTimestamp("user_joindate");
 			
-			UserDto dto = new UserDto(key, name, password, email, address, joinDate);
+			UserDto dto = new UserDto(key, password, name, email, address, joinDate);
 			
 			rs.close();
 			pstmt.close();
@@ -164,6 +162,60 @@ public class UserDao {
 		}
 		
 		return null;
+	}
+
+	public int update(int no, JoinUser dto) {
+		String sql = "UPDATE USER SET USER_PASSWORD=?, USER_NAME=?, USER_EMAIL=?, USER_ADDRESS =? WHERE USER_KEY = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getPassword());
+			pstmt.setString(2, dto.getName());
+			pstmt.setString(3, dto.getEmail());
+			pstmt.setString(4, dto.getAddress());
+			pstmt.setInt(5, no);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+
+	public int delete(int no) {
+		String sql = "DELETE FROM USER WHERE USER_KEY = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
 	}
 
 }

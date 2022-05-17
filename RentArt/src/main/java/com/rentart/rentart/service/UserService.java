@@ -34,4 +34,12 @@ public class UserService {
 	public UserDto getUser(int no) {
 		return userDao.findUser(no);
 	}
+
+	public int update(int no, JoinUser dto) {
+		return userDao.update(no, dto);
+	}
+
+	public int delete(int no) {
+		return userDao.delete(no);
+	}
 }
