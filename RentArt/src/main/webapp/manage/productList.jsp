@@ -40,7 +40,7 @@
               <c:set var="id" value="${l.getpId()}"/>
               <td width="50px">${id}<input type="hidden" name="ids" value="${id}"></td>
               <td><a onclick="showPopUp('/manage/detail?no=${id}')" class="table-link">${l.getpName()}</a></td>
-              <td>${l.getArtistName()} (${l.getArtistId()})</td>
+              <td><a href="/manage/product?field=artist_name&query=${l.getArtistName()}" class="table-link">${l.getArtistName()} (${l.getArtistId()})</a></td>
               <td>${l.getSize()}호</td>
               <td width="90px">&#8361;<fmt:formatNumber value="${l.getPrice()}" /> </td>
               <td>${l.getThemeString()}</td>
