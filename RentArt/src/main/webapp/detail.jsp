@@ -118,7 +118,7 @@
           </div>
           <div class="row-right-price">
             <div class="row-right-top">
-              <span id="totalPrice">201,000</span> 원
+              <span id="totalPrice"></span> 원
             </div>
             <div class="row-right-bottom">
               월 <span id="finalMonthlyPrice"><fmt:formatNumber value="${fee}" /></span> 원
@@ -126,6 +126,10 @@
           </div>
         </div>
         <div class="info-buttons">
+        <c:set var="rent" value="${detail.ispIsRent()}" />
+        <c:if test="${rent}">
+          <div class="info-buttons-alert">렌트 중</div>
+        </c:if>
           <button class="info-button bg-brown">구매 하기</button>
           <button class="info-button bg-blue">렌트 하기</button>
         </div>
