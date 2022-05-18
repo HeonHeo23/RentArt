@@ -23,10 +23,10 @@ function showPopUp(url) {
           <c:forEach items="${list}" var="r">
           <tr class="review-row">
             <td class="review-num">${r.getRownum()}</td>
+            <td class="review-product">${r.getpName()}</td>
             <td class="review-title"><a onclick="showPopUp('/review?no=${r.getrId()}&cmd=view')">${r.getrTitle()}</a></td>
             <td class="review-name">${r.getUserName()}</td>
             <td class="review-date"><fmt:formatDate pattern="yyyy.MM.dd" value="${r.getrRegDate()}" /></td>
-            <td class="review-product">${r.getpName()}</td>
           </tr>
           </c:forEach>
         </table>

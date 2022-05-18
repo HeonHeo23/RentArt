@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰 보기</title>
+<title>공지 수정하기</title>
 <style type="text/css">
 table, th, td {
   border: 1px solid black;

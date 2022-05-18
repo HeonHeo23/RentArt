@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰 작성</title>
+<title>리뷰 작성하기</title>
 </head>
 <body>
   <form method="post" action="/review">
