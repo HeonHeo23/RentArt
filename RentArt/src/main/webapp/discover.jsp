@@ -36,8 +36,8 @@
   }
 </script>
     <div class="discover-wrapper">
+    <form action="/discover">
       <div class="discover-filters">
-      <form action="/discover">
         <div class="filter-row">
           <header class="filter-header">
             테마
@@ -148,7 +148,6 @@
             </div>
           </div>
         </div>
-      </form>
       </div>
       <div>
         <div class="discover-views">
@@ -168,7 +167,6 @@
                   <div class="card-size">${l.getpSize()}호</div>
                 </div>
                 <div class="card-status">
-                  <form method="post">
                   <c:choose>
                   <c:when test="${fList.contains(l.getpId())}">
                     <a href="/favorite?cmd=remove&prodNo=${l.getpId()}">
@@ -181,7 +179,6 @@
                     </a>
                   </c:otherwise>
                   </c:choose>
-                  </form>
                   <c:choose>
                   <c:when test="${l.ispIsRent()}">
                     <div class="card-rent color-brown">
@@ -215,6 +212,7 @@
 	      </form>
         </div>
       </div>
+    </form>
     </div>
   </main>
 <%@ include file="layout/footer.jsp" %>

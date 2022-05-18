@@ -34,11 +34,11 @@ public class ProductDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, query);
+			pstmt.setString(1, "%"+query+"%");
 			pstmt.setInt(2, start);
 			pstmt.setInt(3, end);
 
@@ -103,11 +103,11 @@ public class ProductDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, query);
+			pstmt.setString(1, "%"+query+"%");
 			pstmt.setInt(2, start);
 			pstmt.setInt(3, end);
 
@@ -149,11 +149,11 @@ public class ProductDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, query);
+			pstmt.setString(1, "%"+query+"%");
 
 			rs = pstmt.executeQuery();
 			
@@ -204,12 +204,12 @@ public class ProductDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, query);
-
+			pstmt.setString(1, "%"+query+"%");
+			
 			rs = pstmt.executeQuery();
 			
 			rs.next();
@@ -237,7 +237,7 @@ public class ProductDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
@@ -286,7 +286,7 @@ public class ProductDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -331,7 +331,7 @@ public class ProductDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -372,7 +372,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -408,7 +408,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -443,7 +443,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -474,7 +474,7 @@ public class ProductDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
@@ -526,7 +526,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
@@ -555,7 +555,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			

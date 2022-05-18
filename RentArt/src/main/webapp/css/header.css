@@ -61,3 +61,30 @@
 .nav-user li{
   margin-left:18px;
 }
+.header-search{
+  transition-duration:500ms;
+  background:#F8F8F8;
+  position:absolute;
+  top:61px;
+  width:100%;
+}
+.header-search-container{
+  display:flex;
+  justify-content:flex-end;
+  max-width:1096px;  
+  margin:0 auto;
+  padding:12px 0;
+}
+.header-search-select{
+  padding:0 16px;
+}
+.header-search-input{
+  padding:8px;
+  width:500px;
+}
+.header-search-submit{
+  padding:8px 32px;
+}
+.inactive{
+  display:none;
+}

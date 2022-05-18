@@ -33,7 +33,7 @@
       </div>
       <div class="nav-right">
         <div class="nav-icons">
-          <i class="iconify" data-icon="carbon:search"></i> 
+          <a onclick="showSearch()"><i class="iconify" data-icon="carbon:search"></i></a> 
           <i class="iconify" data-icon="ph:shopping-cart-light"></i>
           <a href="/favorite"><i class="iconify" data-icon="akar-icons:heart"></i></a>
         </div>
@@ -52,4 +52,14 @@
         </c:choose>
       </div>
     </nav>
+      <div class="header-search inactive" id="search">
+        <form class="header-search-container" action="/discover" method="get">
+          <select name="f" class="header-search-select">
+            <option value="p_name" ${param.f.equals("p_name")?'selected':''}>제목</option>
+            <option value="artist_name" ${param.f.equals("artist_name")?'selected':''}>작가명</option>
+          </select>
+          <input type="text" name="q" value="${param.q}" class="header-search-input" />
+          <button type="submit" class="header-search-submit">검색</button>
+        </form>
+      </div>
   </header>

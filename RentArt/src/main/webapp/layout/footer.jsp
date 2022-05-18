@@ -58,5 +58,11 @@
       </div>
     </div>
   </footer>
+  <script type="text/javascript">
+    const elem = document.getElementById("search");
+    function showSearch() {
+      elem.classList.toggle("inactive");
+    }
+  </script>
 </body>
 </html>
