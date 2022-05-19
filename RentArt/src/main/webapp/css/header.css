@@ -50,6 +50,9 @@
   align-items:center;
   font-size:26px;
 }
+.nav-icons a{
+  cursor:pointer;
+}
 .nav-icons .iconify{
   margin-right:18px;
 }
@@ -77,13 +80,20 @@
 }
 .header-search-select{
   padding:0 16px;
+  border:1px solid #000;
+  border-right:none;
 }
 .header-search-input{
   padding:8px;
   width:500px;
+  border:1px solid #000;
+  outline:none;
 }
 .header-search-submit{
   padding:8px 32px;
+  border:none;
+  background:#022873;
+  color:#FFF;
 }
 .inactive{
   display:none;

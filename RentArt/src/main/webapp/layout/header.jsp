@@ -40,6 +40,7 @@
         <c:choose>
           <c:when test="${sessionScope.principal != null}">
             <ul class="nav-user">
+              <li><b>${sessionScope.principal.getName()}</b>님, 안녕하세요.</li>
               <li><a href="/logout">로그아웃</a></li>
             </ul>
           </c:when>
