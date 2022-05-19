@@ -87,6 +87,8 @@ public class FavoriteController extends HttpServlet {
 						response.sendRedirect(referer);
 					}
 				} 
+			} else {
+				Script.back(response, "잘못되 접근입니다.");
 			}
 	
 		}

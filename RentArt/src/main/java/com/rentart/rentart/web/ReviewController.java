@@ -97,6 +97,8 @@ public class ReviewController extends HttpServlet {
 				
 				request.getRequestDispatcher("/reviewDetail.jsp").forward(request, response);
 			}
+		} else {
+			Script.back(response, "잘못된 접근입니다.");
 		}
 
 	}

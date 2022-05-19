@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.rentart.rentart.domain.artist.ArtistDao;
 import com.rentart.rentart.domain.artist.dto.ArtistDto;
 import com.rentart.rentart.domain.notice.dto.NoticeDetailDto;
 import com.rentart.rentart.service.NoticeService;
@@ -96,7 +95,6 @@ public class NoticeController extends HttpServlet {
 			
 		} else if(cmd.equals("deleteNotice")) {
 			
-			int id = artist.getArtistId();
 			String no_ = request.getParameter("no");
 			
 			if(no_ == null || no_.equals("")) {
@@ -113,6 +111,8 @@ public class NoticeController extends HttpServlet {
 				return;
 			}
 			Script.close(response, "작가의 말을 삭제했습니다.");
+		} else {
+			Script.back(response, "잘못된 접근입니다.");
 		}
 	}
 }

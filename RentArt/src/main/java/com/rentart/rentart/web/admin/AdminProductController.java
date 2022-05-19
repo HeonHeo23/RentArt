@@ -102,7 +102,6 @@ public class AdminProductController extends HttpServlet {
 			String filePath = realPath + File.separator + fileName;
 			FileOutputStream fos = new FileOutputStream(filePath);
 			
-			int b;
 			byte[] buf = new byte[1024];
 			int bufSize = 0;
 			while((bufSize = fis.read(buf)) != -1)
@@ -150,6 +149,8 @@ public class AdminProductController extends HttpServlet {
 			}
 			
 			Script.close(response, "작품을 삭제했습니다.");
+		} else {
+			Script.back(response, "잘못된 접근입니다.");
 		}
 		
 	}

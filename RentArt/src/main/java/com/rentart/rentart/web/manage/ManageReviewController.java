@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.rentart.rentart.domain.artist.dto.ArtistListDto;
 import com.rentart.rentart.domain.review.dto.InsertReviewDto;
 import com.rentart.rentart.domain.review.dto.ReviewListDto;
-import com.rentart.rentart.service.ArtistService;
 import com.rentart.rentart.service.ReviewService;
 import com.rentart.rentart.util.Script;
 
@@ -102,6 +100,8 @@ public class ManageReviewController extends HttpServlet {
 				Script.back(response, "잘못된 접근입니다.");
 			}
 			
+		} else {
+			Script.back(response, "잘못된 접근입니다.");
 		}
 		
 	}

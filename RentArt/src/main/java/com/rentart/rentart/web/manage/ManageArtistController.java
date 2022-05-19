@@ -128,6 +128,8 @@ public class ManageArtistController extends HttpServlet {
 				Script.back(response, "잘못된 접근입니다.");
 			}
 			
+		} else {
+			Script.back(response, "잘못된 접근입니다.");
 		}
 		
 	}

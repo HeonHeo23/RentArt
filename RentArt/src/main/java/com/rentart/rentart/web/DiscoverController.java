@@ -1,7 +1,6 @@
 package com.rentart.rentart.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import com.rentart.rentart.domain.product.dto.ThumbnailProduct;
 import com.rentart.rentart.domain.user.User;
 import com.rentart.rentart.service.FavoriteService;
 import com.rentart.rentart.service.ProductService;
+import com.rentart.rentart.util.Script;
 
 @WebServlet(urlPatterns = {"/discover"})
 public class DiscoverController extends HttpServlet {
@@ -82,6 +82,8 @@ public class DiscoverController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else {
+			Script.back(response, "잘못되 접근입니다.");
 		}
 	}
 

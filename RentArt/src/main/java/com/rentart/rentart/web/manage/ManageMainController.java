@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.rentart.rentart.domain.artist.ArtistDao;
-import com.rentart.rentart.domain.artist.dto.ArtistDto;
 import com.rentart.rentart.util.Script;
 
 @WebServlet("/manage/main")

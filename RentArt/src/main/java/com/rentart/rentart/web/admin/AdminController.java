@@ -13,7 +13,6 @@ import com.rentart.rentart.domain.artist.dto.ArtistDto;
 import com.rentart.rentart.service.ArtistService;
 import com.rentart.rentart.util.Script;
 
-
 @WebServlet("/admin")
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -120,6 +119,8 @@ public class AdminController extends HttpServlet {
 			}
 			Script.close(response, "작가 정보를 수정했습니다.");
 			
-		} 
+		} else {
+			Script.back(response, "잘못된 접근입니다.");
+		}
 	}
 }

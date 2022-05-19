@@ -36,13 +36,11 @@ public class MainController extends HttpServlet {
 			return;
 		}
 		
-		String info = artistDao.findArtistInfo(artist.getArtistId());
+		String info = artistDao.getInfo(artist.getArtistId());
 		
 		request.setAttribute("artistInfo", info);
 		
 		request.getRequestDispatcher("/admin/artistInfo.jsp").forward(request, response);
 	}
 	
-	
-
 }

@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.rentart.rentart.domain.artist.dto.ArtistDto;
-import com.rentart.rentart.service.ArtistService;
 import com.rentart.rentart.util.Script;
 
 
@@ -63,6 +61,8 @@ public class ManageController extends HttpServlet {
 			session.setMaxInactiveInterval(1800);
 			response.sendRedirect("/manage/main");
 				
+		} else {
+			Script.back(response, "잘못된 접근입니다.");
 		}
 	}
 }

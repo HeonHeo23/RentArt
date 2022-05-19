@@ -1,10 +1,6 @@
 package com.rentart.rentart.web.manage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.rentart.rentart.domain.product.dto.DetailDto;
 import com.rentart.rentart.service.ArtistService;
-import com.rentart.rentart.service.ProductService;
 import com.rentart.rentart.util.Script;
 
 @WebServlet("/manage/artist/new")

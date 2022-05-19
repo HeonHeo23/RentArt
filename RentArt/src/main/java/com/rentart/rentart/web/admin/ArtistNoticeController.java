@@ -8,14 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.rentart.rentart.domain.artist.dto.ArtistDto;
 import com.rentart.rentart.domain.notice.dto.NoticeListDto;
-import com.rentart.rentart.service.ArtistService;
 import com.rentart.rentart.service.NoticeService;
 import com.rentart.rentart.util.Script;
-
 
 @WebServlet("/admin/artistNotice")
 public class ArtistNoticeController extends HttpServlet {

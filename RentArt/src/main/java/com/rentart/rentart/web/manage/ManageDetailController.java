@@ -36,22 +36,18 @@ public class ManageDetailController extends HttpServlet {
 			return;
 		}
 		
-		String cmd = request.getParameter("cmd");
-		
-		if(cmd == null) {
-			String no_ = request.getParameter("no");
-			if(no_ == null || no_.equals("")) {
-				Script.back(response, "잘못된 접근입니다.");
-				return;
-			}
-			
-			int no = Integer.parseInt(no_);
-			
-			DetailDto dto = productService.getProductDetail(no);
-			
-			request.setAttribute("dto", dto);
-			
-			request.getRequestDispatcher("/manage/productDetail.jsp").forward(request, response);
+		String no_ = request.getParameter("no");
+		if(no_ == null || no_.equals("")) {
+			Script.back(response, "잘못된 접근입니다.");
+			return;
 		}
+		
+		int no = Integer.parseInt(no_);
+		
+		DetailDto dto = productService.getProductDetail(no);
+		
+		request.setAttribute("dto", dto);
+		
+		request.getRequestDispatcher("/manage/productDetail.jsp").forward(request, response);
 	}
 }

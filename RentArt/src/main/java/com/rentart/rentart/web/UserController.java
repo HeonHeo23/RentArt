@@ -20,7 +20,6 @@ public class UserController extends HttpServlet {
 	private UserService userService;
        
     public UserController() {
-        super();
         this.userService = new UserService();
     }
 
