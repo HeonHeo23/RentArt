@@ -36,6 +36,7 @@
               </td>
               <td width="100px">${l.getCountNotice()}개</td>
               <td width="200px"><fmt:formatDate value="${l.getRegDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
+              <td width="200px"><fmt:formatDate value="${l.getUpDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
             </tr>
             </c:forEach>
           </table>

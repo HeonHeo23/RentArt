@@ -198,7 +198,7 @@ public class ArtistDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String SQL = "UPDATE ARTIST SET ARTIST_INFO = ? WHERE ARTIST_ID = ?";
+		String SQL = "UPDATE ARTIST SET ARTIST_INFO = ?, ARTIST_UPDATE = NOW() WHERE ARTIST_ID = ?";
 		
 		try {
 			Class.forName(driver);
@@ -226,7 +226,7 @@ public class ArtistDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String SQL = "UPDATE ARTIST SET ARTIST_NAME = ?, ARTIST_PASSWORD = ? WHERE ARTIST_ID = ?";
+		String SQL = "UPDATE ARTIST SET ARTIST_NAME = ?, ARTIST_PASSWORD = ?, ARTIST_UPDATE = NOW() WHERE ARTIST_ID = ?";
 		
 		try {
 			Class.forName(driver);
@@ -280,8 +280,9 @@ public class ArtistDao {
 				int countProduct = rs.getInt("cp");
 				int countNotice = rs.getInt("cn");
 				Timestamp regDate = rs.getTimestamp("artist_regdate");
+				Timestamp upDate = rs.getTimestamp("artist_update");
 				
-				ArtistListDto dto = new ArtistListDto(artistId, artistName, countProduct, countNotice, regDate);
+				ArtistListDto dto = new ArtistListDto(artistId, artistName, countProduct, countNotice, regDate, upDate);
 				
 				list.add(dto);
 			}
@@ -325,8 +326,9 @@ public class ArtistDao {
 			int countProduct = rs.getInt("cp");
 			int countNotice = rs.getInt("cn");
 			Timestamp regDate = rs.getTimestamp("artist_regdate");
+			Timestamp upDate = rs.getTimestamp("artist_update");
 			
-			ArtistManageDto dto = new ArtistManageDto(artistId, password, artistName, artistInfo, countProduct, countNotice, regDate);
+			ArtistManageDto dto = new ArtistManageDto(artistId, password, artistName, artistInfo, countProduct, countNotice, regDate, upDate);
 			
 			rs.close();
 			pstmt.close();

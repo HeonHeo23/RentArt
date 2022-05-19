@@ -132,7 +132,7 @@ public class MagazineDao {
 	}
 
 	public int update(MagazineDto dto) {
-		String sql = "UPDATE MAGAZINE SET M_TITLE=?, M_CONTENT=?,M_REGDATE=? WHERE M_ID = ?;";
+		String sql = "UPDATE MAGAZINE SET M_TITLE=?, M_CONTENT=?, M_REGDATE=?, M_UPDATE=NOW() WHERE M_ID = ?;";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;

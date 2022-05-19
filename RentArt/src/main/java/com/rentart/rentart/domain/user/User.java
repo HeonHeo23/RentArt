@@ -9,14 +9,16 @@ public class User {
 	private String email;
 	private String address;
 	private Timestamp joinDate;
+	private Timestamp upDate;
 	
-	public User(int key, String password, String name, String email, String address, Timestamp joinDate) {
+	public User(int key, String password, String name, String email, String address, Timestamp joinDate, Timestamp upDate) {
 		this.key = key;
 		this.password = password;
 		this.name = name;
 		this.email = email;
 		this.address = address;
 		this.joinDate = joinDate;
+		this.upDate = upDate;
 	}
 	
 	public User() {
@@ -59,5 +61,10 @@ public class User {
 	public void setJoinDate(Timestamp joinDate) {
 		this.joinDate = joinDate;
 	}
-	
+	public Timestamp getUpDate() {
+		return upDate;
+	}
+	public void setUpDate(Timestamp upDate) {
+		this.upDate = upDate;
+	}
 }

@@ -34,6 +34,7 @@
               <td>${l.getEmail()}</td>
               <td>${l.getAddress()}</td>
               <td width="130px"><fmt:formatDate value="${l.getRegDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
+              <td width="130px"><fmt:formatDate value="${l.getUpDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
             </tr>
             </c:forEach>
           </table>

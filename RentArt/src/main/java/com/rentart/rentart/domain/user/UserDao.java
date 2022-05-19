@@ -39,8 +39,9 @@ public class UserDao {
 				String email2 = rs.getString("user_email");
 				String address = rs.getString("user_address");
 				Timestamp joinDate = rs.getTimestamp("user_joindate");
+				Timestamp upDate = rs.getTimestamp("user_update");
 				
-				User user = new User(key, pwd, name, email2, address, joinDate);
+				User user = new User(key, pwd, name, email2, address, joinDate, upDate);
 				
 				rs.close();
 				pstmt.close();
@@ -165,7 +166,8 @@ public class UserDao {
 	}
 
 	public int update(int no, JoinUser dto) {
-		String sql = "UPDATE USER SET USER_PASSWORD=?, USER_NAME=?, USER_EMAIL=?, USER_ADDRESS =? WHERE USER_KEY = ?";
+		String sql = "UPDATE USER SET USER_PASSWORD=?, USER_NAME=?, USER_EMAIL=?, USER_ADDRESS=?, USER_UPDATE=NOW() "
+				+ " WHERE USER_KEY = ?";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;

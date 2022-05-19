@@ -243,7 +243,8 @@ public class ReviewDao {
 	}
 
 	public int update(int no, InsertReviewDto dto) {
-		String SQL = "UPDATE REVIEW SET USER_KEY = ?, P_ID = ?, R_TITLE = ?, R_CONTENT = ? WHERE R_ID = ?;";
+		String SQL = "UPDATE REVIEW SET USER_KEY = ?, P_ID = ?, R_TITLE = ?, R_CONTENT = ?, R_UPDATE = NOW() "
+				+ " WHERE R_ID = ?;";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;

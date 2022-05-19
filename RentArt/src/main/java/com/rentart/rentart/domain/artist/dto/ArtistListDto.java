@@ -8,13 +8,16 @@ public class ArtistListDto {
 	private int countProduct;
 	private int countNotice;
 	private Timestamp regDate;
+	private Timestamp upDate;
 	
-	public ArtistListDto(int artistId, String name, int countProduct, int countNotice, Timestamp regDate) {
+	public ArtistListDto(int artistId, String name, int countProduct, int countNotice, Timestamp regDate, 
+			Timestamp upDate) {
 		this.artistId = artistId;
 		this.name = name;
 		this.countProduct = countProduct;
 		this.countNotice = countNotice;
 		this.regDate = regDate;
+		this.upDate = upDate;
 	}
 
 	public int getArtistId() {
@@ -46,5 +49,11 @@ public class ArtistListDto {
 	}
 	public void setRegDate(Timestamp regDate) {
 		this.regDate = regDate;
+	}
+	public Timestamp getUpDate() {
+		return upDate;
+	}
+	public void setUpDate(Timestamp upDate) {
+		this.upDate = upDate;
 	}
 }

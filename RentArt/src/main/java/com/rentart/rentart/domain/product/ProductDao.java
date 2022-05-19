@@ -515,7 +515,7 @@ public class ProductDao {
 
 	public int updateRent(List<Integer> rents) {
 		
-		String sql = "UPDATE PRODUCT SET P_ISRENT = 1 WHERE P_ID = ?;";
+		String sql = "UPDATE PRODUCT SET P_ISRENT = 1, P_UPDATE = NOW() WHERE P_ID = ?;";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -544,7 +544,7 @@ public class ProductDao {
 	
 	public int updateNoRent(List<Integer> rents) {
 		
-		String sql = "UPDATE PRODUCT SET P_ISRENT = 0 WHERE P_ID = ?;";
+		String sql = "UPDATE PRODUCT SET P_ISRENT = 0, P_UPDATE = NOW() WHERE P_ID = ?;";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
