@@ -108,8 +108,9 @@ public class UserDao {
 				String email = rs.getString("user_email");
 				String address = rs.getString("user_address");
 				Timestamp joinDate = rs.getTimestamp("user_joindate");
+				Timestamp upDate = rs.getTimestamp("user_upDate");
 				
-				UserListDto dto = new UserListDto(key, name, email, address, joinDate);
+				UserListDto dto = new UserListDto(key, name, email, address, joinDate, upDate);
 				
 				list.add(dto);
 			}

@@ -8,13 +8,15 @@ public class UserListDto {
 	private String email;
 	private String address;
 	private Timestamp regDate;
+	private Timestamp upDate;
 	
-	public UserListDto(int key, String name, String email, String address, Timestamp regDate) {
+	public UserListDto(int key, String name, String email, String address, Timestamp regDate, Timestamp upDate) {
 		this.key = key;
 		this.name = name;
 		this.email = email;
 		this.address = address;
 		this.regDate = regDate;
+		this.upDate = upDate;
 	}
 	public int getKey() {
 		return key;
@@ -46,5 +48,10 @@ public class UserListDto {
 	public void setRegDate(Timestamp regDate) {
 		this.regDate = regDate;
 	}
-	
+	public Timestamp getUpDate() {
+		return upDate;
+	}
+	public void setUpDate(Timestamp upDate) {
+		this.upDate = upDate;
+	}
 }
