@@ -14,7 +14,7 @@ public class NoticeService {
 	}
 	
 	public List<NoticeListDto> getNoticeList(int artistId){
-		return noticeDao.getByArtistId(artistId);
+		return noticeDao.findByArtistId(artistId);
 	}
 	
 	public NoticeDetailDto getNoticeDeatil(int id) {

@@ -17,7 +17,7 @@ public class NoticeDao {
 	private String dbPw = "@Oleout[3892]";
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	
-	public List<NoticeListDto> getByArtistId(int artistId) {
+	public List<NoticeListDto> findByArtistId(int artistId) {
 		List<NoticeListDto> list = new ArrayList<NoticeListDto>();
 		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, N.* FROM NOTICELIST N, "
 				+ " (SELECT @ROWNUM:=0) R WHERE ARTIST_ID = ?) A ORDER BY A.ROWNUM;";
