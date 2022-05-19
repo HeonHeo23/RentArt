@@ -18,7 +18,7 @@ public class MagazineDao {
 	private String dbPw = "@Oleout[3892]";
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	
-	public int findLast() {
+	public int getLast() {
 		int result = 0;
 		
 		String sql = "SELECT * FROM MAGAZINE ORDER BY M_ID DESC;";
@@ -49,7 +49,7 @@ public class MagazineDao {
 		return result;
 	}
 	
-	public MagazineDto findMagazine(int no) {
+	public MagazineDto get(int id) {
 		String sql = "SELECT * FROM MAGAZINE WHERE M_ID = ?;";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -60,13 +60,12 @@ public class MagazineDao {
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, id);
 			
 			rs = pstmt.executeQuery();
 			
 			rs.next();
 			
-			int id = rs.getInt("m_id");
 			String title = rs.getString("m_title");
 			String content = rs.getString("m_content");
 			Timestamp regDate = rs.getTimestamp("m_regdate");
@@ -86,7 +85,7 @@ public class MagazineDao {
 		return null;
 	}
 
-	public List<MagazineListDto> findMagazineList(int start, int end, String field, String query) {
+	public List<MagazineListDto> find(int start, int end, String field, String query) {
 		List<MagazineListDto> list = new ArrayList<>();
 		
 		String sql = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, M.* FROM MAGAZINE M, (SELECT @ROWNUM:=0) "
@@ -161,7 +160,7 @@ public class MagazineDao {
 		return -1;
 	}
 
-	public int delete(int no) {
+	public int delete(int id) {
 		String sql = "DELETE FROM MAGAZINE WHERE M_ID = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -171,7 +170,7 @@ public class MagazineDao {
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, id);
 			
 			pstmt.executeUpdate();
 			

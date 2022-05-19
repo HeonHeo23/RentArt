@@ -19,12 +19,8 @@ public class ProductDao {
 	private String dbId = "root";
 	private String dbPw = "@Oleout[3892]";
 	private String driver = "com.mysql.cj.jdbc.Driver";
-	
-	public ProductDao() {
-		
-	}
 
-	public List<ThumbnailProduct> getProductList(String field, String query, int start, int end) {
+	public List<ThumbnailProduct> find(int start, int end, String field, String query) {
 		List<ThumbnailProduct> list = new ArrayList<>();
 		String sql = "select a.* from (select @rownum:=@rownum+1 rownum, t.* from thumbnail t, (SELECT @ROWNUM:=0) R "
 				+ " where "+ field +" like ? order by t.p_id desc) a "
@@ -71,7 +67,7 @@ public class ProductDao {
 		return null;
 	}
 
-	public List<ThumbnailProduct> getProductList(String field, String query, int start, int end, int[] theme, int[][] size, int[][] price) {
+	public List<ThumbnailProduct> findByFilter(int[] theme, int[][] size, int[][] price, int start, int end, String field, String query) {
 		List<ThumbnailProduct> list = new ArrayList<>();
 		String themeQuery = "";
 		for(int i: theme) {
@@ -140,7 +136,7 @@ public class ProductDao {
 		return null;
 	}
 
-	public int countProduct(String field, String query) {
+	public int count(String field, String query) {
 		int result = 0;
 		String sql = "Select count(p_id) c from thumbnail where "+field+ " like ?;";
 		
@@ -173,8 +169,7 @@ public class ProductDao {
 		return 0;
 	}
 
-	public int countProduct(String field, String query, int[] theme, int[][] size, int[][] price) {
-		List<ThumbnailProduct> list = new ArrayList<>();
+	public int countByFilter(int[] theme, int[][] size, int[][] price, String field, String query) {
 		String themeQuery = "";
 		for(int i: theme) {
 			themeQuery += String.format("%d,", i);
@@ -228,7 +223,7 @@ public class ProductDao {
 		return 0;
 	}
 	
-	public DetailDto getDetail(int prodNo) {
+	public DetailDto get(int prodNo) {
 		DetailDto detail = null;
 		String sql = "SELECT * FROM DETAIL WHERE P_ID = ?";
 		
@@ -276,7 +271,7 @@ public class ProductDao {
 		
 	}
 
-	public List<DetailArtistProduct> getArtistProductList(int artistId, int start, int end){
+	public List<DetailArtistProduct> findByArtistId(int artistId, int start, int end){
 		List<DetailArtistProduct> list = new ArrayList<>();
 		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, D.* FROM DETAILARTISTPRODUCT D, (SELECT @ROWNUM:=0) R"
 				+ " WHERE ARTIST_ID = ? ORDER BY D.P_ID DESC) A WHERE ROWNUM BETWEEN ? AND ? ORDER BY A.ROWNUM;";
@@ -321,7 +316,7 @@ public class ProductDao {
 		return null;
 	}
 	
-	public List<DetailArtistProduct> findArtistProductListAll(int artistId){
+	public List<DetailArtistProduct> findByArtistId(int artistId){
 		List<DetailArtistProduct> list = new ArrayList<>();
 		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, D.* FROM DETAILARTISTPRODUCT D, (SELECT @ROWNUM:=0) R"
 				+ " WHERE ARTIST_ID = ? ORDER BY D.P_ID DESC) A;";
@@ -364,7 +359,7 @@ public class ProductDao {
 		return null;
 	}
 
-	public int updateProduct(InsertProductDto dto) {
+	public int update(InsertProductDto dto) {
 		String SQL = "UPDATE PRODUCT SET P_NAME = ?, ARTIST_ID = ?,P_THEME = ?, P_PRICE = ?, P_SIZE = ?, "
 				+ " P_MATERIAL = ?, P_YEAR = ?, P_INFO = ?, P_UPDATE = now() WHERE P_ID = ?;";
 		
@@ -400,7 +395,7 @@ public class ProductDao {
 		return -1;
 	}
 
-	public int insertProdcut(InsertProductDto dto) {
+	public int insert(InsertProductDto dto) {
 		String SQL = "INSERT INTO product (p_name, p_info, p_img, p_theme, p_price, p_size, p_material, p_year, ARTIST_ID) "
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		
@@ -436,7 +431,7 @@ public class ProductDao {
 		return -1;
 	}
 
-	public int deleteProduct(int no) {
+	public int delete(int id) {
 		String SQL = "DELETE FROM PRODUCT WHERE P_ID = ?";
 		
 		Connection conn = null;
@@ -447,7 +442,7 @@ public class ProductDao {
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, id);
 			
 			pstmt.executeUpdate();
 			
@@ -463,7 +458,7 @@ public class ProductDao {
 		return -1;
 	}
 
-	public List<ManageProductDto> findManageProductListAll(int start, int end, String field, String query) {
+	public List<ManageProductDto> findForManage(int start, int end, String field, String query) {
 		List<ManageProductDto> list = new ArrayList<>();
 		
 		String sql = "SELECT Q.* FROM (select @rownum:=@rownum+1 rownum, M.* FROM MANAGEPRODUCT M, "

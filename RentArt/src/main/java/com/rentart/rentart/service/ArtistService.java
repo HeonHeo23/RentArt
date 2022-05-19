@@ -18,21 +18,21 @@ public class ArtistService {
 	}
 	
 	public String getArtistInfo(int artistId) {
-		return artistDao.findArtistInfo(artistId);
+		return artistDao.getInfo(artistId);
 	}
 	
 	public List<ArtistThumbnailDto> getArtistList(int page) {
 		int start = 1+(page-1)*9;
 		int end = page*9;
-		return artistDao.findArtistList(start, end);
+		return artistDao.find(start, end);
 	}
 	
 	public ArtistDetailDto getArtistDetail(int no) {
-		return artistDao.findArtistDetail(no);
+		return artistDao.findDetail(no);
 	}
 	
 	public int countArtist() {
-		return artistDao.count();
+		return artistDao.getCount();
 	}
 
 	//admin
@@ -54,11 +54,11 @@ public class ArtistService {
 	public List<ArtistListDto> getManageArtistList(int page, String field, String query) {
 		int start = 1+(page-1)*20;
 		int end = page*20;
-		return artistDao.findManageArtistList(start, end, field, query);
+		return artistDao.findForManage(start, end, field, query);
 	}
 
 	public ArtistManageDto getArtist(int no) {
-		return artistDao.findArtist(no);
+		return artistDao.getForManage(no);
 	}
 
 	public int delete(int no) {
@@ -70,6 +70,6 @@ public class ArtistService {
 	}
 	
 	public int getLastId() {
-		return artistDao.findLastId();
+		return artistDao.getLastId();
 	}
 }

@@ -15,8 +15,9 @@ public class NoticeDao {
 	private String url = "jdbc:mysql://localhost:3306/RENTART";
 	private String dbId = "root";
 	private String dbPw = "@Oleout[3892]";
+	private String driver = "com.mysql.cj.jdbc.Driver";
 	
-	public List<NoticeListDto> findNoticeList(int artistId) {
+	public List<NoticeListDto> getByArtistId(int artistId) {
 		List<NoticeListDto> list = new ArrayList<NoticeListDto>();
 		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, N.* FROM NOTICELIST N, "
 				+ " (SELECT @ROWNUM:=0) R WHERE ARTIST_ID = ?) A ORDER BY A.ROWNUM;";
@@ -26,7 +27,7 @@ public class NoticeDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -60,7 +61,7 @@ public class NoticeDao {
 		return null;
 	}
 
-	public NoticeDetailDto findReviewDetail(int id) {
+	public NoticeDetailDto get(int id) {
 		NoticeDetailDto dto;
 		String SQL = "SELECT N_TITLE, N_CONTENT, N_REGDATE, N_UPDATE, ARTIST_NAME FROM NOTICELIST WHERE N_ID = ?;";
 		
@@ -69,7 +70,7 @@ public class NoticeDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -97,20 +98,20 @@ public class NoticeDao {
 
 	//admin
 	
-	public int updateNotice(int no, String title, String text) {
+	public int update(int id, String title, String text) {
 		String SQL = "UPDATE NOTICE SET N_TITLE = ?, N_CONTENT = ?, N_UPDATE = NOW() WHERE N_ID = ?;";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
 			pstmt.setString(1, title);
 			pstmt.setString(2, text);
-			pstmt.setInt(3, no);
+			pstmt.setInt(3, id);
 			
 			int result = pstmt.executeUpdate();		
 			
@@ -122,13 +123,13 @@ public class NoticeDao {
 		return -1;
 	}
 
-	public int insertNotice(int id, String title, String text) {
+	public int insert(int id, String title, String text) {
 		String SQL = "INSERT INTO NOTICE (ARTIST_ID, N_TITLE, N_CONTENT) VALUES(?,?,?);";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -146,13 +147,13 @@ public class NoticeDao {
 		return -1;
 	}
 
-	public int deleteNotice(int id) {
+	public int delete(int id) {
 		String SQL = "DELETE FROM NOTICE WHERE N_ID = ?;";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			

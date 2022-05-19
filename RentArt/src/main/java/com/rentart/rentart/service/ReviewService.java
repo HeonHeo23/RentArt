@@ -16,25 +16,25 @@ public class ReviewService {
 	}
 	
 	public List<ReviewForDetailDto> getReviewsForDetail(int prodNo) {
-		return reviewDao.findReviewsForDetail(prodNo);
+		return reviewDao.findForDetailByProdNo(prodNo);
 	}
 	
 	public List<ReviewListDto> getReviewList(int page) {
 		int start = (page-1)*20 + 1; 
 		int end = page*20;
 		
-		return reviewDao.findReviewList(start, end);
+		return reviewDao.find(start, end);
 	}
 	
 	public List<ReviewListDto> getReviewList(int page, String field, String query) {
 		int start = (page-1)*20 + 1; 
 		int end = page*20;
 		
-		return reviewDao.findReviewList(start, end, field, query);
+		return reviewDao.find(start, end, field, query);
 	}
 	
 	public int wrtie(InsertReviewDto dto) {
-		return reviewDao.insertReview(dto);
+		return reviewDao.insert(dto);
 	}
 	
 	public int update(int no, InsertReviewDto dto) {
@@ -42,7 +42,7 @@ public class ReviewService {
 	}
 		
 	public ReviewDetailDto getReviewDetail(int rId) {
-		return reviewDao.findReviewDetail(rId);
+		return reviewDao.get(rId);
 	}
 
 	public int delete(int no) {

@@ -21,7 +21,7 @@ public class ArtistDao {
 	private String dbPw = "@Oleout[3892]";
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	
-	public String findArtistInfo(int artistId) {
+	public String getInfo(int id) {
 		String sql = "SELECT artist_info FROM ARTIST WHERE ARTIST_ID = ?";
 		String result = "";
 		Connection conn = null;
@@ -32,7 +32,7 @@ public class ArtistDao {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, artistId);
+			pstmt.setInt(1, id);
 			
 			rs = pstmt.executeQuery();
 			
@@ -52,7 +52,7 @@ public class ArtistDao {
 		return "";
 	}
 
-	public List<ArtistThumbnailDto> findArtistList(int start, int end) {
+	public List<ArtistThumbnailDto> find(int start, int end) {
 		List<ArtistThumbnailDto> list = new ArrayList<>();
 		
 		Connection conn = null;
@@ -93,7 +93,7 @@ public class ArtistDao {
 		return list;
 	}
 	
-	public ArtistDetailDto findArtistDetail(int id) {
+	public ArtistDetailDto findDetail(int id) {
 		String sql = "SELECT artist_id, artist_name, artist_info FROM ARTIST WHERE ARTIST_ID = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -126,7 +126,7 @@ public class ArtistDao {
 		return null;
 	}
 	
-	public int count() {
+	public int getCount() {
 		int result = 0;
 		
 		Connection conn = null;
@@ -251,7 +251,7 @@ public class ArtistDao {
 		return -1;
 	}
 
-	public List<ArtistListDto> findManageArtistList(int start, int end, String field, String query) {
+	public List<ArtistListDto> findForManage(int start, int end, String field, String query) {
 		List<ArtistListDto> list = new ArrayList<>();
 		
 		String SQL = "select q.* from(select @ROWNUM:=@ROWNUM+1 ROWNUM, B.* from (SELECT @ROWNUM:=0) R, "
@@ -299,7 +299,7 @@ public class ArtistDao {
 		return null;
 	}
 
-	public ArtistManageDto findArtist(int no) {
+	public ArtistManageDto getForManage(int id) {
 		String SQL = "SELECT A.*, count(p_id) cp, count(n_id) cn FROM ARTIST a left join product p on p.artist_id = a.artist_id "
 				+ "left join notice n on n.artist_id = a.artist_id where a.artist_id = ?";
 		
@@ -312,7 +312,7 @@ public class ArtistDao {
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, id);
 			
 			rs = pstmt.executeQuery();
 			
@@ -341,7 +341,7 @@ public class ArtistDao {
 		return null;
 	}
 
-	public int delete(int no) {
+	public int delete(int id) {
 		String SQL = "DELETE FROM ARTIST WHERE ARTIST_ID = ?";
 		
 		Connection conn = null;
@@ -352,7 +352,7 @@ public class ArtistDao {
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, id);
 			
 			pstmt.executeUpdate();
 			
@@ -398,7 +398,7 @@ public class ArtistDao {
 		return -1;
 	}
 
-	public int findLastId() {
+	public int getLastId() {
 		String SQL = "SELECT ARTIST_ID FROM ARTIST ORDER BY ARTIST_ID DESC LIMIT 1";
 		
 		Connection conn = null;

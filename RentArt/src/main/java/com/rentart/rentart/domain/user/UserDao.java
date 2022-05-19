@@ -82,7 +82,7 @@ public class UserDao {
 		return -1; //DB 에러
 	}
 
-	public List<UserListDto> findUserList(int start, int end, String field, String query) {
+	public List<UserListDto> find(int start, int end, String field, String query) {
 		List<UserListDto> list = new ArrayList<UserListDto>();
 		
 		String sql = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, U.* FROM USER U, (SELECT @ROWNUM:=0) R "
@@ -126,7 +126,7 @@ public class UserDao {
 		return null;
 	}
 
-	public UserDto findUser(int no) {
+	public UserDto get(int no) {
 		String sql = "SELECT * FROM USER WHERE USER_KEY = ?";
 		
 		Connection conn = null;

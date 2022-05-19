@@ -4,25 +4,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.rentart.rentart.domain.favorite.dto.ThumbnailFavoriteDto;
-import com.rentart.rentart.domain.product.dto.DetailArtistProduct;
-import com.rentart.rentart.domain.product.dto.DetailDto;
-import com.rentart.rentart.domain.product.dto.ThumbnailProduct;
 
 public class FavoriteDao {
 	private String url = "jdbc:mysql://localhost:3306/RENTART";
 	private String dbId = "root";
 	private String dbPw = "@Oleout[3892]";
-	
-	public FavoriteDao() {
-		
-	}
+	private String driver = "com.mysql.cj.jdbc.Driver";
 
-	public List<ThumbnailFavoriteDto> findFavoriteList(int key, int start, int end) {
+	public List<ThumbnailFavoriteDto> findByUserKey(int key, int start, int end) {
 		List<ThumbnailFavoriteDto> list = new ArrayList<>();
 		String sql = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, T.* "
 				+ " FROM FavoriteThumbnail T, (SELECT @ROWNUM:=0) R) A WHERE USER_KEY = ? AND ROWNUM BETWEEN ? AND ?;";
@@ -31,7 +24,7 @@ public class FavoriteDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
@@ -68,7 +61,7 @@ public class FavoriteDao {
 		return null;
 	}
 
-	public List<Integer> findFavoriteIds(int key) {
+	public List<Integer> findIdsByUserKey(int key) {
 		List<Integer> list = new ArrayList<>();
 		String sql = "SELECT P_ID FROM FAVORITE WHERE USER_KEY = ?;";
 		Connection conn = null;
@@ -76,7 +69,7 @@ public class FavoriteDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
@@ -103,13 +96,13 @@ public class FavoriteDao {
 		
 	}
 	
-	public int addFavorite(int key, int pId) {
+	public int insert(int key, int pId) {
 		String sql = "INSERT INTO FAVORITE (USER_KEY, P_ID) VALUES (?,?);";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
@@ -131,18 +124,18 @@ public class FavoriteDao {
 		
 	}
 	
-	public int removeFavorite(int userKey, int prodNo) {
+	public int deleteByUserKeyAndPId(int userKey, int pId) {
 		String sql = "DELETE FROM FAVORITE WHERE USER_KEY = ? AND P_ID = ?;";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, userKey);
-			pstmt.setInt(2, prodNo);
+			pstmt.setInt(2, pId);
 
 			pstmt.executeUpdate();
 			
@@ -158,7 +151,7 @@ public class FavoriteDao {
 		return -1;
 	}
 	
-	public int countFavorite(int userKey) {
+	public int countByUserKey(int key) {
 		int result = 0;
 		String sql = "SELECT COUNT(F_ID) C FROM FavoriteThumbnail WHERE USER_KEY = ?;";
 		
@@ -167,11 +160,11 @@ public class FavoriteDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, userKey);
+			pstmt.setInt(1, key);
 			
 			rs = pstmt.executeQuery();
 			rs.next();
@@ -189,6 +182,5 @@ public class FavoriteDao {
 		
 		return 0;
 	}
-
 
 }

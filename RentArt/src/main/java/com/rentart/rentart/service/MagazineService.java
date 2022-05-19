@@ -15,17 +15,17 @@ public class MagazineService {
 	}
 	
 	public int getLastNumber() {
-		return dao.findLast();
+		return dao.getLast();
 	}
 	
 	public MagazineDto getMagazine(int no) {
-		return dao.findMagazine(no);
+		return dao.get(no);
 	}
 
 	public List<MagazineListDto> getMagazineList(int page, String field, String query) {
 		int start = 1+(page-1)*20;
 		int end = page*20;
-		return dao.findMagazineList(start, end, field, query);
+		return dao.find(start, end, field, query);
 	}
 
 	public int update(MagazineDto dto) {

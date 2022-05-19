@@ -43,7 +43,7 @@ public class ProductService {
 	public List<ThumbnailProduct> getProductList(String field, String query, int page) {
 		int start = 1+(page-1)*12;
 		int end = page*12;
-		return productDao.getProductList(field, query, start, end);
+		return productDao.find(start, end, field, query);
 	}
 	public List<ThumbnailProduct> getProductList(String field, String query, int page, int[] theme, int[] size, int[] price) {
 		int start = 1+(page-1)*12;
@@ -52,11 +52,11 @@ public class ProductService {
 		int[][] sizeList = Utility.filterMapper(sizeMap, size);	
 		int[][] priceList = Utility.filterMapper(priceMap, price); 
 		
-		return productDao.getProductList(field, query, start, end, theme, sizeList, priceList);
+		return productDao.findByFilter(theme, sizeList, priceList, start, end, field, query);
 	}
 	
 	public int countProductList(String field, String query) {
-		return productDao.countProduct(field, query);
+		return productDao.count(field, query);
 	}
 	
 	public int countProductList(String field, String query, int[] theme, int[] size, int[] price) {
@@ -64,31 +64,31 @@ public class ProductService {
 		int[][] sizeList = Utility.filterMapper(sizeMap, size);	
 		int[][] priceList = Utility.filterMapper(priceMap, price); 
 		
-		return productDao.countProduct(field, query, theme, sizeList, priceList);
+		return productDao.countByFilter(theme, sizeList, priceList, field, query);
 	}
 	
 	public DetailDto getProductDetail(int prodNo) {
-		return productDao.getDetail(prodNo);
+		return productDao.get(prodNo);
 	}
 	
 	public List<DetailArtistProduct> getArtistProductList(int artistId) {
-		return productDao.getArtistProductList(artistId, 1, 4);
+		return productDao.findByArtistId(artistId, 1, 4);
 	}
 	
 	public List<DetailArtistProduct> getArtistProductListAll(int artistId) {
-		return productDao.findArtistProductListAll(artistId);
+		return productDao.findByArtistId(artistId);
 	}
 
 	public int updateProduct(InsertProductDto dto) {
-		return productDao.updateProduct(dto);
+		return productDao.update(dto);
 	}
 
 	public int insertProduct(InsertProductDto dto) {
-		return productDao.insertProdcut(dto);
+		return productDao.insert(dto);
 	}
 
 	public int deleteProduct(int no) {
-		return productDao.deleteProduct(no);
+		return productDao.delete(no);
 	}
 	
 	//manage
@@ -96,7 +96,7 @@ public class ProductService {
 		int start = 1+(page-1)*20;
 		int end = page*20;
 		
-		return productDao.findManageProductListAll(start, end, field, query);
+		return productDao.findForManage(start, end, field, query);
 	}
 	
 	public int setRentProduct(List<Integer> rents) {

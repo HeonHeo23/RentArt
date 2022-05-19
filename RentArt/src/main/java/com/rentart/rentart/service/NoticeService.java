@@ -14,24 +14,24 @@ public class NoticeService {
 	}
 	
 	public List<NoticeListDto> getNoticeList(int artistId){
-		return noticeDao.findNoticeList(artistId);
+		return noticeDao.getByArtistId(artistId);
 	}
 	
 	public NoticeDetailDto getNoticeDeatil(int id) {
-		return noticeDao.findReviewDetail(id);
+		return noticeDao.get(id);
 	}
 	
 	//admin
 
 	public int updateNotice(int no, String title, String text) {
-		return noticeDao.updateNotice(no, title, text);
+		return noticeDao.update(no, title, text);
 	}
 	
 	public int insertNotice(int id, String title, String text) {
-		return noticeDao.insertNotice(id, title, text);
+		return noticeDao.insert(id, title, text);
 	}
 	
 	public int deleteNotice(int id) {
-		return noticeDao.deleteNotice(id);
+		return noticeDao.delete(id);
 	}
 }

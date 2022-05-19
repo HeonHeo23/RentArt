@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +17,9 @@ public class ReviewDao {
 	private String url = "jdbc:mysql://localhost:3306/RENTART";
 	private String dbId = "root";
 	private String dbPw = "@Oleout[3892]";
+	private String driver = "com.mysql.cj.jdbc.Driver";
 	
-	public List<ReviewForDetailDto> findReviewsForDetail(int prodNo) {
+	public List<ReviewForDetailDto> findForDetailByProdNo(int prodNo) {
 		List<ReviewForDetailDto> list = new ArrayList<ReviewForDetailDto>();
 		String SQL = "SELECT A.* FROM (SELECT @rownum:=@rownum+1 rownum, V.* FROM REVIEWFORDETAIL V, (SELECT @ROWNUM:=0) R "
 				+ " WHERE V.P_ID = ? ORDER BY R_ID DESC) A ORDER BY A.ROWNUM ";
@@ -29,7 +29,7 @@ public class ReviewDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -65,7 +65,7 @@ public class ReviewDao {
 		return null;
 	}
 	
-	public List<ReviewListDto> findReviewList(int start, int end) {
+	public List<ReviewListDto> find(int start, int end) {
 		List<ReviewListDto> list = new ArrayList<>();
 		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, V.* FROM REVIEWLIST V, (SELECT @ROWNUM:=0) R) A "
 				+ " WHERE ROWNUM BETWEEN ? AND ?;";
@@ -75,7 +75,7 @@ public class ReviewDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -116,7 +116,7 @@ public class ReviewDao {
 		return null;
 	}
 	
-	public List<ReviewListDto> findReviewList(int start, int end, String field, String query) {
+	public List<ReviewListDto> find(int start, int end, String field, String query) {
 		List<ReviewListDto> list = new ArrayList<>();
 		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, V.* FROM REVIEWLIST V, (SELECT @ROWNUM:=0) R"
 				+ " WHERE " + field + " LIKE ? ) A WHERE ROWNUM BETWEEN ? AND ?;";
@@ -126,7 +126,7 @@ public class ReviewDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -168,14 +168,14 @@ public class ReviewDao {
 		return null;
 	}
 
-	public int insertReview(InsertReviewDto dto) {
+	public int insert(InsertReviewDto dto) {
 		String SQL = "INSERT INTO REVIEW (USER_KEY, P_ID, R_TITLE, R_CONTENT) VALUES (?, ?, ?, ?);";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -202,7 +202,7 @@ public class ReviewDao {
 		return -1;
 	}
 
-	public ReviewDetailDto findReviewDetail(int rId) {
+	public ReviewDetailDto get(int rId) {
 		ReviewDetailDto dto;
 		String SQL = "SELECT * FROM REVIEWLIST WHERE R_ID = ?;";
 		

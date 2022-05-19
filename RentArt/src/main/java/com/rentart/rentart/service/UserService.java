@@ -29,10 +29,10 @@ public class UserService {
 		int start = 1+(page-1)*20;
 		int end = page*20;
 		
-		return userDao.findUserList(start, end, field, query);
+		return userDao.find(start, end, field, query);
 	}
 	public UserDto getUser(int no) {
-		return userDao.findUser(no);
+		return userDao.get(no);
 	}
 
 	public int update(int no, JoinUser dto) {
