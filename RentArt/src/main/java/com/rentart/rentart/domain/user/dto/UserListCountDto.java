@@ -2,22 +2,28 @@ package com.rentart.rentart.domain.user.dto;
 
 import java.sql.Timestamp;
 
-public class UserListDto {
+public class UserListCountDto {
 	private int key;
 	private String name;
 	private String email;
 	private String address;
 	private Timestamp regDate;
 	private Timestamp upDate;
+	private int countReview;
+	private int countFavorite;
 	
-	public UserListDto(int key, String name, String email, String address, Timestamp regDate, Timestamp upDate) {
+	public UserListCountDto(int key, String name, String email, String address, Timestamp regDate, Timestamp upDate,
+			int countReview, int countFavorite) {
 		this.key = key;
 		this.name = name;
 		this.email = email;
 		this.address = address;
 		this.regDate = regDate;
 		this.upDate = upDate;
+		this.countReview = countReview;
+		this.countFavorite = countFavorite;
 	}
+	
 	public int getKey() {
 		return key;
 	}
@@ -53,5 +59,17 @@ public class UserListDto {
 	}
 	public void setUpDate(Timestamp upDate) {
 		this.upDate = upDate;
+	}
+	public int getCountReview() {
+		return countReview;
+	}
+	public void setCountReview(int countReview) {
+		this.countReview = countReview;
+	}
+	public int getCountFavorite() {
+		return countFavorite;
+	}
+	public void setCountFavorite(int countFavorite) {
+		this.countFavorite = countFavorite;
 	}
 }
