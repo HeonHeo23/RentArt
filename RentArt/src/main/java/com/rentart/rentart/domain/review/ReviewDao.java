@@ -118,7 +118,7 @@ public class ReviewDao {
 	
 	public List<ReviewListDto> find(int start, int end, String field, String query) {
 		List<ReviewListDto> list = new ArrayList<>();
-		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, V.* FROM REVIEWLIST V, (SELECT @ROWNUM:=0) R"
+		String SQL = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, R.* FROM REVIEWLIST R, (SELECT @ROWNUM:=0) Rw"
 				+ " WHERE " + field + " LIKE ? ) A WHERE ROWNUM BETWEEN ? AND ?;";
 		
 		Connection conn = null;
