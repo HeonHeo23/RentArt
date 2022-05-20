@@ -394,7 +394,35 @@ public class ProductDao {
 		
 		return -1;
 	}
+	
+	public int updateHits(int id) {
+		String SQL = "UPDATE PRODUCT SET P_HITs = P_HITS+1 WHERE P_ID = ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, id);
+			
+			int result = pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
 
+	
+	
 	public int insert(InsertProductDto dto) {
 		String SQL = "INSERT INTO product (p_name, p_info, p_img, p_theme, p_price, p_size, p_material, p_year, ARTIST_ID) "
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";

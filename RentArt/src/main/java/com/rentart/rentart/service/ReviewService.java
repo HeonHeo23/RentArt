@@ -42,6 +42,7 @@ public class ReviewService {
 	}
 		
 	public ReviewDetailDto getReviewDetail(int rId) {
+		reviewDao.updateHits(rId);
 		return reviewDao.get(rId);
 	}
 

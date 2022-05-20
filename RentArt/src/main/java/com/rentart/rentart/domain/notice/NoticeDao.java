@@ -122,6 +122,29 @@ public class NoticeDao {
 		
 		return -1;
 	}
+	
+	public int updateHits(int id) {
+		String SQL = "UPDATE NOTICE SET N_HITS = N_HITS + 1 WHERE N_ID = ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, id);
+			
+			int result = pstmt.executeUpdate();		
+			
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
 
 	public int insert(int id, String title, String text) {
 		String SQL = "INSERT INTO NOTICE (ARTIST_ID, N_TITLE, N_CONTENT) VALUES(?,?,?);";

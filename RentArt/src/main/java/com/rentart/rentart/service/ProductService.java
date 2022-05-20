@@ -68,6 +68,7 @@ public class ProductService {
 	}
 	
 	public DetailDto getProductDetail(int prodNo) {
+		productDao.updateHits(prodNo);
 		return productDao.get(prodNo);
 	}
 	

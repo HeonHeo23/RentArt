@@ -160,6 +160,32 @@ public class MagazineDao {
 		return -1;
 	}
 
+	public int updateHits(int id) {
+		String sql = "UPDATE MAGAZINE SET M_HITS = M_HITS + 1 WHERE M_ID = ?";
+		
+		int result;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, id);
+			
+			result = pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 	public int delete(int id) {
 		String sql = "DELETE FROM MAGAZINE WHERE M_ID = ?";
 		Connection conn = null;

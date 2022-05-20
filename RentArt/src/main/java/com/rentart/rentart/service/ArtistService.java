@@ -28,6 +28,7 @@ public class ArtistService {
 	}
 	
 	public ArtistDetailDto getArtistDetail(int no) {
+		artistDao.updateHits(no);
 		return artistDao.findDetail(no);
 	}
 	

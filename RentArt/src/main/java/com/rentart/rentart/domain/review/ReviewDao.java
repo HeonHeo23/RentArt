@@ -211,7 +211,7 @@ public class ReviewDao {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -250,7 +250,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			
@@ -277,6 +277,32 @@ public class ReviewDao {
 		
 		return -1;
 	}
+	public int updateHits(int no) {
+		String SQL = "UPDATE REVIEW SET R_HITS = R_HITS+1 WHERE R_ID = ?;";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, no);
+			
+			int result = pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return result;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
 
 	public int delete(int no) {
 		String SQL = "DELETE FROM REVIEW WHERE R_ID = ?";
@@ -285,7 +311,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(driver);
 			conn = DriverManager.getConnection(url, dbId, dbPw);
 			pstmt = conn.prepareStatement(SQL);
 			

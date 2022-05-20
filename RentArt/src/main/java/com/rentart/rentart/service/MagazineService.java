@@ -19,6 +19,7 @@ public class MagazineService {
 	}
 	
 	public MagazineDto getMagazine(int no) {
+		dao.updateHits(no);
 		return dao.get(no);
 	}
 

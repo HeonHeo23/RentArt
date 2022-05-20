@@ -18,6 +18,7 @@ public class NoticeService {
 	}
 	
 	public NoticeDetailDto getNoticeDeatil(int id) {
+		noticeDao.updateHits(id);
 		return noticeDao.get(id);
 	}
 	

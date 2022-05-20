@@ -250,6 +250,33 @@ public class ArtistDao {
 		
 		return -1;
 	}
+	
+	public int updateHits(int id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		String SQL = "UPDATE ARTIST SET ARTIST_HITS = ARTIST_HITS+1 WHERE ARTIST_ID = ?";
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, id);
+			
+			int result = pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+			
+			return result;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
 
 	public List<ArtistListDto> findForManage(int start, int end, String field, String query) {
 		List<ArtistListDto> list = new ArrayList<>();
