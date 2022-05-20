@@ -10,7 +10,9 @@
               <select name="field">
                 <option value="r_title" ${param.field.equals("r_title")?'selected':''}>제목</option>
                 <option value="user_name" ${param.field.equals("user_name")?'selected':''}>작성자</option>
+                <option value="user_key" ${param.field.equals("user_key")?'selected':''}>작성자ID</option>
                 <option value="p_name" ${param.field.equals("p_name")?'selected':''}>작품명</option>
+                <option value="p_id" ${param.field.equals("p_id")?'selected':''}>작품ID</option>
               </select>
               <input type="text" name="query" value="${param.query}">
               <button type="submit" name="field" value="${param.field}">검색</button>
@@ -33,7 +35,7 @@
             <tr class="table-manage-row">
               <td width="50px">${l.getrId()}</td>
               <td><a onclick="showPopUp('/manage/review/detail?no=${l.getrId()}')" class="table-link">${l.getrTitle()}</a></td>
-              <td><a href="/manage/user?field=user_name&query=${l.getUserName()}" class="table-link">${l.getUserName()} (${l.getUserKey()})</a></td>
+              <td><a href="/manage/user?field=user_name&query=${l.getUserName()}" class="table-link">${l.getUserName()}</a> <span onclick="showPopUp('/manage/user/detail?no=${l.getUserKey()}')" class="table-link">(${l.getUserKey()})</span></td>
               <td><a href="/manage/review?field=p_name&query=${l.getpName()}" class="table-link">${l.getpName()}</a> <span onclick="showPopUp('/manage/detail?no=${l.getpId()}')" class="table-link">(${l.getpId()})</span></td>
               <td width="130px"><fmt:formatDate value="${l.getrRegDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
               <td width="130px"><fmt:formatDate value="${l.getrUpDate()}" pattern="yyyy.MM.dd HH:mm" /></td>

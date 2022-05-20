@@ -10,6 +10,7 @@
               <select name="field">
                 <option value="user_name" ${param.field.equals("user_name")?'selected':''}>이름</option>
                 <option value="user_address" ${param.field.equals("user_address")?'selected':''}>주소</option>
+                <option value="user_key" ${param.field.equals("user_key")?'selected':''}>유저Key</option>
               </select>
               <input type="text" name="query" value="${param.query}">
               <button type="submit" name="field" value="${param.field}">검색</button>
@@ -25,7 +26,10 @@
               <th>이름</th>
               <th>이메일</th>
               <th>주소</th>
+              <th>리뷰</th>
+              <th>찜</th>
               <th>등록일자</th>
+              <th>수정일자</th>
             </tr>
             <c:forEach var="l" items="${list}">
             <tr class="table-manage-row">
@@ -33,6 +37,8 @@
               <td><a onclick="showPopUp('/manage/user/detail?no=${l.getKey()}')" class="table-link">${l.getName()}</a></td>
               <td>${l.getEmail()}</td>
               <td>${l.getAddress()}</td>
+              <td width="50px"><a href="/manage/review?field=user_key&query=${l.getKey()}" class="table-link">${l.getCountReview()}</a></td>
+              <td width="50px">${l.getCountFavorite()}</td>
               <td width="130px"><fmt:formatDate value="${l.getRegDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
               <td width="130px"><fmt:formatDate value="${l.getUpDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
             </tr>

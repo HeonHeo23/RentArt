@@ -9,6 +9,7 @@
             <div class="manage-search">
               <select name="field">
                 <option value="m_title" ${param.field.equals("r_title")?'selected':''}>제목</option>
+                <option value="m_id" ${param.field.equals("m_id")?'selected':''}>매거진ID</option>
               </select>
               <input type="text" name="query" value="${param.query}">
               <button type="submit" name="field" value="${param.field}">검색</button>

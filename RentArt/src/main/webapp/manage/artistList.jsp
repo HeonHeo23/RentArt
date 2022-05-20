@@ -9,6 +9,7 @@
             <div class="manage-search">
               <select name="field">
                 <option value="artist_name" ${param.field.equals("artist_name")?'selected':''}>작가명</option>
+                <option value="a.artist_id" ${param.field.equals("a.artist_id")?'selected':''}>작가ID</option>
               </select>
               <input type="text" name="query" value="${param.query}">
               <button type="submit" name="field" value="${param.field}">검색</button>
@@ -26,13 +27,14 @@
               <th>작품 개수(클릭시 목록으로)</th>
               <th>공지 개수</th>
               <th>등록일자</th>
+              <th>수정일자</th>
             </tr>
             <c:forEach var="l" items="${list}">
             <tr class="table-manage-row">
               <td width="50px">${l.getArtistId()}</td>
               <td><a onclick="showPopUp('/manage/artist/detail?no=${l.getArtistId()}')" class="table-link">${l.getName()}</a></td>
               <td width="100px">
-                <a href="/manage/product?field=artist_name&query=${l.getName()}" class="table-link">${l.getCountProduct()} 개</a>
+                <a href="/manage/product?field=artist_id&query=${l.getArtistId()}" class="table-link">${l.getCountProduct()} 개</a>
               </td>
               <td width="100px">${l.getCountNotice()}개</td>
               <td width="200px"><fmt:formatDate value="${l.getRegDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
