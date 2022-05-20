@@ -6,7 +6,7 @@ import com.rentart.rentart.domain.user.User;
 import com.rentart.rentart.domain.user.UserDao;
 import com.rentart.rentart.domain.user.dto.JoinUser;
 import com.rentart.rentart.domain.user.dto.UserDto;
-import com.rentart.rentart.domain.user.dto.UserListDto;
+import com.rentart.rentart.domain.user.dto.UserListCountDto;
 
 public class UserService {
 	
@@ -25,7 +25,7 @@ public class UserService {
 	}
 
 	//manage
-	public List<UserListDto> getUserList(int page, String field, String query) {
+	public List<UserListCountDto> getUserList(int page, String field, String query) {
 		int start = 1+(page-1)*20;
 		int end = page*20;
 		

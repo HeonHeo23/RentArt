@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.rentart.rentart.domain.user.dto.JoinUser;
 import com.rentart.rentart.domain.user.dto.UserDto;
-import com.rentart.rentart.domain.user.dto.UserListDto;
+import com.rentart.rentart.domain.user.dto.UserListCountDto;
 
 public class UserDao {
 	private String url = "jdbc:mysql://localhost:3306/RENTART";
@@ -83,11 +83,12 @@ public class UserDao {
 		return -1; //DB 에러
 	}
 
-	public List<UserListDto> find(int start, int end, String field, String query) {
-		List<UserListDto> list = new ArrayList<UserListDto>();
+	public List<UserListCountDto> find(int start, int end, String field, String query) {
+		List<UserListCountDto> list = new ArrayList<UserListCountDto>();
 		
-		String sql = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, U.* FROM USER U, (SELECT @ROWNUM:=0) R "
-				+ " ORDER BY USER_KEY DESC) A WHERE "+ field + " LIKE ? AND ROWNUM BETWEEN ? AND ?;";
+		String sql = "SELECT A.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, U.*, COUNT(DISTINCT F_ID) CF, COUNT(DISTINCT R_ID) CR FROM "
+				+ " (SELECT @ROWNUM:=0) R, USER U LEFT JOIN FAVORITE F ON U.USER_KEY = F.USER_KEY LEFT JOIN REVIEW R ON R.USER_KEY = U.USER_KEY "
+				+ " GROUP BY U.USER_KEY ORDER BY USER_KEY DESC) A WHERE "+ field + " LIKE ? AND ROWNUM BETWEEN ? AND ?;";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -109,8 +110,11 @@ public class UserDao {
 				String address = rs.getString("user_address");
 				Timestamp joinDate = rs.getTimestamp("user_joindate");
 				Timestamp upDate = rs.getTimestamp("user_upDate");
+				int countFavorite = rs.getInt("cf");
+				int countReview = rs.getInt("cr");
 				
-				UserListDto dto = new UserListDto(key, name, email, address, joinDate, upDate);
+				UserListCountDto dto = new UserListCountDto(key, name, email, address, joinDate,
+						upDate, countFavorite, countReview);
 				
 				list.add(dto);
 			}

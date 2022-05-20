@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.rentart.rentart.domain.user.dto.JoinUser;
-import com.rentart.rentart.domain.user.dto.UserListDto;
+import com.rentart.rentart.domain.user.dto.UserListCountDto;
 import com.rentart.rentart.service.UserService;
 import com.rentart.rentart.util.Script;
 
@@ -47,7 +47,7 @@ public class ManageUserController extends HttpServlet {
 			String query = request.getParameter("query");
 			query = (query == null)? "%" : query;
 			
-			List<UserListDto> list = userService.getUserList(pg, field, query);
+			List<UserListCountDto> list = userService.getUserList(pg, field, query);
 			
 			request.setAttribute("list", list);
 			
