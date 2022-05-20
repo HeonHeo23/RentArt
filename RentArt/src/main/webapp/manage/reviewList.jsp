@@ -35,7 +35,7 @@
             <tr class="table-manage-row">
               <td width="50px">${l.getrId()}</td>
               <td><a onclick="showPopUp('/manage/review/detail?no=${l.getrId()}')" class="table-link">${l.getrTitle()}</a></td>
-              <td><a href="/manage/user?field=user_name&query=${l.getUserName()}" class="table-link">${l.getUserName()}</a> <span onclick="showPopUp('/manage/user/detail?no=${l.getUserKey()}')" class="table-link">(${l.getUserKey()})</span></td>
+              <td><a href="/manage/review?field=user_key&query=${l.getUserKey()}" class="table-link">${l.getUserName()}</a> <span onclick="showPopUp('/manage/user/detail?no=${l.getUserKey()}')" class="table-link">(${l.getUserKey()})</span></td>
               <td><a href="/manage/review?field=p_name&query=${l.getpName()}" class="table-link">${l.getpName()}</a> <span onclick="showPopUp('/manage/detail?no=${l.getpId()}')" class="table-link">(${l.getpId()})</span></td>
               <td width="130px"><fmt:formatDate value="${l.getrRegDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
               <td width="130px"><fmt:formatDate value="${l.getrUpDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
