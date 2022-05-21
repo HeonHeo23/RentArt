@@ -90,6 +90,7 @@ public class ReviewDao {
 				int rId = rs.getInt("r_id");
 				String rTitle = rs.getString("r_title");
 				String rContent = rs.getString("r_content");
+				int rHits = rs.getInt("r_hits");
 				Timestamp rRegDate = rs.getTimestamp("r_regdate");
 				Timestamp rUpDate = rs.getTimestamp("r_update");
 				int userKey = rs.getInt("user_key");
@@ -98,7 +99,7 @@ public class ReviewDao {
 				String pName = rs.getString("p_name");
 				String pImg = rs.getString("p_img");
 				
-				dto = new ReviewListDto(rownum, rId, rTitle, rContent, rRegDate, rUpDate, userKey, userName, pId, pName, pImg);
+				dto = new ReviewListDto(rownum, rId, rTitle, rContent, rHits, rRegDate, rUpDate, userKey, userName, pId, pName, pImg);
 				
 				list.add(dto);
 			}
@@ -142,6 +143,7 @@ public class ReviewDao {
 				int rId = rs.getInt("r_id");
 				String rTitle = rs.getString("r_title");
 				String rContent = rs.getString("r_content");
+				int rHits = rs.getInt("r_hits");
 				Timestamp rRegDate = rs.getTimestamp("r_regdate");
 				Timestamp rUpDate = rs.getTimestamp("r_update");
 				int userKey = rs.getInt("user_key");
@@ -150,7 +152,7 @@ public class ReviewDao {
 				String pName = rs.getString("p_name");
 				String pImg = rs.getString("p_img");
 				
-				dto = new ReviewListDto(rownum, rId, rTitle, rContent, rRegDate, rUpDate, userKey, userName, pId, pName, pImg);
+				dto = new ReviewListDto(rownum, rId, rTitle, rContent, rHits, rRegDate, rUpDate, userKey, userName, pId, pName, pImg);
 				
 				list.add(dto);
 			}

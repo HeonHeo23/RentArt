@@ -32,7 +32,7 @@
             <tr class="table-manage-row">
               <td width="50px">${l.getId()}</td>
               <td><a onclick="showPopUp('/manage/magazine/detail?no=${l.getId()}')" class="table-link">${l.getTitle()}</a></td>
-              <td>${l.getHits()}</td>
+              <td width="50px">${l.getHits()}</td>
               <td width="130px"><fmt:formatDate value="${l.getRegDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
               <td width="130px"><fmt:formatDate value="${l.getUpDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
             </tr>

@@ -24,8 +24,9 @@
             <tr class="table-manage-th">
               <th>번호</th>
               <th>이름</th>
-              <th>작품 개수(클릭시 목록으로)</th>
+              <th>작품 개수</th>
               <th>공지 개수</th>
+              <th>조회수</th>
               <th>등록일자</th>
               <th>수정일자</th>
             </tr>
@@ -37,6 +38,7 @@
                 <a href="/manage/product?field=artist_id&query=${l.getArtistId()}" class="table-link">${l.getCountProduct()} 개</a>
               </td>
               <td width="100px">${l.getCountNotice()}개</td>
+              <td width="50px">${l.getCountNotice()}</td>
               <td width="200px"><fmt:formatDate value="${l.getRegDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
               <td width="200px"><fmt:formatDate value="${l.getUpDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
             </tr>

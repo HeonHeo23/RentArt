@@ -15,12 +15,13 @@ public class ManageProductDto {
 	private String themeString;
 	private int year;
 	private int favorite;
+	private int hits;
 	private Timestamp regDate;
 	private Timestamp upDate;
 	private boolean isRent;
 	
 	public ManageProductDto(int pId, String pName, String artistName, int artistId, int size, int price, int theme,
-			int year, int favorite, Timestamp regDate, Timestamp upDate, boolean isRent) {
+			int year, int favorite, int hits, Timestamp regDate, Timestamp upDate, boolean isRent) {
 		this.pId = pId;
 		this.pName = pName;
 		this.artistName = artistName;
@@ -32,6 +33,7 @@ public class ManageProductDto {
 		this.themeString = Utility.themeMapper(theme);
 		
 		this.year = year;
+		this.hits = hits;
 		this.favorite = favorite;
 		this.regDate = regDate;
 		this.upDate = upDate;
@@ -97,6 +99,12 @@ public class ManageProductDto {
 	}
 	public void setFavorite(int favorite) {
 		this.favorite = favorite;
+	}
+	public int getHits() {
+		return hits;
+	}
+	public void setHits(int hits) {
+		this.hits = hits;
 	}
 	public Timestamp getRegDate() {
 		return regDate;

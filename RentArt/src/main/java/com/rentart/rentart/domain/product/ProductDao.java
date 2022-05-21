@@ -421,8 +421,6 @@ public class ProductDao {
 		return -1;
 	}
 
-	
-	
 	public int insert(InsertProductDto dto) {
 		String SQL = "INSERT INTO product (p_name, p_info, p_img, p_theme, p_price, p_size, p_material, p_year, ARTIST_ID) "
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -489,8 +487,11 @@ public class ProductDao {
 	public List<ManageProductDto> findForManage(int start, int end, String field, String query) {
 		List<ManageProductDto> list = new ArrayList<>();
 		
-		String sql = "SELECT Q.* FROM (select @rownum:=@rownum+1 rownum, M.* FROM MANAGEPRODUCT M, "
-				+ " (SELECT @ROWNUM:=0) R) Q WHERE "+ field +" LIKE ? AND ROWNUM BETWEEN ? AND ?;";
+		String sql = "SELECT Q.* FROM (SELECT @ROWNUM:=@ROWNUM+1 ROWNUM, M.* FROM (SELECT "
+				+ " P.P_ID, P_NAME, P_THEME, P_PRICE, P_SIZE, P_YEAR, P_ISRENT, P_HITS, P_REGDATE, P_UPDATE, "
+				+ " A.ARTIST_ID, ARTIST_NAME, COUNT(F.F_ID) C FROM PRODUCT P LEFT JOIN ARTIST A ON P.ARTIST_ID = A.ARTIST_ID "
+				+ " LEFT JOIN FAVORITE F ON F.P_ID = P.P_ID GROUP BY P.P_ID ORDER BY P.P_ID DESC) M, "
+				+ " (SELECT @ROWNUM:=0)R) Q WHERE "+ field +" LIKE ? AND ROWNUM BETWEEN ? AND ?;";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -518,12 +519,13 @@ public class ProductDao {
 				int theme = rs.getInt("p_theme");
 				int year = rs.getInt("p_year");
 				int favorite = rs.getInt("c");
+				int hits = rs.getInt("p_hits");
 				Timestamp regDate = rs.getTimestamp("p_regdate");
 				Timestamp upDate = rs.getTimestamp("p_upDate");
 				boolean isRent = rs.getBoolean("p_isrent");
 				
 				ManageProductDto dto = new ManageProductDto(pId, pName, artistName, artistId,
-						size, price, theme, year, favorite, regDate, upDate, isRent);
+						size, price, theme, year, favorite, hits, regDate, upDate, isRent);
 				
 				list.add(dto);
 			}

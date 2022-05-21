@@ -16,6 +16,7 @@
             <td class="row-num">${r.getRownum()}</td>
             <td class="row-title"><a onclick="showPopUp('/admin/notice?no=${r.getnId()}')">${r.getnTitle()}</a></td>
             <td class="row-name">${sessionScope.adminPrincipal.getArtistName()}</td>
+            <td class="">${r.getnHits()}회</td>
             <td class="row-date"><fmt:formatDate value="${r.getnRegDate()}" pattern="yyyy.MM.dd"/></td>
           </tr>
           </c:forEach>

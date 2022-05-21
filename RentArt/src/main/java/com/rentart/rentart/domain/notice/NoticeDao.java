@@ -41,10 +41,12 @@ public class NoticeDao {
 				int id = rs.getInt("n_id");
 				String title = rs.getString("n_title");
 				String content = rs.getString("n_content");
+				int hits = rs.getInt("n_hits");
 				Timestamp regDate = rs.getTimestamp("n_regdate");
+				Timestamp upDate = rs.getTimestamp("n_update");
 				String artistName = rs.getString("artist_name");
 				
-				dto = new NoticeListDto(rownum, id, title, content, regDate, artistName);
+				dto = new NoticeListDto(rownum, id, title, content, hits, regDate, upDate, artistName);
 				
 				list.add(dto);
 			}

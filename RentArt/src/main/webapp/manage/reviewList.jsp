@@ -28,6 +28,7 @@
               <th>제목</th>
               <th>작성자</th>
               <th>작품이름</th>
+              <th>조회수</th>
               <th>등록일자</th>
               <th>수정일자</th>
             </tr>
@@ -37,6 +38,7 @@
               <td><a onclick="showPopUp('/manage/review/detail?no=${l.getrId()}')" class="table-link">${l.getrTitle()}</a></td>
               <td><a href="/manage/review?field=user_key&query=${l.getUserKey()}" class="table-link">${l.getUserName()}</a> <span onclick="showPopUp('/manage/user/detail?no=${l.getUserKey()}')" class="table-link">(${l.getUserKey()})</span></td>
               <td><a href="/manage/review?field=p_name&query=${l.getpName()}" class="table-link">${l.getpName()}</a> <span onclick="showPopUp('/manage/detail?no=${l.getpId()}')" class="table-link">(${l.getpId()})</span></td>
+              <td width="50px">${l.getrHits()}</td>
               <td width="130px"><fmt:formatDate value="${l.getrRegDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
               <td width="130px"><fmt:formatDate value="${l.getrUpDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
             </tr>

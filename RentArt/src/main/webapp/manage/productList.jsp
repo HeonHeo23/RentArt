@@ -35,6 +35,7 @@
               <th>등록일자</th>
               <th>수정일자</th>
               <th>찜</th>
+              <th>조회수</th>
               <th>대여여부</th>
             </tr>
             <c:forEach var="l" items="${list}">
@@ -49,7 +50,8 @@
               <td width="60px">${l.getYear()}</td>
               <td width="130px"><fmt:formatDate value="${l.getRegDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
               <td width="130px"><fmt:formatDate value="${l.getUpDate()}" pattern="yyyy.MM.dd HH:mm" /></td>
-              <td>${l.getFavorite()}</td>
+              <td width="50px">${l.getFavorite()}</td>
+              <td width="50px">${l.getHits()}</td>
               <td width="60px" align="center"><input type="checkbox" name="rents" value="${id}" ${l.isRent() ? 'checked' : ''}></td>
             </tr>
             </c:forEach>

@@ -306,10 +306,11 @@ public class ArtistDao {
 				String artistName = rs.getString("artist_name");
 				int countProduct = rs.getInt("cp");
 				int countNotice = rs.getInt("cn");
+				int hits = rs.getInt("artist_hits");
 				Timestamp regDate = rs.getTimestamp("artist_regdate");
 				Timestamp upDate = rs.getTimestamp("artist_update");
 				
-				ArtistListDto dto = new ArtistListDto(artistId, artistName, countProduct, countNotice, regDate, upDate);
+				ArtistListDto dto = new ArtistListDto(artistId, artistName, countProduct, countNotice, hits, regDate, upDate);
 				
 				list.add(dto);
 			}
