@@ -32,12 +32,12 @@ public class NoticeController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd = request.getParameter("cmd");
 		if(cmd == null || cmd.equals("")) {
-			Script.close(response, "잘못된 접근입니다.");
+			Script.back(response, "잘못된 접근입니다.");
 			return;
 		} else if(cmd.equals("view")) {
 			String no_ = request.getParameter("no");
-			if(no_ == null && no_.equals(""))
-				Script.close(response, "잘못된 접근입니다.");
+			if(no_ == null || no_.equals(""))
+				Script.back(response, "잘못된 접근입니다.");
 			else {
 				int no = Integer.parseInt(no_);
 				NoticeDetailDto dto = noticeService.getNoticeDeatil(no);

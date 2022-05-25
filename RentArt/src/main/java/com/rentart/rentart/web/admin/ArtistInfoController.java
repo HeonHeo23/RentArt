@@ -42,7 +42,4 @@ public class ArtistInfoController extends HttpServlet {
 		
 		request.getRequestDispatcher("/admin/artistInfo.jsp").forward(request, response);
 	}
-	
-	
-
 }

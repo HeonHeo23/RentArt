@@ -36,7 +36,7 @@ public class FavoriteController extends HttpServlet {
 		
 		User user = (User) request.getSession().getAttribute("principal");
 		if(user == null)
-			Script.back(response, "로그인이 필요한 기능입니다.");
+			Script.redirect(response, "로그인이 필요한 기능입니다.", "/login");
 		else {
 			int userKey = user.getKey();
 			if(cmd == null) {

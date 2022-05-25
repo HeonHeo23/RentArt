@@ -98,6 +98,7 @@ public class ManageReviewController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 				Script.back(response, "잘못된 접근입니다.");
+				return;
 			}
 			
 		} else {

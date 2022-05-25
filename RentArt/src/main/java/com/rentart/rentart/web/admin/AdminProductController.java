@@ -46,7 +46,7 @@ public class AdminProductController extends HttpServlet {
 		ArtistDto artist = (ArtistDto) request.getSession().getAttribute("adminPrincipal");
 		
 		if(artist == null) {
-			Script.back(response, "다시 로그인 해주시기 바랍니다.");
+			Script.redirect(response, "다시 로그인 해주시기 바랍니다.", "/admin/login");
 			return;
 		}
 		
@@ -60,36 +60,40 @@ public class AdminProductController extends HttpServlet {
 			request.getRequestDispatcher("/admin/productList.jsp").forward(request, response);
 			return;
 		} else if(cmd.equals("update")) {
-			String no_ = request.getParameter("no");
-			int no = (no_ == null || no_.equals("")) ? Script.back(response, "잘못된 접근입니다.") : Integer.parseInt(no_);
-			
-			String name = request.getParameter("name");
-			
-			String price_ = request.getParameter("price");
-			int price = (price_ == null || price_.equals("")) ? Script.back(response, "잘못된 접근입니다.") : Integer.parseInt(price_);
-			
-			String year_ = request.getParameter("year");
-			int year = (year_ == null || year_.equals("")) ? Script.back(response, "잘못된 접근입니다.") : Integer.parseInt(year_);
-			
-			String material = request.getParameter("material");
-			
-			String text = request.getParameter("text");
-			
-			String theme_ = request.getParameter("theme");
-			int theme = (theme_ == null || theme_.equals("")) ? Script.back(response, "잘못된 접근입니다.") : Integer.parseInt(theme_);
-			
-			String size_ = request.getParameter("size");
-			int size = (size_ == null || size_.equals("")) ? Script.back(response, "잘못된 접근입니다.") : Integer.parseInt(size_);
-			
-			InsertProductDto dto = new InsertProductDto(no, id, name, price, year, material, text, theme, size);
-			
-			int result = productService.updateProduct(dto);
-			
-			if(result != 1) {
-				Script.back(response, "작품 정보 수정에 실패했습니다.");
-				return;
+			try {
+				String no_ = request.getParameter("no");
+				int no = Integer.parseInt(no_);
+				
+				String name = request.getParameter("name");
+				
+				String price_ = request.getParameter("price");
+				int price = Integer.parseInt(price_);
+				
+				String year_ = request.getParameter("year");
+				int year = Integer.parseInt(year_);
+				
+				String material = request.getParameter("material");
+				
+				String text = request.getParameter("text");
+				
+				String theme_ = request.getParameter("theme");
+				int theme = Integer.parseInt(theme_);
+				
+				String size_ = request.getParameter("size");
+				int size = Integer.parseInt(size_);
+				
+				InsertProductDto dto = new InsertProductDto(no, id, name, price, year, material, text, theme, size);
+				
+				int result = productService.updateProduct(dto);
+				
+				if(result != 1) {
+					Script.back(response, "작품 정보 수정에 실패했습니다.");
+					return;
+				}
+			} catch(NumberFormatException e) {
+				e.printStackTrace();
+				Script.back(response, "내용을 다시 확인해 주시기 바랍니다.");
 			}
-			
 			Script.close(response, "작품 정보를 수정했습니다.");
 		} else if(cmd.equals("new")) {
 			String name = request.getParameter("name");
@@ -111,44 +115,55 @@ public class AdminProductController extends HttpServlet {
 			
 			System.out.println("파일 업로드 성공");
 			
-			String price_ = request.getParameter("price");
-			int price = (price_ == null || price_.equals("")) ? Script.back(response, "잘못된 접근입니다.") : Integer.parseInt(price_);
-			
-			String year_ = request.getParameter("year");
-			int year = (year_ == null || year_.equals("")) ? Script.back(response, "잘못된 접근입니다.") : Integer.parseInt(year_);
-			
-			String material = request.getParameter("material");
-			
-			String text = request.getParameter("text");
-			
-			String theme_ = request.getParameter("theme");
-			int theme = (theme_ == null || theme_.equals("")) ? Script.back(response, "잘못된 접근입니다.") : Integer.parseInt(theme_);
-			
-			String size_ = request.getParameter("size");
-			int size = (size_ == null || size_.equals("")) ? Script.back(response, "잘못된 접근입니다.") : Integer.parseInt(size_);
-			
-			InsertProductDto dto = new InsertProductDto(id, name, fileName, price, year, material, text, theme, size);
-			
-			int result = productService.insertProduct(dto);
-			
-			if(result != 1) {
-				Script.back(response, "작품 등록에 실패했습니다.");
+			try {
+				String price_ = request.getParameter("price");
+				int price = Integer.parseInt(price_);
+				
+				String year_ = request.getParameter("year");
+				int year = Integer.parseInt(year_);
+				
+				String material = request.getParameter("material");
+				
+				String text = request.getParameter("text");
+				
+				String theme_ = request.getParameter("theme");
+				int theme = Integer.parseInt(theme_);
+				
+				String size_ = request.getParameter("size");
+				int size = Integer.parseInt(size_);
+				
+				InsertProductDto dto = new InsertProductDto(id, name, fileName, price, year, material, text, theme, size);
+				
+				int result = productService.insertProduct(dto);
+				
+				if(result != 1) {
+					Script.back(response, "작품 등록에 실패했습니다.");
+					return;
+				}
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				Script.back(response, "잘못된 접근입니다.");
 				return;
 			}
 			
 			Script.close(response, "작품을 등록했습니다.");
 		} else if(cmd.equals("delete")) {
-			String no_ = request.getParameter("no");
-			int no = (no_ == null || no_.equals("")) ? Script.back(response, "잘못된 접근입니다.") : Integer.parseInt(no_);
-			
-			int result = productService.deleteProduct(no);
-			
-			if(result != 1) {
-				Script.back(response, "작품 삭제에 실패했습니다.");
+			try {
+				String no_ = request.getParameter("no");
+				int no = Integer.parseInt(no_);
+				int result = productService.deleteProduct(no);
+				
+				if(result != 1) {
+					Script.back(response, "작품 삭제에 실패했습니다.");
+					return;
+				}
+				
+				Script.close(response, "작품을 삭제했습니다.");
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				Script.back(response, "잘못된 접근입니다.");
 				return;
 			}
-			
-			Script.close(response, "작품을 삭제했습니다.");
 		} else {
 			Script.back(response, "잘못된 접근입니다.");
 		}

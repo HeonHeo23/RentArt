@@ -40,7 +40,6 @@ public class NoticeController extends HttpServlet {
 		}
 		
 		if(cmd == null) {
-			
 			String no_ = request.getParameter("no");
 			if(no_ == null || no_.equals("")) {
 				Script.back(response, "잘못된 접근입니다.");
@@ -55,33 +54,27 @@ public class NoticeController extends HttpServlet {
 			
 			request.getRequestDispatcher("/admin/noticeDetail.jsp").forward(request, response);
 		} else if(cmd.equals("updateNotice")) {
-			
-			String title = request.getParameter("title");
-			String text = request.getParameter("text");
-			String no_ = request.getParameter("no");
-			
-			if(no_ == null || no_.equals("")) {
+			try {
+				String title = request.getParameter("title");
+				String text = request.getParameter("text");
+				String no_ = request.getParameter("no");
+				
+				int no = 0;
+				no = Integer.parseInt(no_);
+				
+				int result = noticeService.updateNotice(no, title, text);
+				
+				if(result != 1) {
+					Script.back(response, "작가의 말 수정에 실패했습니다.");
+					return;
+				}
+				Script.close(response, "작가의 말을 수정했습니다.");
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
 				Script.back(response, "잘못된 접근입니다.");
 				return;
 			}
-			int no;
-			try {
-				no = Integer.parseInt(no_);
-			} catch(NumberFormatException e) {
-				e.printStackTrace();
-				no = 0;
-			}
-			
-			int result = noticeService.updateNotice(no, title, text);
-			
-			if(result != 1) {
-				Script.back(response, "작가의 말 수정에 실패했습니다.");
-				return;
-			}
-			Script.close(response, "작가의 말을 수정했습니다.");
-			
 		} else if(cmd.equals("newNotice")) {
-			
 			String title = request.getParameter("title");
 			String text = request.getParameter("text");
 			int id = artist.getArtistId();
@@ -92,25 +85,23 @@ public class NoticeController extends HttpServlet {
 				return;
 			}
 			Script.close(response, "작가의 말을 등록했습니다.");
-			
 		} else if(cmd.equals("deleteNotice")) {
-			
-			String no_ = request.getParameter("no");
-			
-			if(no_ == null || no_.equals("")) {
+			try {
+				String no_ = request.getParameter("no");
+				int no = Integer.parseInt(no_);
+				
+				int result = noticeService.deleteNotice(no);
+				
+				if(result != 1) {
+					Script.back(response, "작가의 말 삭제에 실패했습니다.");
+					return;
+				}
+				Script.close(response, "작가의 말을 삭제했습니다.");
+			} catch (NumberFormatException e) {
 				Script.back(response, "잘못된 접근입니다.");
 				return;
 			}
 			
-			int no = Integer.parseInt(no_);
-			
-			int result = noticeService.deleteNotice(no);
-			
-			if(result != 1) {
-				Script.back(response, "작가의 말 삭제에 실패했습니다.");
-				return;
-			}
-			Script.close(response, "작가의 말을 삭제했습니다.");
 		} else {
 			Script.back(response, "잘못된 접근입니다.");
 		}

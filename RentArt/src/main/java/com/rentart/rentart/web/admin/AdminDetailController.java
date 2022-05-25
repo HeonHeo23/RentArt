@@ -38,17 +38,19 @@ public class AdminDetailController extends HttpServlet {
 			return;
 		}
 		
-		String no_ = request.getParameter("no");
-		if(no_ == null || no_.equals("")) {
+		try {
+			String no_ = request.getParameter("no");
+			int no = Integer.parseInt(no_);
+			
+			DetailDto dto = productService.getProductDetail(no);
+			
+			request.setAttribute("dto", dto);
+			
+			request.getRequestDispatcher("/admin/productDetail.jsp").forward(request, response);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
 			Script.back(response, "잘못된 접근입니다.");
 			return;
 		}
-		int no = Integer.parseInt(no_);
-		
-		DetailDto dto = productService.getProductDetail(no);
-		
-		request.setAttribute("dto", dto);
-		
-		request.getRequestDispatcher("/admin/productDetail.jsp").forward(request, response);
 	}
 }

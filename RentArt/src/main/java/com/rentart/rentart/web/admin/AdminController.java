@@ -36,16 +36,13 @@ public class AdminController extends HttpServlet {
 		ArtistDto artist = (ArtistDto) session.getAttribute("adminPrincipal");
 		
 		if(cmd == null) {
-			
 			if(artist == null) {
 				response.sendRedirect("/admin/login");
 			}
 			else {
 				response.sendRedirect("/admin/main");
 			}
-			
 			return;
-			
 		} else if(cmd.equals("loginAction")) {
 			
 			String id_ = request.getParameter("id");
@@ -57,26 +54,18 @@ public class AdminController extends HttpServlet {
 			if(id_.matches("\\d+")) {
 			     id = Integer.parseInt(id_);
 			}
-			
 			String password = request.getParameter("password");
-			
-			
 			
 			ArtistDto dto = artistService.login(id, password);
 			
 			if(dto == null) {
-				
 				Script.back(response, "아이디와 비밀번호를 다시 확인 해주시기 바랍니다.");
-				
 			} else {
-				
 				session.setAttribute("adminPrincipal", dto);
 				session.setMaxInactiveInterval(1800);
 				response.sendRedirect("/admin/main");
-				
 			}
 		} else if(cmd.equals("updateInfo")) {
-			
 			String text = request.getParameter("text");
 			
 			if(artist == null) {
@@ -92,7 +81,6 @@ public class AdminController extends HttpServlet {
 				Script.back(response, "소개 글 업데이트에 실패 했습니다.");
 				return;
 			} Script.redirect(response, "소개 글을 성공적으로 업데이트 했습니다.", "/admin/main");
-			
 		} else if(cmd.equals("updateArtist")) {
 			
 			String name = request.getParameter("name");

@@ -35,7 +35,7 @@ public class UserController extends HttpServlet {
 		// TODO Auto-generated method stub
 		String cmd = request.getParameter("cmd");
 		if(cmd == null) {
-			Script.back(response, "잘못된 접근입니다 [user]");
+			Script.back(response, "잘못된 접근입니다.");
 		}
 		if(cmd.equals("loginAction")) {
 			User user = userService.login(request.getParameter("email"), request.getParameter("password"));

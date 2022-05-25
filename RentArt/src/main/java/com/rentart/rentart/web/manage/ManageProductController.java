@@ -145,7 +145,6 @@ public class ManageProductController extends HttpServlet {
 				String filePath = realPath + File.separator + fileName;
 				FileOutputStream fos = new FileOutputStream(filePath);
 				
-				int b;
 				byte[] buf = new byte[1024];
 				int bufSize = 0;
 				while((bufSize = fis.read(buf)) != -1)
