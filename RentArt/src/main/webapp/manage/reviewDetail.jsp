@@ -6,27 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰 수정하기</title>
-<style type="text/css">
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  text-align: center;
-  padding:10px;
-}
-.thead {
-  width:90px;
-  background:#eee;
-}
-.tcontent{
-  height:400px;
-  vertical-align:baseline;
-  text-align:left;
-}
-.full-width{
-  width:100%;
-  display:flex;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css" />
 </head>
 <body>
   <form method="post" action="/manage/review">
@@ -48,7 +28,7 @@ table, th, td {
 			</tr>
 			<tr>
 				<td class="thead">내용</td>
-				<td class="tcontent">
+				<td class="tcontent tcontent-small">
 					<textarea name="text" id="" class="" style="width:100%;height:100%">${dto.getrContent()}</textarea>
 				</td>						
 			</tr>

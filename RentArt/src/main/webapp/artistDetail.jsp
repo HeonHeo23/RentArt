@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="layout/header.jsp" %>
-<script type="text/javascript">
-function showPopUp(url) {
-	let width = 1000;
-	let height = 650;
-	let left = (window.screen.width / 2) - (width / 2);
-	let top = (window.screen.height / 4);
-	
-	let windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-	
-	window.open(url, "글쓰기", windowStatus);
-}
-</script>
+<script src="/js/popup.js" type="text/javascript"></script>
    <main class="artist-section">
     <div class="artist-wrapper">
       <header class="artist-header">
@@ -88,5 +77,4 @@ function showPopUp(url) {
       </section>
     </div>
   </main>
- 
 <%@ include file="layout/footer.jsp" %>

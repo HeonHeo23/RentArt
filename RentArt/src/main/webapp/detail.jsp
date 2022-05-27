@@ -1,25 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="layout/header.jsp" %>
+<script src="/js/detail.js"></script>
 <script type="text/javascript">
-	const fee = ${fee};
-	window.onload = () => changeFee();
-	function changeFee(){
-		let month = document.getElementById('rentMonth').value;
-		document.getElementById('totalPrice').innerHTML = (fee * month).toLocaleString('en');
-	}
-	
-	function showPopUp(url) {
-		let width = 1000;
-		let height = 650;
-		let left = (window.screen.width / 2) - (width / 2);
-		let top = (window.screen.height / 4);
-		
-		let windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-		
-		window.open(url, "글쓰기", windowStatus);
-	}
+window.onload = () => changeFee(${fee});
 </script>
+<script src="/js/popup.js" type="text/javascript"></script>
   <main class="detail">
     <div class="detail-wrapper">
       <div class="detail-top">
@@ -98,7 +84,7 @@
             렌트기간
           </div>
           <div class="row-right">
-            <input type="number" class="row-right-input" name="months" id="rentMonth" max="12" min="3" value="3" oninput="changeFee()">
+            <input type="number" class="row-right-input" name="months" id="rentMonth" max="12" min="3" value="3" oninput="changeFee(${fee})">
             개월
           </div>
         </div>

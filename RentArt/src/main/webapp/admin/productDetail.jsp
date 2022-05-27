@@ -6,39 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>작품 수정하기</title>
-<script type="text/javascript">
-window.onload = (event) => {
-    checkP();
-};
-function checkP() {
-  const theme = ${dto.getpTheme()};
-  checkF("theme-"+theme);
-}
-function checkF(p) {
-  document.getElementById(p).checked = true;
-}
-</script>
-<style type="text/css">
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  text-align: center;
-  padding:10px;
-}
-.thead {
-  width:90px;
-  background:#eee;
-}
-.tcontent{
-  height:500px;
-  vertical-align:baseline;
-  text-align:left;
-}
-.full-width{
-  width:100%;
-  display:flex;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css" />
 </head>
 <body>
   <form method="post" action="/admin/product">
@@ -62,13 +30,13 @@ table, th, td {
 			<tr>
 				<td class="thead">재료</td>
 				<td>
-					<textarea name="material" id="" class="" style="width:100%;height:100%">${dto.getpMaterial()}</textarea>
+					<textarea name="material" style="width:100%;height:100%">${dto.getpMaterial()}</textarea>
 				</td>						
 			</tr>
 			<tr>
 				<td class="thead">상품설명</td>
 				<td class="tcontent">
-					<textarea name="text" id="" class="" style="width:100%;height:100%">${dto.getpInfo()}</textarea>
+					<textarea name="text" style="width:100%;height:100%">${dto.getpInfo()}</textarea>
 				</td>						
 			</tr>
 			<tr>
@@ -76,19 +44,19 @@ table, th, td {
 				<td>
 					<div class="filter-buttons full-width">
 			            <div class="filter-button">
-			            	<input type="radio" name="theme" id="theme-1" value="1">
+			            	<input type="radio" name="theme" id="theme-1" value="1" ${dto.getpTheme()=='1'?'checked':''}>
 			            	<label for="filter-theme-1">인물</label>
 			            </div>
 			            <div class="filter-button">
-			            	<input type="radio" name="theme" id="theme-2" value="2">
+			            	<input type="radio" name="theme" id="theme-2" value="2" ${dto.getpTheme()=='2'?'checked':''}>
 			            	<label for="filter-theme-2">추상</label>
 			            </div>
 			            <div class="filter-button">
-			            	<input type="radio" name="theme" id="theme-3" value="3">
+			            	<input type="radio" name="theme" id="theme-3" value="3" ${dto.getpTheme()=='3'?'checked':''}>
 			            	<label for="filter-theme-3">풍경</label>
 			            </div>
 			            <div class="filter-button">
-			            	<input type="radio" name="theme" id="theme-4" value="4">
+			            	<input type="radio" name="theme" id="theme-4" value="4" ${dto.getpTheme()=='4'?'checked':''}>
 			            	<label for="filter-theme-4">정물</label>
 			            </div>
 			        </div>

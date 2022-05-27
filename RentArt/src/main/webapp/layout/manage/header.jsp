@@ -12,18 +12,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-  <script type="text/javascript">
-	function showPopUp(url) {
-	  let width = 1000;
-	  let height = 650;
-	  let left = (window.screen.width / 2) - (width / 2);
-	  let top = (window.screen.height / 4);
-	  
-	  let windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-		
-	  window.open(url, "글쓰기", windowStatus);
-	}
-  </script>
+  <script src="/js/popup.js" type="text/javascript"></script>
   <link rel="stylesheet" href="/css/manage/manage.css">
   <title>RentArt 렌트아트 관리자 페이지</title>
 </head>

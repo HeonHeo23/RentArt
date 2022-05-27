@@ -6,23 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰 보기</title>
-<style type="text/css">
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  text-align: center;
-  padding:10px;
-}
-.thead {
-  width:90px;
-  background:#eee;
-}
-.tcontent{
-  height:440px;
-  vertical-align:baseline;
-  text-align:left;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css" />
 </head>
 <body>
   <form method="post" action="/review">
@@ -43,7 +27,7 @@ table, th, td {
 			</tr>
 			<tr>
 				<td class="thead">내용</td>
-				<td class="tcontent">${dto.getrContent()}</td>						
+				<td class="tcontent treview">${dto.getrContent()}</td>						
 			</tr>
 			<tr>
 				<td class="thead">등록일자</td>

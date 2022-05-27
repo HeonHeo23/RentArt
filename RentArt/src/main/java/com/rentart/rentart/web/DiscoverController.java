@@ -60,7 +60,6 @@ public class DiscoverController extends HttpServlet {
 				if(fp_!=null)
 					fp = Arrays.stream(fp_).mapToInt((Integer::parseInt)).toArray();
 				
-				
 				List<ThumbnailProduct> list = productService.getProductList(field, query, page, ft, fs, fp);
 				int count = productService.countProductList(field, query, ft, fs, fp);
 				List<Integer> fList = null;
@@ -72,10 +71,17 @@ public class DiscoverController extends HttpServlet {
 				}
 				fList = (fList == null) ? Arrays.asList(0) : fList; 
 				
+				String tFt = ft_ == null ? null : String.join(",", ft_);
+				String tFs = fs_ == null ? null : String.join(",", fs_);
+				String tFp = fp_ == null ? null : String.join(",", fp_);
+				
 				request.setAttribute("list", list);
 				request.setAttribute("ls", (list.size()-1)/4+1);
 				request.setAttribute("count", count);
 				request.setAttribute("fList", fList);
+				request.setAttribute("ft", tFt);
+				request.setAttribute("fs", tFs);
+				request.setAttribute("fp", tFp);
 				request.getRequestDispatcher("/discover.jsp").forward(request, response);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();

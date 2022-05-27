@@ -2,39 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="layout/header.jsp" %>
   <main class="discover-section" onload="checkP()">
-    <script type="text/javascript">
-  window.onload = (event) => {
-      checkP();
-  };
-  function checkP() {
-    const ft = [<%String[] ft = request.getParameterValues("ft");
-    if(ft!=null){
-    for(String i:ft) {
-    	out.print(i);
-    	out.print(",");
-    }}%>];
-    const fp = [<%
-    String[] fp = request.getParameterValues("fp");
-    if(fp!=null){
-    for(String i:fp) {
-    	out.print(i);
-    	out.print(",");
-    }}%>];
-    const fs = [<%
-    String[] fs = request.getParameterValues("fs");
-    if(fs!=null){
-    for(String i:fs) {
-    	out.print(i);
-    	out.print(",");
-    }}%>];
-    ft.forEach((i) => checkF("filter-theme-"+i));
-    fs.forEach((i) => checkF("filter-size-"+i));
-    fp.forEach((i) => checkF("filter-price-"+i));
-  }
-  function checkF(p) {
-    document.getElementById(p).checked = true;
-  }
+<script type="text/javascript">
+  window.onload = (event) => checkP([${ft}], [${fp}], [${fs}]);
 </script>
+<script src="/js/discover.js"></script>
     <div class="discover-wrapper">
     <form action="/discover">
       <div class="discover-filters">

@@ -6,27 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>작품 등록하기</title>
-<style type="text/css">
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  text-align: center;
-  padding:10px;
-}
-.thead {
-  width:90px;
-  background:#eee;
-}
-.tcontent{
-  height:500px;
-  vertical-align:baseline;
-  text-align:left;
-}
-.full-width{
-  width:100%;
-  display:flex;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css" />
 </head>
 <body>
   <form method="post" action="/manage/product" enctype="multipart/form-data">
