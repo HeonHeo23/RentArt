@@ -15,7 +15,7 @@
 			<tr style="border:1px solid #000">
 				<th class="thead">작가명</th>
 				<th colspan="2" style="background-color: #eeeeee;">
-					<!-- 자동완성 방지용  --><input type="text" class="full-width" name="name" autocomplete="none"><!-- 자동완성 방지용  -->
+					<input type="text" class="full-width" name="name" autocomplete="name">
 				</th>						
 			</tr>
 		</thead>

@@ -7,7 +7,7 @@
       <form action="/manage" method="post">
         <input class="form-input" type="text" placeholder="아이디" name="id" required>
         <input class="form-input input-last" type="password" placeholder="비밀번호" name="password" required>
-        <button class="form-submit" type="submit" name="cmd" value="loginAction">로그인</button>
+        <button class="form-submit bg-black" type="submit" name="cmd" value="loginAction">로그인</button>
       </form>
     </div>
   </main>

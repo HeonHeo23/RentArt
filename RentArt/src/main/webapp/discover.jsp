@@ -122,56 +122,52 @@
       </div>
       <div>
         <div class="discover-views">
-		<c:forEach var="row" begin="1" end="${ls}">
-          <div class="views-row">
-          <c:forEach var="l" items="${list}" begin="${(row-1)*4}" end="${(row-1)*4+3}">
-            <div class="card">
-              <a class="card-img" href="/detail?no=${l.getpId()}">
-                <div class="card-img-mask">
-                  <img src="/img/product/${l.getpImg()}" alt="">
-                </div>
-              </a>
-              <div class="card-info">
-                <div class="card-text">
-                  <h4 class="card-title">${l.getpName()}</h4>
-                  <div class="card-artist card-text-margin">${l.getArtist()}</div>
-                  <div class="card-size">${l.getpSize()}호</div>
-                </div>
-                <div class="card-status">
-                  <c:choose>
-                  <c:when test="${fList.contains(l.getpId())}">
-                    <a href="/favorite?cmd=remove&prodNo=${l.getpId()}">
-                      <i class="iconify icon-pink" data-icon="ant-design:heart-filled"></i>
-                    </a>
-                  </c:when>
-                  <c:otherwise>
-                    <a href="/favorite?cmd=add&prodNo=${l.getpId()}">
-                      <i class="iconify" data-icon="akar-icons:heart"></i>
-                    </a>
-                  </c:otherwise>
-                  </c:choose>
-                  <c:choose>
-                  <c:when test="${l.ispIsRent()}">
-                    <div class="card-rent color-brown">
-                      <i class="iconify" data-icon="akar-icons:circle-fill"></i> 
-                      대여중
-                    </div>
-                  </c:when>
-                  <c:otherwise>
-                    <div class="card-rent color-blue">
-                      <i class="iconify" data-icon="akar-icons:circle-fill"></i> 
-                      대여가능
-                    </div>
-                  </c:otherwise>
-                  </c:choose>
-                </div>
+		<c:forEach var="l" items="${list}">
+          <div class="card">
+            <a class="card-img" href="/detail?no=${l.getpId()}">
+              <div class="card-img-mask">
+                <img src="/img/product/${l.getpImg()}" alt="">
+              </div>
+            </a>
+            <div class="card-info">
+              <div class="card-text">
+                <h4 class="card-title">${l.getpName()}</h4>
+                <div class="card-artist card-text-margin">${l.getArtist()}</div>
+                <div class="card-size">${l.getpSize()}호</div>
+              </div>
+              <div class="card-status">
+                <c:choose>
+                <c:when test="${fList.contains(l.getpId())}">
+                  <a href="/favorite?cmd=remove&prodNo=${l.getpId()}">
+                    <i class="iconify icon-pink" data-icon="ant-design:heart-filled"></i>
+                  </a>
+                </c:when>
+                <c:otherwise>
+                  <a href="/favorite?cmd=add&prodNo=${l.getpId()}">
+                    <i class="iconify" data-icon="akar-icons:heart"></i>
+                  </a>
+                </c:otherwise>
+                </c:choose>
+                <c:choose>
+                <c:when test="${l.ispIsRent()}">
+                  <div class="card-rent color-brown">
+                    <i class="iconify" data-icon="akar-icons:circle-fill"></i> 
+                    대여중
+                  </div>
+                </c:when>
+                <c:otherwise>
+                  <div class="card-rent color-blue">
+                    <i class="iconify" data-icon="akar-icons:circle-fill"></i> 
+                    대여가능
+                  </div>
+                </c:otherwise>
+                </c:choose>
               </div>
             </div>
-          </c:forEach>
           </div>
         </c:forEach>
         </div>
-        <div class="discover-pager-wrapper">
+        <div class="pager-wrapper">
           <form class="discover-pager" action="/discover">
             <c:set var="page" value="${(param.pg==null||param.pg=='')?1:param.pg}" />
           	<c:set var="startNum" value="${page-(page-1)%5}" />

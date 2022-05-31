@@ -10,34 +10,30 @@
         </div>
       </header>
       <div class="discover-views">
-      	<c:forEach var="row" begin="1" end="${ls}">
-        <div class="views-row">
-          <c:forEach var="l" items="${list}" begin="${(row-1)*3}" end="${(row-1)*3+2}">
-          <div class="card">
-            <a class="card-img card-img-big" href="/artist?no=${l.getArtistId()}">
-              <div class="card-img-mask">
-                <img src="/img/product/${l.getpImg()}" alt="">
+        <c:forEach var="l" items="${list}">
+        <div class="card">
+          <a class="card-img card-img-big" href="/artist?no=${l.getArtistId()}">
+            <div class="card-img-mask">
+              <img src="/img/product/${l.getpImg()}" alt="">
+            </div>
+          </a>
+          <div class="card-info">
+            <div class="card-text">
+              <h4 class="card-title-big">${l.getArtistName()}</h4>
+            </div>
+            <div class="card-number">
+              <div class="card-number-row">
+                작품
               </div>
-            </a>
-            <div class="card-info">
-              <div class="card-text">
-                <h4 class="card-title-big">${l.getArtistName()}</h4>
-              </div>
-              <div class="card-number">
-                <div class="card-number-row">
-                  작품
-                </div>
-                <div class="card-number-row">
-                  ${l.getCountProduct()}
-                </div>
+              <div class="card-number-row">
+                ${l.getCountProduct()}
               </div>
             </div>
           </div>
-          </c:forEach>
         </div>
         </c:forEach>
       </div>
-      <div class="discover-pager-wrapper">
+      <div class="pager-wrapper">
         <form class="discover-pager" action="/artist">
           <c:set var="page" value="${(param.pg==null||param.pg=='')?1:param.pg}" />
           <c:set var="startNum" value="${page-(page-1)%5}" />
