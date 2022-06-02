@@ -15,7 +15,7 @@
         <a class="card artist-card" href="/artist?no=${l.getArtistId()}">
           <div class="card-img-wrap card-img-big">
             <div class="card-img-mask">
-              <img class="card-img" src="/img/product/${l.getpImg()}" alt="">
+              <img class="card-img" src="/img/product/${l.getpImg()}" alt="${l.getArtistName()} 대표작">
             </div>
           </div>
           <div class="card-info">

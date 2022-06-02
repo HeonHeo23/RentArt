@@ -26,7 +26,7 @@
           <a class="card" href="/detail?no=${l.getpId()}">
             <div class="card-img-wrap card-img-artist">
               <div class="card-img-mask">
-                <img class="card-img" src="/img/product/${l.getpImg()}" alt="${l.getpName()}">
+                <img class="card-img" src="/img/product/${l.getpImg()}" alt="${l.getpName()} 사진">
               </div>
             </div>
             <div class="card-info-small">

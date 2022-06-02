@@ -12,7 +12,7 @@
         <a class="card" onclick="showPopUp('/admin/detail?no=${l.getpId()}')">
           <div class="card-img-wrap">
             <div class="card-img-mask">
-              <img class="card-img" src="/img/product/${l.getpImg()}" alt="">
+              <img class="card-img" src="/img/product/${l.getpImg()}" alt="${l.getpName()} 사진">
             </div>
           </div>
           <div class="card-info-small">
