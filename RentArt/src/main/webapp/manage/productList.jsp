@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/layout/manage/header.jsp" %>
-  <main class="manage-wrapper">
-    <div class="manage-content">
-      <form action="/manage/product" method="post">
-        <header class=".manage-content-header">
-          <div class="manage-buttons">
+  <main class="manage-wrap">
+    <div class="manage-container">
+      <form method="post">
+        <header class="manage-content-header">
+          <div class="manage-btn-group">
             <div class="manage-search">
               <select name="field">
                 <option value="p_name" ${param.field.equals("p_name")?'selected':''}>제목</option>
@@ -16,15 +16,15 @@
               <input type="text" name="query" value="${param.query}">
               <button type="submit" name="field" value="${param.field}">검색</button>
             </div>
-            <a onclick="showPopUp('/manage/product/new')" class="manage-button button">작품 등록</a>
-            <button type="submit" class="manage-button button" name="cmd" value="rent">대여 변경</button>
+            <a onclick="showPopUp('/manage/product/new')" class="manage-btn btn">작품 등록</a>
+            <button type="submit" class="manage-btn btn" name="cmd" value="rent">대여 변경</button>
           </div>
-          <h1 class="manage-title">작품 관리</h1>
-          <p class="manage-title-sub">작품을 등록, 수정, 삭제 할 수 있습니다.</p>
+          <h1 class="manage-title"><a href="?" class="link">작품 관리</a></h1>
+          <p class="manage-subtitle">작품을 등록, 수정, 삭제 할 수 있습니다.</p>
         </header>
         <section class="manage-table-wrap">
-          <table class="table-manage">
-            <tr class="table-manage-th">
+          <table class="manage-table">
+            <tr class="manage-table-th">
               <th>번호</th>
               <th>제목</th>
               <th>작가</th>
@@ -39,11 +39,11 @@
               <th>대여여부</th>
             </tr>
             <c:forEach var="l" items="${list}">
-            <tr class="table-manage-row">
+            <tr class="manage-table-row">
               <c:set var="id" value="${l.getpId()}"/>
               <td width="50px">${id}<input type="hidden" name="ids" value="${id}"></td>
-              <td><a onclick="showPopUp('/manage/detail?no=${id}')" class="table-link">${l.getpName()}</a></td>
-              <td><a href="/manage/product?field=artist_id&query=${l.getArtistId()}" class="table-link">${l.getArtistName()}</a> <a onclick="showPopUp('/manage/artist/detail?no=${l.getArtistId()}')" class="table-link">(${l.getArtistId()})</a></td>
+              <td><a onclick="showPopUp('/manage/detail?no=${id}')" class="link">${l.getpName()}</a></td>
+              <td><a href="/manage/product?field=artist_id&query=${l.getArtistId()}" class="link">${l.getArtistName()}</a> <a onclick="showPopUp('/manage/artist/detail?no=${l.getArtistId()}')" class="link">(${l.getArtistId()})</a></td>
               <td>${l.getSize()}호</td>
               <td width="90px">&#8361;<fmt:formatNumber value="${l.getPrice()}" /> </td>
               <td>${l.getThemeString()}</td>
@@ -57,18 +57,8 @@
             </c:forEach>
           </table>
         </section>
+        <%@ include file="/layout/pager.jsp" %>
       </form>
-      <div class="pager-wrapper">
-        <div class="manage-pager">
-          <c:set var="page" value="${(param.pg==null||param.pg=='')?1:param.pg}" />
-          <c:set var="startNum" value="${page-(page-1)%5}" />
-          <a href="?pg=${startNum-1}&field=${param.field}&query=${param.query}" class="pager-btn">◀</a>
-          <c:forEach var="i" begin="0" end="4">
-          <a href="?pg=${startNum+i}&field=${param.field}&query=${param.query}" class="${(page==startNum+i)?'bg-blue':''} pager-btn">${startNum+i}</a>
-          </c:forEach>
-          <a href="?pg=${startNum+5}&field=${param.field}&query=${param.query}" class="pager-btn">▶</a>
-        </div>
-      </div>
     </div>
   </main>
 <%@ include file="/layout/manage/footer.jsp" %> 

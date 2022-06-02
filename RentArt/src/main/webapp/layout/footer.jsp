@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <footer class="footer">
-    <div class="footer-content">
+    <div class="footer-container">
       <div class="footer-info">
         <div class="footer-left">
-          <h6>Rent Art</h6>
+          <h6 class="footer-title">Rent Art</h6>
           <p class="text-justify">
             상호명: 렌트아트
             <span class="footer-bar">|</span>
@@ -24,7 +24,7 @@
           </p>
         </div>
         <div class="footer-right">
-          <h6>Quick Links</h6>
+          <h6 class="footer-title">Quick Links</h6>
           <div class="footer-container">
             <ul class="footer-links">
               <li><a href="">회사 소개</a></li>
@@ -39,30 +39,20 @@
         </div>
       </div>
       <hr>
-      <div class="footer-copy">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
-              <a href="#">Heon Heo</a>.
-            </p>
-          </div>    
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <ul class="social-icons">
-              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
-            </ul>
-          </div>
-        </div>
+      <div class="footer-last">
+        <p class="footer-copy">Copyright &copy; 2022 All Rights Reserved by 
+          <a href="#">Heon Heo</a>.
+        </p>
+        <ul class="footer-icon-group">
+          <li><a href="#"><i class="iconify" data-icon="simple-icons:naver"></i></a></li>   
+          <li><a href="#"><i class="iconify" data-icon="simple-icons:kakaotalk"></i></a></li>   
+          <li><a href="#"><i class="iconify" data-icon="akar-icons:instagram-fill"></i></a></li>
+          <li><a href="#"><i class="iconify" data-icon="akar-icons:twitter-fill"></i></a></li>
+          <li><a href="#"><i class="iconify" data-icon="akar-icons:facebook-fill"></i></a></li>
+        </ul>
       </div>
     </div>
   </footer>
-  <script type="text/javascript">
-    const elem = document.getElementById("search");
-    function showSearch() {
-      elem.classList.toggle("inactive");
-    }
-  </script>
+<script src="/js/search.js"></script>
 </body>
 </html>

@@ -6,11 +6,11 @@
 window.onload = () => changeFee(${fee});
 </script>
 <script src="/js/popup.js" type="text/javascript"></script>
-  <main class="detail">
-    <div class="detail-wrapper">
+  <main class="wrapper">
+    <div class="container detail-container">
       <div class="detail-top">
-        <div class="detail-img">
-          <img src="/img/product/${detail.getpImg()}" alt="${detail.getpName()} 이미지">
+        <div class="detail-img-wrap">
+          <img class="detail-img" src="/img/product/${detail.getpImg()}" alt="${detail.getpName()} 이미지">
         </div>
         <div class="detail-banner">
           <img src="/img/banner.png" alt="배너">
@@ -62,7 +62,7 @@ window.onload = () => changeFee(${fee});
           </div>
         </div>
         <hr class="info-hr">
-        <div class="info-row info-price">
+        <div class="info-row info-row-price">
           <div class="row-left-price">
             구매가
           </div>
@@ -71,7 +71,7 @@ window.onload = () => changeFee(${fee});
           </div>
         </div>
         <hr class="info-hr hr-grey">
-        <div class="info-row info-price">
+        <div class="info-row info-row-price">
           <div class="row-left-price">
             렌트가
           </div>
@@ -79,7 +79,7 @@ window.onload = () => changeFee(${fee});
             월 <fmt:formatNumber value="${fee}" /> 원
           </div>
         </div>
-        <div class="info-row info-price">
+        <div class="info-row info-row-price">
           <div class="row-left-price">
             렌트기간
           </div>
@@ -89,7 +89,7 @@ window.onload = () => changeFee(${fee});
           </div>
         </div>
         <hr class="info-hr hr-grey">
-        <div class="info-row info-price row-discount">
+        <div class="info-row info-row-price color-darkbrown">
           <div class="row-left-price">
             할인
           </div>
@@ -98,7 +98,7 @@ window.onload = () => changeFee(${fee});
           </div>
         </div>
         <hr class="info-hr">
-        <div class="info-price info-row-final">
+        <div class="info-row info-row-price info-row-final">
           <div class="row-left-price">
             최종 렌트가
           </div>
@@ -111,47 +111,47 @@ window.onload = () => changeFee(${fee});
             </div>
           </div>
         </div>
-        <div class="info-buttons">
+        <div class="info-btn-group">
         <c:set var="rent" value="${detail.ispIsRent()}" />
         <c:if test="${rent}">
-          <div class="info-buttons-alert">렌트 중</div>
+          <div class="info-btn-alert">렌트 중</div>
         </c:if>
-          <button class="info-button bg-brown">구매 하기</button>
-          <button class="info-button bg-blue">렌트 하기</button>
+          <button class="btn info-btn bg-brown">구매 하기</button>
+          <button class="btn info-btn bg-blue">렌트 하기</button>
         </div>
       </div>
       <div class="detail-left">
         <section class="detail-section">
-          <h2 class="detail-title-big">${detail.getpName()}</h2>
-          <article>
-            <h3 class="detail-title-small">작품 설명</h3>
+          <h2 class="content-title-big">${detail.getpName()}</h2>
+          <article class="detail-article">
+            <h3 class="content-title-small">작품 설명</h3>
             <p class="detail-para">
               ${detail.getpInfo()} 
             </p>
           </article>
         </section>
         <section class="detail-section">
-          <h2 class="detail-title-big">${detail.getArtist()} 작가</h2>
-          <article>
+          <h2 class="content-title-big">${detail.getArtist()} 작가</h2>
+          <article class="detail-article">
             <aside class="deatil-artist-link">
               <a href="/artist?no=${detail.getArtistId()}">${detail.getArtist()} 작가 메인으로 →</a>
             </aside>
-            <h3 class="detail-title-small">${detail.getArtist()} 작가 소개</h3>
+            <h3 class="content-title-small">${detail.getArtist()} 작가 소개</h3>
             <p class="detail-para">
               ${artistInfo} 
             </p>
           </article>
-          <section>
-            <h3 class="detail-title-small">작가의 작품 감상하기</h3>
-            <div class="detail-cards">
+          <section class="detail-article">
+            <h3 class="content-title-small">작가의 작품 감상하기</h3>
+            <div class="detail-view">
               <c:forEach var="l" items="${list}">
-              <a class="detail-card" href="/detail?no=${l.getpId()}">
-                <div class="detail-card-img">
-                  <div class="card-img-wrapper">
-                    <img src="/img/product/${l.getpImg()}" alt="">
+              <a class="card" href="/detail?no=${l.getpId()}">
+                <div class="card-img-wrap card-img-detail">
+                  <div class="card-img-mask">
+                    <img class="card-img" src="/img/product/${l.getpImg()}" alt="">
                   </div>
                 </div>
-                <div class="card-texts">
+                <div class="card-info-small">
                   <h4 class="detail-card-top"> ${l.getpName()} </h4>
                   <div class="detail-card-bottom">
                     ${l.getpSize()}호
@@ -176,18 +176,18 @@ window.onload = () => changeFee(${fee});
             </div>
           </section>
         </section>
-        <section class="detail-review">
+        <section class="detail-section detail-review">
           <div class="review-button-div">
-            <button type="button" class="review-button bg-black" onclick="showPopUp('/review?prodNo=${param.no}&cmd=write')">리뷰 쓰기</button>
+            <button type="button" class="btn review-button bg-black" onclick="showPopUp('/review?prodNo=${param.no}&cmd=write')">리뷰 쓰기</button>
           </div>
-          <h2 class="detail-title-big">리뷰</h2>
+          <h2 class="content-title-big">리뷰</h2>
           <table class="review-table">
             <c:choose>
             <c:when test="${reviews.size()!=0}">
             <c:forEach items="${reviews}" var="r">
             <tr class="review-row">
               <td class="review-num">${r.getRownum()}</td>
-              <td class="review-title"><a onclick="showPopUp('/review?no=${r.getrId()}&cmd=view')">${r.getrTitle()}</a></td>
+              <td class="review-title"><a class="link" onclick="showPopUp('/review?no=${r.getrId()}&cmd=view')">${r.getrTitle()}</a></td>
               <td class="review-name">${r.getUserName()}</td>
               <td class="review-date"><fmt:formatDate pattern="yyyy.MM.dd" value="${r.getrRegDate()}" /></td>
             </tr>

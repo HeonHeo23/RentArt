@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="layout/header.jsp" %>
 <script src="/js/popup.js" type="text/javascript"></script>
-   <main class="artist-section">
-    <div class="artist-wrapper">
+   <main class="wrapper">
+    <div class="container artist-container">
       <header class="artist-header">
         <h1 class="page-title">${artist.getArtistName()} 작가</h1>
       </header>
@@ -18,21 +18,21 @@
             작품 감상하기
           </h2>
         </header>
-        <div class="view-middle">
+        <div class="middle">
           총 <fmt:formatNumber value="${count}"/>개의 작품
         </div>
-        <div class="detail-cards view-margin">
+        <div class="view artistdetail-view">
           <c:forEach var="l" items="${list}">
-          <a class="card-artist-detail" href="/detail?no=${l.getpId()}">
-            <div class="detail-card-img">
-              <div class="card-img-wrapper-big">
-                <img src="/img/product/${l.getpImg()}" alt="">
+          <a class="card" href="/detail?no=${l.getpId()}">
+            <div class="card-img-wrap card-img-artist">
+              <div class="card-img-mask">
+                <img class="card-img" src="/img/product/${l.getpImg()}" alt="${l.getpName()}">
               </div>
             </div>
-            <div class="card-texts">
-              <h4 class="detail-card-top">새벽의 꽃</h4>
+            <div class="card-info-small">
+              <h4 class="detail-card-top">${l.getpName()}</h4>
               <div class="detail-card-bottom">
-                2호
+                ${l.getpSize()}호
                 <c:choose>
                 <c:when test="${l.ispIsRent()}">
                   <div class="color-brown">

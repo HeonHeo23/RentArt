@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,9 +12,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/utility.css" />
   <title>RentArt 렌트아트</title>
 </head>
 <body>
@@ -32,7 +32,7 @@
         </ul>
       </div>
       <div class="nav-right">
-        <div class="nav-icons">
+        <div class="nav-icon-group">
           <a onclick="showSearch()"><i class="iconify" data-icon="carbon:search"></i></a> 
           <i class="iconify" data-icon="ph:shopping-cart-light"></i>
           <a href="/favorite"><i class="iconify" data-icon="akar-icons:heart"></i></a>

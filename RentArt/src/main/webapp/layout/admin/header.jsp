@@ -12,19 +12,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-  <script type="text/javascript">
-	function showPopUp(url) {
-	  let width = 1000;
-	  let height = 650;
-	  let left = (window.screen.width / 2) - (width / 2);
-	  let top = (window.screen.height / 4);
-	  
-	  let windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-		
-	  window.open(url, "글쓰기", windowStatus);
-	}
-</script>
-  <link rel="stylesheet" href="/css/admin/admin.css">
+  <script src="${pageContext.request.contextPath}/js/popup.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/admin.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/utility.css">
   <title>RentArt 렌트아트 관리자 페이지</title>
 </head>
 <body>
@@ -37,9 +27,9 @@
 	<div class="admin-profile">
 	  <span class="admin-profile-name">${sessionScope.adminPrincipal.getArtistName()}</span> 작가님<br>환영합니다.
 	</div>
-    <div class="admin-aside-buttons">
-      <button onclick="showPopUp('/admin/notice/write')" class="admin-button bg-blue">글쓰기</button>
-      <button onclick="showPopUp('/admin/product/new')" class="admin-button bg-blue">작품 등록</button>
+    <div class="admin-aside-btn-group">
+      <button onclick="showPopUp('/admin/notice/write')" class="admin-btn btn bg-blue">글쓰기</button>
+      <button onclick="showPopUp('/admin/product/new')" class="admin-btn btn bg-blue">작품 등록</button>
     </div>
     <hr class="admin-aside-hr">
 	  <nav>

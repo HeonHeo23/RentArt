@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="layout/header.jsp" %>
   <main>
-    <div class="wrapper">
+    <div class="container main">
       <h2>미술품 렌탈의 시작, Rent Art</h2>
       <div class="banner">
         <img src="/img/1.png" alt="">

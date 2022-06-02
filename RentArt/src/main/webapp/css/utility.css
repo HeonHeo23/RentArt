@@ -1,0 +1,143 @@
+*{margin:0;padding:0;list-style-type:none;box-sizing:border-box;font-family:'Noto Sans KR',sans-serif;}
+a{text-decoration:none;color:inherit;outline:none}
+body {font-size:15px;color:#000;letter-spacing:0px;font-weight:400;line-height:1;min-height:100%;letter-spacing:-0.02em;overflow-y:scroll;}
+li{list-style:none;}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: #ebebeb;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #6d6d6d; 
+}
+.form-section {
+  display: flex;
+  width: 100%;
+  height: 80vh;
+  margin: 0 auto;
+}
+.form-container {
+  width: 568px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 54px 38px;
+  align-items: center;
+  border: 1px solid #F2EBDC;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+.form-container * {
+  font-size: 15px;
+}
+.form-title {
+  font-size: 32px;
+  margin-bottom: 38px;
+}
+.form-input {
+  margin-bottom: 28px;
+  padding: 0 12px;
+  width: 100%;
+  background: #FFF;
+  border: 1px solid #CCC;
+  box-sizing: border-box;
+  margin-bottom: 28px;
+  height: 48px;
+}
+.form-submit {
+  width: 100%;
+  height: 47px;
+  background: #022873;
+  color: #FFF;
+}
+
+.review-table {
+  width: 100%;
+  margin-top: 30px;
+  border-top: #000 1px solid;
+  border-bottom: #000 1px solid;
+}
+.review-row {
+  height: 60px;
+}
+.review-num {
+  padding-left: 10px;
+  width: 50px;
+}
+.review-name {
+  width: 108px;
+}
+.review-date {
+  width: 90px;
+  padding-right: 10px;
+}
+.review-none {
+  text-align: center;
+}
+
+.pager-wrapper {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.pager {
+  display: flex;
+}
+.pager-btn {
+  background: #FFF;
+  color: #000;
+  border: #CCC solid 0.5px;
+  width: 36px;
+  height: 36px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.link {
+  cursor: pointer;
+}
+.link:hover {
+  text-decoration: underline;
+}
+
+.inactive {
+  display: none;
+}
+
+.bg-brown {
+  background: #F2EBDC;
+  color: #000;
+}
+.bg-blue {
+  background: #022873;
+  color: #FFF;
+}
+.bg-black {
+  background: #000;
+  color: #FFF;
+}
+.color-brown{
+  color: #D99771;
+}
+.color-darkbrown{
+  color: #734136;
+}
+.color-blue{
+  color:#022873
+}
+
+.flex{
+  display:flex;
+}
+.float-right{
+  float:right;
+}

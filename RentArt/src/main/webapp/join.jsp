@@ -5,10 +5,10 @@
     <div class="form-container">
       <div class="form-title">회원 가입</div>
       <form action="user" method="post">
-        <input class="form-input" type="email" placeholder="이메일" name="email">
-        <input class="form-input input-last" type="password" placeholder="비밀번호" name="password">
-        <input class="form-input" type="text" placeholder="이름" name="name" required>
-        <div class="form-div">
+        <input class="form-input" type="email" placeholder="이메일" name="email" required>
+        <input class="form-input input-last" type="password" placeholder="비밀번호" name="password" autocomplete="new-password" required>
+        <input class="form-input" type="text" placeholder="이름" name="name" autocomplete="name" required>
+        <div class="flex">
           <div class="email">
             <input class="form-input input-last" type="text" placeholder="주소" name="address" readonly required>
           </div>
