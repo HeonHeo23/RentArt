@@ -20,6 +20,51 @@ public class ProductDao {
 	private String dbPw = "@Oleout[3892]";
 	private String driver = "com.mysql.cj.jdbc.Driver";
 
+	public List<ThumbnailProduct> find(int start, int end) {
+		List<ThumbnailProduct> list = new ArrayList<>();
+		String sql = "select a.* from (select @rownum:=@rownum+1 rownum, t.* from thumbnail t, (SELECT @ROWNUM:=0) R "
+				+ " order by t.p_id desc) a where rownum between ? and ? order by a.rownum;";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, dbId, dbPw);
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int pId = rs.getInt("p_id");
+				String pName = rs.getString("p_name");
+				String pImg = rs.getString("p_img");
+				int artistId = rs.getInt("artist_id"); 
+				String artist = rs.getString("artist_name");
+				int pSize = rs.getInt("p_size");
+				boolean pIsRent = rs.getBoolean("p_isrent");
+				
+				ThumbnailProduct product = new ThumbnailProduct(pId, pName, pImg, artistId, artist, pSize, pIsRent);
+				
+				list.add(product);
+			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	public List<ThumbnailProduct> find(int start, int end, String field, String query) {
 		List<ThumbnailProduct> list = new ArrayList<>();
 		String sql = "select a.* from (select @rownum:=@rownum+1 rownum, t.* from thumbnail t, (SELECT @ROWNUM:=0) R "

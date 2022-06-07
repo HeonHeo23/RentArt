@@ -39,6 +39,10 @@ public class ProductService {
 	public ProductService() {
 		this.productDao = new ProductDao();
 	}
+	
+	public List<ThumbnailProduct> getProductListForMain() {
+		return productDao.find(1, 5);
+	}
 
 	public List<ThumbnailProduct> getProductList(String field, String query, int page) {
 		int start = 1+(page-1)*12;
